@@ -20,7 +20,7 @@ public class Menu extends JPanel {
         this.setLayout(new BorderLayout());
         JPanel cPanel = new JPanel();
         JLabel title = new JLabel("Il Migglione");
-        JButton quit = new GenericButton("Quit", b -> System.exit(0));
+        JButton gallery = new GenericButton("Gallery", b -> System.exit(0));
 
         cPanel.setLayout(new BoxLayout(cPanel, BoxLayout.Y_AXIS));
         cPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -34,7 +34,7 @@ public class Menu extends JPanel {
         cPanel.add(title);
         cPanel.add(Box.createVerticalGlue());
 
-        cPanel.add(quit);
+        cPanel.add(gallery);
         cPanel.add(Box.createVerticalGlue());
 
         this.add(cPanel, BorderLayout.CENTER);
