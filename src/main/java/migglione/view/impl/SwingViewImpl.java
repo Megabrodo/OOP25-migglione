@@ -66,6 +66,7 @@ public final class SwingViewImpl implements SwingView {
         throw new UnsupportedOperationException("Unimplemented method 'refresh'");
     }
 
+    //Added main just to test the implementations more easily
     public static void main(String[] args) {
         new SwingViewImpl();
     }
