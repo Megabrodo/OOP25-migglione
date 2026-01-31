@@ -14,6 +14,10 @@ import migglione.view.api.SwingView;
 public final class SwingViewImpl implements SwingView {
 
     private static final String FRAME_NAME = "Migglione: the game";
+    private static final String MENU_SCENE = "MENU";
+    private static final String TRACK_PATH = "src\\\\main\\\\resources\\\\soundtracks\\\\Machine-Love-_feat.-Neuro-sama_-Neuro-sama-Community-Collab.wav";
+    private static final int INITIAL_WIDTH = 800;
+    private static final int INITIAL_HEIGHT = 600;
 
     private final JFrame frame = new JFrame(FRAME_NAME);
     private final CardLayout cards = new CardLayout();
@@ -22,21 +26,21 @@ public final class SwingViewImpl implements SwingView {
 
     public SwingViewImpl() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(800, 600));
+        frame.setMinimumSize(new Dimension(INITIAL_WIDTH, INITIAL_HEIGHT));
         frame.setResizable(true);
 
-        firstPanel.add(new Menu(this), "MENU");
+        firstPanel.add(new Menu(this), MENU_SCENE);
 
         frame.add(firstPanel);
         frame.setVisible(true);
-        setScene("MENU");
+        setScene(MENU_SCENE);
 
         playMusic();
     }
 
     private void playMusic() {
         try {
-            String soundtrackPath = "src\\main\\resources\\soundtracks\\Machine-Love-_feat.-Neuro-sama_-Neuro-sama-Community-Collab.wav";
+            String soundtrackPath = TRACK_PATH;
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(soundtrackPath));
 
             audioClip = AudioSystem.getClip();

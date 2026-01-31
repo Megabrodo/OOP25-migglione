@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class GenericButton extends JButton {
+
+    private static final String FONT_NAME = "Times New Roman";
     
     public GenericButton(String text, ActionListener action) {
         this.setText(text);
@@ -15,7 +17,7 @@ public class GenericButton extends JButton {
         this.setAlignmentX(Component.CENTER_ALIGNMENT);
         this.setMaximumSize(new Dimension(150, 50));
 
-        this.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        this.setFont(new Font(FONT_NAME, Font.PLAIN, 15));
         
     }
 }

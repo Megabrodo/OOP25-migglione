@@ -14,19 +14,22 @@ import javax.swing.JPanel;
 public class Menu extends JPanel {
 
     private final SwingViewImpl view;
+    private static final String TITLE = "Il Migglione";
+    private static final String GALLERY = "Gallery";
+    private static final String FONT_NAME = "Times New Roman";
 
     public Menu(SwingViewImpl view) {
         this.view = view;
         this.setLayout(new BorderLayout());
         JPanel cPanel = new JPanel();
-        JLabel title = new JLabel("Il Migglione");
-        JButton gallery = new GenericButton("Gallery", b -> System.exit(0));
+        JLabel title = new JLabel(TITLE);
+        JButton gallery = new GenericButton(GALLERY, b -> System.exit(0));
 
         cPanel.setLayout(new BoxLayout(cPanel, BoxLayout.Y_AXIS));
         cPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         cPanel.setBackground(Color.BLACK);
 
-        title.setFont(new Font("Times New Roman", Font.BOLD, 40));
+        title.setFont(new Font(FONT_NAME, Font.BOLD, 40));
         title.setForeground(Color.WHITE);
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
