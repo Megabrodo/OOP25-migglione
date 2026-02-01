@@ -8,14 +8,26 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
+/**
+ * Class to design the graphic and specifics of the most simple button.
+ * Its major use is seen in the Menu, and is designed to change position while resizing the window.
+ */
 public class GenericButton extends JButton {
 
     private static final String FONT_NAME = "Times New Roman";
     private static final int WIDTH = 250;
     private static final int HEIGHT = 75;
     private static final int FONT_SIZE = 26;
-    
-    public GenericButton(String text, ActionListener action) {
+
+    /**
+     * Constructor used to initialize the button.
+     * Additionally, it will remain around the same size when changing size.
+     * of the window, and the text will be displayed at the center.
+     * 
+     * @param text is the text displayed in the button, while
+     * @param action is the action performed when pressed
+     */
+    public GenericButton(final String text, final ActionListener action) {
         this.setText(text);
         this.addActionListener(action);
         this.setAlignmentX(Component.CENTER_ALIGNMENT);
