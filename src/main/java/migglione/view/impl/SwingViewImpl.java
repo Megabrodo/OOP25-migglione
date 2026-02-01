@@ -66,8 +66,7 @@ public final class SwingViewImpl implements SwingView {
     private void playMusic() {
         try {
             final String soundtrackPath = TRACK_PATH;
-            final AudioInputStream audioStream = AudioSystem.getAudioInputStream(
-                getClass().getResourceAsStream(soundtrackPath));
+            final AudioInputStream audioStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(soundtrackPath));
 
             audioClip = AudioSystem.getClip();
             audioClip.open(audioStream);

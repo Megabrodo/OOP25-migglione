@@ -15,8 +15,8 @@ public final class GenericButton extends JButton {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String FONT_NAME = "Times New Roman";
-    private static final int WIDTH = 250;
-    private static final int HEIGHT = 75;
+    private static final int WIDTH = 300;
+    private static final int HEIGHT = 60;
     private static final int FONT_SIZE = 26;
 
     /**
@@ -32,6 +32,7 @@ public final class GenericButton extends JButton {
         this.addActionListener(action);
         this.setAlignmentX(CENTER_ALIGNMENT);
         this.setMaximumSize(new Dimension(WIDTH, HEIGHT));
+        this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
         this.setFont(new Font(FONT_NAME, Font.BOLD, FONT_SIZE));
         this.setForeground(Color.YELLOW);
