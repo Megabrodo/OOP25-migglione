@@ -20,17 +20,26 @@ public class Menu extends JPanel {
     private final SwingViewImpl view;
     private final Image titleImage;
     private static final String TITLE = "Il Migglione";
+    private static final String START_GAME = "Start Game";
+    private static final String TUTORIAL = "Tutorial";
     private static final String GALLERY = "Gallery";
+    private static final String CREDITS = "Credits";
+    private static final String QUIT = "Quit";
     private static final String FONT_NAME = "Times New Roman";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
 
     public Menu(SwingViewImpl view) {
         this.view = view;
         this.setLayout(new BorderLayout());
+
         JPanel cPanel = new JPanel();
         JPanel titleBox = new JPanel();
         JLabel title = new JLabel(TITLE);
+        JButton startButton = new GenericButton(START_GAME, b -> System.exit(0));
+        JButton tutorial = new GenericButton(TUTORIAL, b -> System.exit(0));
         JButton gallery = new GenericButton(GALLERY, b -> System.exit(0));
+        JButton credits = new GenericButton(CREDITS, b -> System.exit(0));
+        JButton quit = new GenericButton(QUIT, b -> System.exit(0));
 
         cPanel.setLayout(new BoxLayout(cPanel, BoxLayout.Y_AXIS));
         cPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -51,7 +60,15 @@ public class Menu extends JPanel {
         cPanel.add(titleBox);
         cPanel.add(Box.createVerticalGlue());
 
+        cPanel.add(startButton);
+        cPanel.add(Box.createVerticalGlue());
+        cPanel.add(tutorial);
+        cPanel.add(Box.createVerticalGlue());
         cPanel.add(gallery);
+        cPanel.add(Box.createVerticalGlue());
+        cPanel.add(credits);
+        cPanel.add(Box.createVerticalGlue());
+        cPanel.add(quit);
         cPanel.add(Box.createVerticalGlue());
 
         this.add(cPanel, BorderLayout.CENTER);
