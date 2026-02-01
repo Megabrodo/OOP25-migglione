@@ -1,7 +1,5 @@
 package migglione.view.api;
 
-import javax.swing.JPanel;
-
 /**
  * Interface used as a base to SwingViewImpl implementation.
  */
@@ -16,9 +14,9 @@ public interface SwingView {
     /**
      * To return the current scene being displayed.
      * 
-     * @return a JPanel, that is the current scene
+     * @return a String, that is the current scene name
      */
-    JPanel getScene();
+    String getScene();
 
     /**
      * Functional method to quit the application.

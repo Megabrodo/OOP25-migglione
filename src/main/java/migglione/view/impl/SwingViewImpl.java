@@ -29,6 +29,7 @@ public final class SwingViewImpl implements SwingView {
 
     private static final String FRAME_NAME = "Migglione: the game";
     private static final String MENU_SCENE = "MENU";
+    private static final String CREDITS_SCENE = "CREDITS";
     private static final int INITIAL_WIDTH = 800;
     private static final int INITIAL_HEIGHT = 600;
     private static final String TRACK_PATH = "/soundtracks/Machine-Love-_feat.-Neuro-sama_-Neuro-sama-Community-Collab.wav";
@@ -36,6 +37,7 @@ public final class SwingViewImpl implements SwingView {
     private final JFrame frame = new JFrame(FRAME_NAME);
     private final CardLayout cards = new CardLayout();
     private final JPanel firstPanel = new JPanel(cards);
+    private String currentSceneName;
     private Clip audioClip;
 
     /**
@@ -50,10 +52,12 @@ public final class SwingViewImpl implements SwingView {
         frame.setResizable(true);
 
         firstPanel.add(new Menu(this), MENU_SCENE);
+        firstPanel.add(new Credits(this), CREDITS_SCENE);
 
         frame.add(firstPanel);
         frame.setVisible(true);
         setScene(MENU_SCENE);
+        currentSceneName = MENU_SCENE;
 
         playMusic();
     }
@@ -81,12 +85,12 @@ public final class SwingViewImpl implements SwingView {
     @Override
     public void setScene(final String sceneName) {
         this.cards.show(firstPanel, sceneName);
+        currentSceneName = sceneName;
     }
 
     @Override
-    public JPanel getScene() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getScene'");
+    public String getScene() {
+        return currentSceneName;
     }
 
     @Override
