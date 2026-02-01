@@ -54,6 +54,29 @@ public final class SwingViewImpl implements SwingView {
         frame.add(firstPanel);
         frame.setVisible(true);
         setScene(MENU_SCENE);
+
+        playMusic();
+    }
+
+    /**
+     * Functional method in order to play music.
+     * It takes the relative path of the soundtrack and
+     * makes it so it loops whenever it ends.
+     */
+    private void playMusic() {
+        try {
+            final String soundtrackPath = TRACK_PATH;
+            final AudioInputStream audioStream = AudioSystem.getAudioInputStream(
+                getClass().getResourceAsStream(soundtrackPath));
+
+            audioClip = AudioSystem.getClip();
+            audioClip.open(audioStream);
+
+            audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+            audioClip.start();
+        } catch (final IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+            e.printStackTrace(); //NOPMD Intentional design since we don't use logs
+        }
     }
 
     @Override
