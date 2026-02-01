@@ -3,6 +3,7 @@ package migglione.view.impl;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -27,6 +28,7 @@ public class Menu extends JPanel {
         this.view = view;
         this.setLayout(new BorderLayout());
         JPanel cPanel = new JPanel();
+        JPanel titleBox = new JPanel();
         JLabel title = new JLabel(TITLE);
         JButton gallery = new GenericButton(GALLERY, b -> System.exit(0));
 
@@ -36,12 +38,17 @@ public class Menu extends JPanel {
 
         titleImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
 
-        title.setFont(new Font(FONT_NAME, Font.BOLD, 40));
-        title.setForeground(Color.WHITE);
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleBox.setLayout(new BorderLayout());
+        titleBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, 100));
+        titleBox.setBackground(Color.BLACK);
+        titleBox.add(title, BorderLayout.CENTER);
+
+        title.setFont(new Font(FONT_NAME, Font.BOLD, 70));
+        title.setForeground(Color.YELLOW);
+        title.setHorizontalAlignment(JLabel.CENTER);
 
         cPanel.add(Box.createVerticalGlue());
-        cPanel.add(title);
+        cPanel.add(titleBox);
         cPanel.add(Box.createVerticalGlue());
 
         cPanel.add(gallery);
