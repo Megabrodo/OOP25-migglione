@@ -4,9 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,9 +17,11 @@ import javax.swing.JPanel;
 public class Menu extends JPanel {
 
     private final SwingViewImpl view;
+    private final Image titleImage;
     private static final String TITLE = "Il Migglione";
     private static final String GALLERY = "Gallery";
     private static final String FONT_NAME = "Times New Roman";
+    private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
 
     public Menu(SwingViewImpl view) {
         this.view = view;
@@ -27,7 +32,9 @@ public class Menu extends JPanel {
 
         cPanel.setLayout(new BoxLayout(cPanel, BoxLayout.Y_AXIS));
         cPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        cPanel.setBackground(Color.BLACK);
+        cPanel.setOpaque(false);
+
+        titleImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
 
         title.setFont(new Font(FONT_NAME, Font.BOLD, 40));
         title.setForeground(Color.WHITE);
@@ -41,5 +48,11 @@ public class Menu extends JPanel {
         cPanel.add(Box.createVerticalGlue());
 
         this.add(cPanel, BorderLayout.CENTER);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(titleImage, 0, 0, getWidth(), getHeight(), this);
     }
 }
