@@ -21,7 +21,7 @@ public interface SwingView {
     JPanel getScene();
 
     /**
-     * Functional method to refresh the scene to apply changes.
+     * Functional method to quit the application.
      */
-    void refresh();
+    void quit();
 }

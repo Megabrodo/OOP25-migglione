@@ -1,7 +1,6 @@
 package migglione.view.impl;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -12,8 +11,9 @@ import javax.swing.JButton;
  * Class to design the graphic and specifics of the most simple button.
  * Its major use is seen in the Menu, and is designed to change position while resizing the window.
  */
-public class GenericButton extends JButton {
+public final class GenericButton extends JButton {
 
+    private static final long serialVersionUID = 9879879879L;
     private static final String FONT_NAME = "Times New Roman";
     private static final int WIDTH = 250;
     private static final int HEIGHT = 75;
@@ -30,7 +30,7 @@ public class GenericButton extends JButton {
     public GenericButton(final String text, final ActionListener action) {
         this.setText(text);
         this.addActionListener(action);
-        this.setAlignmentX(Component.CENTER_ALIGNMENT);
+        this.setAlignmentX(CENTER_ALIGNMENT);
         this.setMaximumSize(new Dimension(WIDTH, HEIGHT));
 
         this.setFont(new Font(FONT_NAME, Font.BOLD, FONT_SIZE));

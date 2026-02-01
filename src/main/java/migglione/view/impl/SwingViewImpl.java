@@ -2,7 +2,14 @@ package migglione.view.impl;
 
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import java.io.IOException;
+import java.util.Locale;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -24,10 +31,12 @@ public final class SwingViewImpl implements SwingView {
     private static final String MENU_SCENE = "MENU";
     private static final int INITIAL_WIDTH = 800;
     private static final int INITIAL_HEIGHT = 600;
+    private static final String TRACK_PATH = "/soundtracks/Machine-Love-_feat.-Neuro-sama_-Neuro-sama-Community-Collab.wav";
 
     private final JFrame frame = new JFrame(FRAME_NAME);
     private final CardLayout cards = new CardLayout();
     private final JPanel firstPanel = new JPanel(cards);
+    private Clip audioClip;
 
     /**
      * The constructor of the class.
@@ -59,9 +68,14 @@ public final class SwingViewImpl implements SwingView {
     }
 
     @Override
-    public void refresh() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'refresh'");
+    public void quit() {
+        endMusic();
+        frame.dispose();
+    }
+
+    private void endMusic() {
+        audioClip.stop();
+        audioClip = null;
     }
 
     /**
@@ -70,6 +84,7 @@ public final class SwingViewImpl implements SwingView {
      * @param args is functional
      */
     public static void main(final String[] args) {
+        Locale.setDefault(Locale.ROOT);
         new SwingViewImpl();
     }
 }

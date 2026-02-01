@@ -2,18 +2,12 @@ package migglione.view.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.io.IOException;
+import java.util.Locale;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -28,6 +22,7 @@ import javax.swing.JPanel;
  */
 public final class Menu extends JPanel {
 
+    private static final long serialVersionUID = 9879879879L;
     private static final String TITLE = "Il Migglione";
     private static final String START_GAME = "Start Game";
     private static final String TUTORIAL = "Tutorial";
@@ -37,10 +32,7 @@ public final class Menu extends JPanel {
     private static final String FONT_NAME = "Times New Roman";
     private static final int FONT_SIZE = 70;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
-    private static final String TRACK_PATH = "/soundtracks/Machine-Love-_feat.-Neuro-sama_-Neuro-sama-Community-Collab.wav";
-    private final SwingViewImpl view;
-    private final Image titleImage;
-    private Clip audioClip;
+    private final transient Image titleImage;
 
     /**
      * Constructor of the class.
@@ -51,21 +43,19 @@ public final class Menu extends JPanel {
      * @param view is used in order to associate the changing scenes to the buttons
      */
     public Menu(final SwingViewImpl view) {
-        this.view = view;
         this.setLayout(new BorderLayout());
-        playMusic();
 
         final JPanel cPanel = new JPanel();
         final JPanel titleBox = new JPanel();
         final JLabel title = new JLabel(TITLE);
-        final JButton startButton = new GenericButton(START_GAME, b -> System.exit(0));
-        final JButton tutorial = new GenericButton(TUTORIAL, b -> System.exit(0));
-        final JButton gallery = new GenericButton(GALLERY, b -> System.exit(0));
-        final JButton credits = new GenericButton(CREDITS, b -> System.exit(0));
-        final JButton quit = new GenericButton(QUIT, b -> System.exit(0));
+        final JButton startButton = new GenericButton(START_GAME, b -> view.quit());
+        final JButton tutorial = new GenericButton(TUTORIAL, b -> view.quit());
+        final JButton gallery = new GenericButton(GALLERY, b -> view.setScene(GALLERY.toUpperCase(Locale.getDefault())));
+        final JButton credits = new GenericButton(CREDITS, b -> view.setScene(CREDITS.toUpperCase(Locale.getDefault())));
+        final JButton quit = new GenericButton(QUIT, b -> view.quit());
 
         cPanel.setLayout(new BoxLayout(cPanel, BoxLayout.Y_AXIS));
-        cPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cPanel.setAlignmentX(CENTER_ALIGNMENT);
         cPanel.setOpaque(false);
 
         titleImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
@@ -95,27 +85,6 @@ public final class Menu extends JPanel {
         cPanel.add(Box.createVerticalGlue());
 
         this.add(cPanel, BorderLayout.CENTER);
-    }
-
-    /**
-     * Functional method in order to play music.
-     * It takes the relative path of the soundtrack and
-     * makes it so it loops whenever it ends.
-     */
-    private void playMusic() {
-        try {
-            final String soundtrackPath = TRACK_PATH;
-            final AudioInputStream audioStream = AudioSystem.getAudioInputStream(
-                getClass().getResourceAsStream(soundtrackPath));
-
-            audioClip = AudioSystem.getClip();
-            audioClip.open(audioStream);
-
-            audioClip.loop(Clip.LOOP_CONTINUOUSLY);
-            audioClip.start();
-        } catch (final IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            System.err.println("Error in loading music:" + e.getMessage());
-        }
     }
 
     @Override
