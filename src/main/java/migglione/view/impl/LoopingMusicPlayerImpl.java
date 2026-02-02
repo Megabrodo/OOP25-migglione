@@ -10,11 +10,25 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 import migglione.view.api.MusicPlayer;
 
-public class LoopingMusicPlayerImpl implements MusicPlayer {
+/**
+ * Implementation of MusicPlayer.
+ * 
+ * <p>
+ * This rapresents the main implementation used for
+ * most of the tracks in the application, since it
+ * simply makes the music loops itself upon its ending
+ * and upon invocating stopMusic it completly cuts off the Clip
+ */
+public final class LoopingMusicPlayerImpl implements MusicPlayer {
 
     private final String trackPath;
     private Clip audioClip;
 
+    /**
+     * Constructor the class.
+     * 
+     * @param trackPath is the path of the track to loop
+     */
     public LoopingMusicPlayerImpl(final String trackPath) {
         this.trackPath = trackPath;
     }
@@ -39,5 +53,5 @@ public class LoopingMusicPlayerImpl implements MusicPlayer {
         audioClip.stop();
         audioClip = null;
     }
-    
+
 }
