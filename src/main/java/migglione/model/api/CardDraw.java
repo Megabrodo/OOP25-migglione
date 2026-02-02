@@ -3,6 +3,7 @@ package migglione.model.api;
 /**
  * Interface used as a reference for a Strategy method.
  * 
+ * <p>
  * In fact, it grants the possibility to create different
  * implementation of different kinds of draws,
  * an essential peculiarity in case one would
@@ -13,12 +14,11 @@ public interface CardDraw {
      * A simple method to return the next card from the deck.
      * 
      * @return an Object Card, and depending on the
-     * implementation it can eliminate the card from
-     * the deck (standard) or it can change depending
-     * on what game mode is on.
+     *         implementation it can eliminate the card from
+     *         the deck (standard) or it can change depending
+     *         on what game mode is on.
      */
     Card getCard();
-
 
     /**
      * Checks the current state of the deck.
