@@ -25,7 +25,7 @@ import migglione.view.api.SwingView;
 public final class SwingViewImpl implements SwingView {
 
     private static final String FRAME_NAME = "Migglione: the game";
-    private static final String MENU_SCENE = "MENU";
+    protected static final String MENU_SCENE = "MENU";
     private static final String CREDITS_SCENE = "CREDITS";
     private static final int INITIAL_WIDTH = 800;
     private static final int INITIAL_HEIGHT = 600;

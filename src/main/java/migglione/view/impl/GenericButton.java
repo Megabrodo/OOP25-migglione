@@ -15,8 +15,8 @@ public final class GenericButton extends JButton {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String FONT_NAME = "Times New Roman";
-    private static final int WIDTH = 300;
-    private static final int HEIGHT = 60;
+    private static final int WIDTH = 250;
+    private static final int HEIGHT = 50;
     private static final int FONT_SIZE = 26;
 
     /**
