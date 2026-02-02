@@ -13,6 +13,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import migglione.view.api.SceneFactory;
 //import migglione.view.api.Scene;
 import migglione.view.api.SwingView;
 
@@ -37,6 +38,7 @@ public final class SwingViewImpl implements SwingView {
     private final JFrame frame = new JFrame(FRAME_NAME);
     private final CardLayout cards = new CardLayout();
     private final JPanel firstPanel = new JPanel(cards);
+    private final SceneFactory sceneCreator;
     private String currentSceneName;
     private Clip audioClip;
 
@@ -51,8 +53,9 @@ public final class SwingViewImpl implements SwingView {
         frame.setMinimumSize(new Dimension(INITIAL_WIDTH, INITIAL_HEIGHT));
         frame.setResizable(true);
 
-        firstPanel.add(new Menu(this), MENU_SCENE);
-        firstPanel.add(new Credits(this), CREDITS_SCENE);
+        sceneCreator = new SceneFactoryImpl();
+        firstPanel.add(sceneCreator.createScene(this, MENU_SCENE), MENU_SCENE);
+        firstPanel.add(sceneCreator.createScene(this, CREDITS_SCENE), CREDITS_SCENE);
 
         frame.add(firstPanel);
         frame.setVisible(true);
