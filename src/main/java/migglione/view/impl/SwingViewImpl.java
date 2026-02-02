@@ -62,15 +62,14 @@ public final class SwingViewImpl implements SwingView {
     @Override
     public void setScene(final String sceneName) {
 
-        if (music != null) {
-            endMusic();
-        }
-
         this.cards.show(firstPanel, sceneName);
         currentSceneName = sceneName;
 
         for (var c : firstPanel.getComponents()) {
             if (c.isVisible() && c instanceof MusicStrategy musicGetter) {
+                if (music != null) {
+                    endMusic();
+                }
                 this.music = musicGetter.getMusic();
                 this.music.playMusic();
                 break;
