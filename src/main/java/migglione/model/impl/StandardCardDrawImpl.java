@@ -24,5 +24,9 @@ public class StandardCardDrawImpl implements CardDraw {
     public Card getCard() {
         return this.database.getCards().get(cards.removeFirst());
     }
-    
+
+    @Override
+    public boolean isDeckEmpty() {
+        return this.cards.isEmpty();
+    }
 }
