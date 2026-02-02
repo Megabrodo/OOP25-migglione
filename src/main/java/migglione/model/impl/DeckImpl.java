@@ -39,6 +39,9 @@ public class DeckImpl implements Deck {
 
     @Override
     public List<Integer> getCards() {
-        return deck;
+        if (!deck.isEmpty()) {
+            return deck;
+        }
+        throw new IllegalStateException("Cannot return an empty deck");
     }
 }
