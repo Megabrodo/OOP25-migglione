@@ -8,12 +8,34 @@ import migglione.model.api.CardDraw;
 import migglione.model.api.Cards;
 import migglione.model.api.Deck;
 
-public class StandardCardDrawImpl implements CardDraw {
+/**
+ * Standard implementation of CardDraw.
+ * 
+ * <p>
+ * This rapresent the main method to draw cards from the deck,
+ * ad is used in the main mode of the game.
+ * 
+ * <p>
+ * When a player draws a card, it is removed from the set of
+ * cards that can be extracted, so that the game can end
+ * when there are no more cards in the deck and every player
+ * has no cards in their hand.
+ */
+public final class StandardCardDrawImpl implements CardDraw {
 
     private final List<Integer> cards;
     private final Deck deck;
     private final Cards database;
 
+    /**
+     * Constructor of the class.
+     * 
+     * <p>
+     * By initializing the deck, the constructor
+     * makes that the cards that are able to be drawn
+     * are the one shuffled in the chosen Deck implementation,
+     * while also having access to the full database
+     */
     public StandardCardDrawImpl() {
         this.deck = new DeckImpl();
         this.database = new Cards();
