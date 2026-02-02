@@ -7,12 +7,30 @@ import java.util.Random;
 import migglione.model.api.Cards;
 import migglione.model.api.Deck;
 
-public class DeckImpl implements Deck {
+/**
+ * Implementation of the Deck interface.
+ * 
+ * <p>
+ * It can be one of many implementations of it, but
+ * in our case we are planning to use only this one.
+ * 
+ * <p>
+ * But in order to grant the opportunity for the future
+ * to design different kinds of implementation, it's best to
+ * maintain the Strategy method.
+ */
+public final class DeckImpl implements Deck {
 
     private final Cards cards = new Cards();
     private final List<Integer> deck = new ArrayList<>();
     private final Random random;
 
+    /**
+     * The constructor of the class.
+     * Since in this case the shuffling has no
+     * constraints and is completly random, it initializes
+     * the deck normally and proceeds to initialize random
+     */
     public DeckImpl() {
         createDeck();
         random = new Random();
@@ -24,8 +42,8 @@ public class DeckImpl implements Deck {
 
     @Override
     public void shuffle() {
-        List<Integer> temp = new ArrayList<>();
-        int deckSize = deck.size();
+        final List<Integer> temp = new ArrayList<>();
+        final int deckSize = deck.size();
         int n = random.nextInt(deckSize);
 
         for (int i = deck.size(); i > 0; i--) {
