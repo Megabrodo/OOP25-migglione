@@ -15,17 +15,23 @@ import migglione.view.api.SwingView;
 
 /**
  * Implementation of the SwingView interface.
+ * 
+ * <p>
  * As such, it adopts the Swing style and rapresent the
  * "center" of the MVC method, it initialize the elements
  * of the frame and set the different scenes using CardLayout.
+ * 
+ * <p>
  * The frame must not be resizable under a certain amount and
  * is expected to make the user able to navigate to the various
  * contents of the application while changing soundtracks and backgrounds.
  */
 public final class SwingViewImpl implements SwingView {
 
-    private static final String FRAME_NAME = "Migglione: the game";
+    /** Menu scene, it's protected in order to use it safely outside of this class (check Credits). */
     protected static final String MENU_SCENE = "MENU";
+
+    private static final String FRAME_NAME = "Migglione: the game";
     private static final String CREDITS_SCENE = "CREDITS";
     private static final int INITIAL_WIDTH = 800;
     private static final int INITIAL_HEIGHT = 600;
@@ -65,7 +71,7 @@ public final class SwingViewImpl implements SwingView {
         this.cards.show(firstPanel, sceneName);
         currentSceneName = sceneName;
 
-        for (var c : firstPanel.getComponents()) {
+        for (final var c : firstPanel.getComponents()) {
             if (c.isVisible() && c instanceof MusicStrategy musicGetter) {
                 if (music != null) {
                     endMusic();
