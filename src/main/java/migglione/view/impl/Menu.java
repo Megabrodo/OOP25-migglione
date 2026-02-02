@@ -15,12 +15,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import migglione.view.api.MusicPlayer;
+import migglione.view.api.MusicStrategy;
+
 /**
  * Class designed to construct the Menu scene of the application,
  * it offers the option to start the game, see the tutorial, the gallery,
  * the credits and to quit the application.
  */
-public final class Menu extends JPanel {
+public final class Menu extends JPanel implements MusicStrategy {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String TITLE = "Il Migglione";
@@ -32,6 +35,7 @@ public final class Menu extends JPanel {
     private static final String FONT_NAME = "Times New Roman";
     private static final int FONT_SIZE = 70;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
+    private static final String TRACK_PATH = "/soundtracks/Machine-Love-_feat.-Neuro-sama_-Neuro-sama-Community-Collab.wav";
     private final transient Image titleImage;
 
     /**
@@ -91,5 +95,10 @@ public final class Menu extends JPanel {
     protected void paintComponent(final Graphics g) {
         super.paintComponent(g);
         g.drawImage(titleImage, 0, 0, getWidth(), getHeight(), this);
+    }
+
+    @Override
+    public MusicPlayer getMusic() {
+        return new LoopingMusicPlayerImpl(TRACK_PATH);
     }
 }
