@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.Map;
@@ -57,18 +58,9 @@ public class Gallery extends JPanel implements MusicStrategy {
 
     private JPanel createGalleryBox(final Map<Integer, Card> cards) {
         
-        final JPanel galleryBox = new JPanel(new BorderLayout()) {
-            private final Image boxImage = new ImageIcon(getClass().getResource(GALLERYBOX_IMAGE_PATH)).getImage();
-
-            @Override
-            protected void paintComponent(final Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(boxImage, 0, 0, getWidth(), getHeight(), this);
-            }
-        };
-        galleryBox.setOpaque(false);
-
-        final JPanel cardsGrid = new JPanel(new GridLayout(0, 3, 10, 1));
+        final JPanel galleryBox = new JPanel(new BorderLayout());
+        galleryBox.setBorder(null);
+        final JPanel cardsGrid = new JPanel(new GridLayout(0, 3, 10, 20));
         cardsGrid.setOpaque(false);
 
         for (var entry : cards.entrySet()) {
@@ -80,12 +72,11 @@ public class Gallery extends JPanel implements MusicStrategy {
         }
 
         final JScrollPane galleryScroll = new JScrollPane(cardsGrid);
-        galleryScroll.getViewport().setBackground(Color.black);
-        galleryScroll.getViewport().setOpaque(true);
-        galleryScroll.setOpaque(false);
 
-        galleryBox.setPreferredSize(new Dimension(700, 450));
-        galleryScroll.setPreferredSize(new Dimension(700, 450));
+        galleryScroll.getViewport().setBackground(Color.BLACK);
+        galleryScroll.setOpaque(false);
+        
+
         galleryBox.add(galleryScroll, BorderLayout.CENTER);
         return galleryBox;
     }
