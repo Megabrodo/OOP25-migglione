@@ -1,6 +1,8 @@
 package migglione.view.impl;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -11,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import migglione.model.api.Card;
 import migglione.model.api.Cards;
@@ -21,6 +24,7 @@ public class Gallery extends JPanel implements MusicStrategy {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
+    private static final String GALLERYBOX_IMAGE_PATH = "/images/utilities/gallery-box.png";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String TRACK_PATH = "/soundtracks/Jodio-vibin-to-his-opening.wav";
     private static final String BACK = "Back";
@@ -40,21 +44,50 @@ public class Gallery extends JPanel implements MusicStrategy {
         galleryImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
 
         final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JPanel pGallery = new JPanel(new GridLayout(0, 3, 10, 10));
         final JButton back = new GenericButton(BACK, b -> view.setScene(SwingViewImpl.MENU_SCENE));
 
-        pGallery.setOpaque(false);
-        for (var entry : cards.entrySet()) {
-            ImageIcon card = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + entry.getValue().getName() + ".png"));
-            JLabel cardLabel = new JLabel(card);
-            pGallery.add(cardLabel);
-        }
+        final JPanel pGallery = createGalleryBox(cards);
 
         pSouth.setOpaque(false);
         pSouth.add(back);
 
         this.add(pGallery, BorderLayout.CENTER);
         this.add(pSouth, BorderLayout.SOUTH);
+    }
+
+    private JPanel createGalleryBox(final Map<Integer, Card> cards) {
+        
+        final JPanel galleryBox = new JPanel(new BorderLayout()) {
+            private final Image boxImage = new ImageIcon(getClass().getResource(GALLERYBOX_IMAGE_PATH)).getImage();
+
+            @Override
+            protected void paintComponent(final Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(boxImage, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        galleryBox.setOpaque(false);
+
+        final JPanel cardsGrid = new JPanel(new GridLayout(0, 3, 10, 1));
+        cardsGrid.setOpaque(false);
+
+        for (var entry : cards.entrySet()) {
+            ImageIcon card = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + entry.getValue().getName() + ".png"));
+            ImageIcon scaledCard = new ImageIcon(card.getImage().getScaledInstance(150, 200, Image.SCALE_SMOOTH));
+            JLabel cardLabel = new JLabel(scaledCard);
+            cardLabel.setHorizontalAlignment(JLabel.CENTER);
+            cardsGrid.add(cardLabel);
+        }
+
+        final JScrollPane galleryScroll = new JScrollPane(cardsGrid);
+        galleryScroll.getViewport().setBackground(Color.black);
+        galleryScroll.getViewport().setOpaque(true);
+        galleryScroll.setOpaque(false);
+
+        galleryBox.setPreferredSize(new Dimension(700, 450));
+        galleryScroll.setPreferredSize(new Dimension(700, 450));
+        galleryBox.add(galleryScroll, BorderLayout.CENTER);
+        return galleryBox;
     }
 
     @Override
