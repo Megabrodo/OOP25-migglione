@@ -2,14 +2,13 @@ package migglione.view.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -25,7 +24,6 @@ public class Gallery extends JPanel implements MusicStrategy {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
-    private static final String GALLERYBOX_IMAGE_PATH = "/images/utilities/gallery-box.png";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String TRACK_PATH = "/soundtracks/Jodio-vibin-to-his-opening.wav";
     private static final String BACK = "Back";
@@ -59,7 +57,6 @@ public class Gallery extends JPanel implements MusicStrategy {
     private JPanel createGalleryBox(final Map<Integer, Card> cards) {
         
         final JPanel galleryBox = new JPanel(new BorderLayout());
-        galleryBox.setBorder(null);
         final JPanel cardsGrid = new JPanel(new GridLayout(0, 3, 10, 20));
         cardsGrid.setOpaque(false);
 
@@ -75,7 +72,7 @@ public class Gallery extends JPanel implements MusicStrategy {
 
         galleryScroll.getViewport().setBackground(Color.BLACK);
         galleryScroll.setOpaque(false);
-        
+        galleryScroll.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
 
         galleryBox.add(galleryScroll, BorderLayout.CENTER);
         return galleryBox;
