@@ -5,7 +5,6 @@ import java.util.List;
 
 import migglione.model.api.Card;
 import migglione.model.api.CardDraw;
-import migglione.model.api.Cards;
 import migglione.model.api.Deck;
 
 /**
@@ -23,9 +22,8 @@ import migglione.model.api.Deck;
  */
 public final class StandardCardDrawImpl implements CardDraw {
 
-    private final List<Integer> cards;
+    private final List<Card> cards;
     private final Deck deck;
-    private final Cards database;
 
     /**
      * Constructor of the class.
@@ -33,18 +31,16 @@ public final class StandardCardDrawImpl implements CardDraw {
      * <p>
      * By initializing the deck, the constructor
      * makes that the cards that are able to be drawn
-     * are the one shuffled in the chosen Deck implementation,
-     * while also having access to the full database
+     * are the one shuffled in the chosen Deck implementation
      */
     public StandardCardDrawImpl() {
         this.deck = new DeckImpl();
-        this.database = new Cards();
-        this.cards = new ArrayList<>(deck.getCards());
+        this.cards = new ArrayList<>(deck.getDeck());
     }
 
     @Override
     public Card getCard() {
-        return this.database.getCards().get(cards.removeFirst());
+        return this.cards.removeFirst();
     }
 
     @Override

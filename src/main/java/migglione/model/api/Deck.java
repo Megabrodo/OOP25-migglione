@@ -25,8 +25,8 @@ public interface Deck {
     /**
      * Used to return the list full of the indexes of the cards.
      * 
-     * @return the list of integers, since the indexes
+     * @return the list of cards, since the indexes
      *         are the keys used in Cards.java
      */
-    List<Integer> getCards();
+    List<Card> getDeck();
 }

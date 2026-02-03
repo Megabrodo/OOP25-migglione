@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import migglione.model.api.Card;
 import migglione.model.api.Cards;
 import migglione.model.api.Deck;
 
@@ -22,7 +23,7 @@ import migglione.model.api.Deck;
 public final class DeckImpl implements Deck {
 
     private final Cards cards = new Cards();
-    private final List<Integer> deck = new ArrayList<>();
+    private final List<Card> deck = new ArrayList<>();
     private final Random random;
 
     /**
@@ -37,12 +38,12 @@ public final class DeckImpl implements Deck {
     }
 
     private void createDeck() {
-        cards.getCards().keySet().stream().forEach(deck::add);
+        cards.getCards().values().stream().forEach(deck::add);
     }
 
     @Override
     public void shuffle() {
-        final List<Integer> temp = new ArrayList<>();
+        final List<Card> temp = new ArrayList<>();
         final int deckSize = deck.size();
         int n = random.nextInt(deckSize);
 
@@ -56,10 +57,7 @@ public final class DeckImpl implements Deck {
     }
 
     @Override
-    public List<Integer> getCards() {
-        if (!deck.isEmpty()) {
-            return deck;
-        }
-        throw new IllegalStateException("Cannot return an empty deck");
+    public List<Card> getDeck() {
+        return deck;
     }
 }
