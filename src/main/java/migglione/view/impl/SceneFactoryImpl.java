@@ -19,6 +19,7 @@ public final class SceneFactoryImpl implements SceneFactory {
     public JPanel createScene(final SwingViewImpl view, final String n) {
         return switch (n) {
             case "MENU" -> new Menu(view);
+            case "GALLERY" -> new Gallery(view);
             case "CREDITS" -> new Credits(view);
             default -> throw new IllegalArgumentException("No such scene exist");
         };

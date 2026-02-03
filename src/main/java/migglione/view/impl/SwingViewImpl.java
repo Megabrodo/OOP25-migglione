@@ -33,6 +33,7 @@ public final class SwingViewImpl implements SwingView {
 
     private static final String FRAME_NAME = "Migglione: the game";
     private static final String CREDITS_SCENE = "CREDITS";
+    private static final String GALLERY_SCENE = "GALLERY";
     private static final int INITIAL_WIDTH = 800;
     private static final int INITIAL_HEIGHT = 600;
 
@@ -56,6 +57,7 @@ public final class SwingViewImpl implements SwingView {
 
         sceneCreator = new SceneFactoryImpl();
         firstPanel.add(sceneCreator.createScene(this, MENU_SCENE), MENU_SCENE);
+        firstPanel.add(sceneCreator.createScene(this, GALLERY_SCENE), GALLERY_SCENE);
         firstPanel.add(sceneCreator.createScene(this, CREDITS_SCENE), CREDITS_SCENE);
 
         frame.add(firstPanel);
