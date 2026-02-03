@@ -7,6 +7,7 @@ import migglione.view.impl.SwingViewImpl;
 /**
  * Factory needed to create scenes for CardLayout more easily.
  */
+@FunctionalInterface
 public interface SceneFactory {
     /**
      * Method used to create the scenes of CardLayout.

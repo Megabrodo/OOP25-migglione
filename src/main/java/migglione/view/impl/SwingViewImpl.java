@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import migglione.view.api.MusicPlayer;
 import migglione.view.api.MusicStrategy;
 import migglione.view.api.SceneFactory;
-//import migglione.view.api.Scene;
 import migglione.view.api.SwingView;
 
 /**

@@ -14,6 +14,7 @@ package migglione.view.api;
  * the music of the new scene and eventually stopping the
  * previous one (check SetScene)
  */
+@FunctionalInterface
 public interface MusicStrategy {
     /**
      * Method used to return the scene's MusicPlayer.
