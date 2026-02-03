@@ -73,6 +73,7 @@ public class Gallery extends JPanel implements MusicStrategy {
         galleryScroll.getViewport().setBackground(Color.BLACK);
         galleryScroll.setOpaque(false);
         galleryScroll.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
+        galleryScroll.getVerticalScrollBar().setBackground(Color.BLACK);
 
         galleryBox.add(galleryScroll, BorderLayout.CENTER);
         return galleryBox;
