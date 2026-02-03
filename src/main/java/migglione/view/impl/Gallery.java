@@ -20,16 +20,34 @@ import migglione.model.api.Cards;
 import migglione.view.api.MusicPlayer;
 import migglione.view.api.MusicStrategy;
 
-public class Gallery extends JPanel implements MusicStrategy {
+/**
+ * The class Gallery allows to see all the sprites of the cards.
+ * 
+ * <p>
+ * It incapsulates the sprites in a gridlayout, allowing
+ * the view to be put in another container that covers part
+ * of the screen. The sprites are taken from the folder in
+ * resources and is bound by the database (Cards.java)
+ * 
+ * <p>
+ * Moving in the container involves the usage of a ScrollPane
+ * and the container itself is completely created in the private
+ * createGalleryBox method, which makes sure that only the sprites
+ * are visible (looking at the values would be cheating!)
+ */
+public final class Gallery extends JPanel implements MusicStrategy {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
+    private static final int CARDS_WIDTH = 150;
+    private static final int CARDS_HEIGHT = 200;
     private static final String TRACK_PATH = "/soundtracks/Jodio-vibin-to-his-opening.wav";
     private static final String BACK = "Back";
 
     private final transient Image galleryImage;
     private final Cards database;
+
     /**
      * Constructor of Gallery.
      * 
@@ -38,14 +56,13 @@ public class Gallery extends JPanel implements MusicStrategy {
     public Gallery(final SwingViewImpl view) {
         this.database = new Cards();
         final Map<Integer, Card> cards = database.getCards();
-        this.setLayout(new BorderLayout());
 
+        this.setLayout(new BorderLayout());
         galleryImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
 
         final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton back = new GenericButton(BACK, b -> view.setScene(SwingViewImpl.MENU_SCENE));
-
         final JPanel pGallery = createGalleryBox(cards);
+        final JButton back = new GenericButton(BACK, b -> view.setScene(SwingViewImpl.MENU_SCENE));
 
         pSouth.setOpaque(false);
         pSouth.add(back);
@@ -55,15 +72,17 @@ public class Gallery extends JPanel implements MusicStrategy {
     }
 
     private JPanel createGalleryBox(final Map<Integer, Card> cards) {
-        
+
         final JPanel galleryBox = new JPanel(new BorderLayout());
         final JPanel cardsGrid = new JPanel(new GridLayout(0, 3, 10, 20));
         cardsGrid.setOpaque(false);
 
-        for (var entry : cards.entrySet()) {
-            ImageIcon card = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + entry.getValue().getName() + ".png"));
-            ImageIcon scaledCard = new ImageIcon(card.getImage().getScaledInstance(150, 200, Image.SCALE_SMOOTH));
-            JLabel cardLabel = new JLabel(scaledCard);
+        for (final var entry : cards.entrySet()) {
+            final ImageIcon card = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + entry.getValue().getName() + ".png"));
+            final ImageIcon scaledCard = new ImageIcon(
+                card.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+            );
+            final JLabel cardLabel = new JLabel(scaledCard);
             cardLabel.setHorizontalAlignment(JLabel.CENTER);
             cardsGrid.add(cardLabel);
         }

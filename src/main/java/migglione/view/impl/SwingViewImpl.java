@@ -32,10 +32,9 @@ public final class SwingViewImpl implements SwingView {
     /** Menu scene, it's protected in order to use it safely outside of this class (check Credits). */
     protected static final String MENU_SCENE = "MENU";
 
-    protected static final Dimension MONITOR_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
-    protected static final int INITIAL_WIDTH = (int) (MONITOR_DIMENSION.getWidth() * 0.7);
-    protected static final int INITIAL_HEIGHT = (int) (MONITOR_DIMENSION.getHeight() * 0.7);
-
+    private static final Dimension MONITOR_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
+    private static final int INITIAL_WIDTH = (int) (MONITOR_DIMENSION.getWidth() * 0.7);
+    private static final int INITIAL_HEIGHT = (int) (MONITOR_DIMENSION.getHeight() * 0.7);
     private static final String FRAME_NAME = "Migglione: the game";
     private static final String CREDITS_SCENE = "CREDITS";
     private static final String GALLERY_SCENE = "GALLERY";

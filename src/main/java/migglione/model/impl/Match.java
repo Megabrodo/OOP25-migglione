@@ -41,14 +41,14 @@ public class Match {
      */
     public void playTurn() {
         List<Card> cardsPlayed = new ArrayList<>();
-        final int attrChoice = players.get(turnStart).chooseAttr(); //function not implemented yet
-        final int comparison = compareCards(
-            players.getFirst().playCard(attrChoice), 
-            players.getLast().playCard(attrChoice), 
-            attrChoice
-        );
-        final int winner = comparison < 0 ? 0 : 1;
-        scores.set(winner, scores.get(winner) + Math.abs(comparison));
+        //final int attrChoice = players.get(turnStart).chooseAttr(); //function not implemented yet
+        //final int comparison = compareCards(
+        //    players.getFirst().playCard(attrChoice), 
+        //    players.getLast().playCard(attrChoice), 
+        //    attrChoice
+        //);
+        //final int winner = comparison < 0 ? 0 : 1;
+        //scores.set(winner, scores.get(winner) + Math.abs(comparison));
     }
     /**
      * Compares two given cards on a specific attribute.
@@ -57,7 +57,7 @@ public class Match {
      * @param stat the given attribute to compare the cards on
      * @return the difference between the two cards' values on the given attribute.
      */
-    private int compareCards(Card a, Card b, int stat) {
+    /*private int compareCards(Card a, Card b, int stat) {
         switch (stat) {
             case 0: return a.getAttk() - b.getAttk();
             case 1: return a.getDeff() - b.getDeff();
@@ -65,6 +65,6 @@ public class Match {
             case 3: return a.getIntelligenza() - b.getIntelligenza();
             case 4: return a.getFurtivita() - b.getFurtivita();
         }
-    }
+    }*/
 
 }
