@@ -1,7 +1,7 @@
 package migglione.view.impl;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,6 +17,10 @@ import javax.swing.border.SoftBevelBorder;
 public class PlayField extends JPanel {
 
     private static final long serialVersionUID = 5456545654L;
+    private static final int RED_HUE = 173;
+    private static final int GREEN_HUE = 103;
+    private static final int BLUE_HUE = 44;
+    private static final Color TABLE_COLOR = new Color(RED_HUE, GREEN_HUE, BLUE_HUE);
 
     /**
      * Constructor of this class. 
@@ -35,16 +39,17 @@ public class PlayField extends JPanel {
         this.add(mainField);
         this.add(pCards);
 
-        mainField.setBackground(new Color(125 * 2 ^ 16 + 80 * 2 ^ 8));
+        mainField.setBackground(TABLE_COLOR);
         mainField.setBorder(new SoftBevelBorder(1, Color.BLACK, Color.DARK_GRAY));
-        pScore.setBackground(Color.BLUE);
+        pScore.setBackground(Color.GREEN);
         oScore.setBackground(Color.RED);
         pScore.setEnabled(false);
         oScore.setEnabled(false);
 
-        mainField.setLayout(new GridBagLayout());
-        mainField.add(scoreCol);
+        mainField.setLayout(new BorderLayout());
+        mainField.add(scoreCol, BorderLayout.EAST);
         scoreCol.setLayout(new BoxLayout(scoreCol, BoxLayout.Y_AXIS));
+        scoreCol.setOpaque(false);
         scoreCol.add(oScore);
         scoreCol.add(Box.createVerticalGlue());
         scoreCol.add(pScore);
