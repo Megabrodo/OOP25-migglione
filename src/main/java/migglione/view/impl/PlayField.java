@@ -1,10 +1,5 @@
 package migglione.view.impl;
 
-public class PlayField {
-
-}
-package migglione.view.impl;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagLayout;
