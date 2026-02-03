@@ -1,4 +1,4 @@
-package migglione.model.api;
+package migglione.model.impl;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;

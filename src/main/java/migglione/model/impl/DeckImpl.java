@@ -3,9 +3,6 @@ package migglione.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import migglione.model.api.Card;
-import migglione.model.api.Cards;
 import migglione.model.api.Deck;
 
 /**

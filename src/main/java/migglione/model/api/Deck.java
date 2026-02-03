@@ -1,6 +1,7 @@
 package migglione.model.api;
 
 import java.util.List;
+import migglione.model.impl.Card;
 
 /**
  * Simple interface in order to design the deck.

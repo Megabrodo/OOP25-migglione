@@ -2,8 +2,6 @@ package migglione.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import migglione.model.api.Card;
 import migglione.model.api.CardDraw;
 import migglione.model.api.Deck;
 

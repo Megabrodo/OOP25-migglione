@@ -1,5 +1,7 @@
 package migglione.model.api;
 
+import migglione.model.impl.Card;
+
 /**
  * Interface used as a reference for a Strategy method.
  * 

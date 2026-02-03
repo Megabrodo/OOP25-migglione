@@ -15,8 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import migglione.model.api.Card;
-import migglione.model.api.Cards;
+import migglione.model.impl.Card;
+import migglione.model.impl.Cards;
 import migglione.view.api.MusicPlayer;
 import migglione.view.api.MusicStrategy;
 

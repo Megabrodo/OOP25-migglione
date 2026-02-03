@@ -2,8 +2,6 @@ package migglione.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import migglione.model.api.Card;
 import migglione.model.api.Player;
 
 /**
@@ -73,9 +71,9 @@ public class Match {
         switch (stat) {
             case 0: return a.getAttk() - b.getAttk();
             case 1: return a.getDeff() - b.getDeff();
-            case 2: return a.getAbiity() - b.getAbiity();
-            case 3: return a.getIntelligenza() - b.getIntelligenza();
-            case 4: return a.getFurtivita() - b.getFurtivita();
+            case 2: return a.getStrength() - b.getStrength();
+            case 3: return a.getIntelligence() - b.getIntelligence();
+            case 4: return a.getStealth() - b.getStealth();
             default: throw new IllegalArgumentException("Illegal attribute chosen.");
         }
     }
