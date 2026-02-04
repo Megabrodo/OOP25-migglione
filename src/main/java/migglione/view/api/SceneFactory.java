@@ -16,5 +16,5 @@ public interface SceneFactory {
      * @param n will be parameter to decide what scene it to be created
      * @return a JPanel rapresenting the new Scene
      */
-    JPanel createScene(SwingViewImpl view, String n);
+    JPanel createScene(SwingViewImpl view, Scenes scenes);
 }

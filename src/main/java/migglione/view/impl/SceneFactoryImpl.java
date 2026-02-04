@@ -3,6 +3,7 @@ package migglione.view.impl;
 import javax.swing.JPanel;
 
 import migglione.view.api.SceneFactory;
+import migglione.view.api.Scenes;
 
 /**
  * Implementation of SceneFactory.
@@ -16,11 +17,11 @@ import migglione.view.api.SceneFactory;
 public final class SceneFactoryImpl implements SceneFactory {
 
     @Override
-    public JPanel createScene(final SwingViewImpl view, final String n) {
-        return switch (n) {
-            case "MENU" -> new Menu(view);
-            case "GALLERY" -> new Gallery(view);
-            case "CREDITS" -> new Credits(view);
+    public JPanel createScene(final SwingViewImpl view, final Scenes scenes) {
+        return switch (scenes) {
+            case MENU -> new Menu(view);
+            case GALLERY -> new Gallery(view);
+            case CREDITS -> new Credits(view);
             default -> throw new IllegalArgumentException("No such scene exist");
         };
     }

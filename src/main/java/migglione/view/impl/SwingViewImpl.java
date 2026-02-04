@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import migglione.view.api.MusicPlayer;
 import migglione.view.api.MusicStrategy;
 import migglione.view.api.SceneFactory;
+import migglione.view.api.Scenes;
 import migglione.view.api.SwingView;
 
 /**
@@ -28,17 +29,12 @@ import migglione.view.api.SwingView;
  */
 public final class SwingViewImpl implements SwingView {
 
-    /** Menu scene, it's protected in order to use it safely outside of this class (check Credits). */
-    protected static final String MENU_SCENE = "MENU";
-
     private static final Dimension MONITOR_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
     private static final int INITIAL_WIDTH = (int) (MONITOR_DIMENSION.getWidth() * 0.7);
     private static final int INITIAL_HEIGHT = (int) (MONITOR_DIMENSION.getHeight() * 0.7);
     private static final int MIN_WIDTH = (int) (INITIAL_WIDTH * 0.9);
     private static final int MIN_HEIGHT = (int) (INITIAL_HEIGHT * 0.9);
     private static final String FRAME_NAME = "Migglione: the game";
-    private static final String CREDITS_SCENE = "CREDITS";
-    private static final String GALLERY_SCENE = "GALLERY";
 
     private final JFrame frame = new JFrame(FRAME_NAME);
     private final CardLayout cards = new CardLayout();
@@ -60,15 +56,14 @@ public final class SwingViewImpl implements SwingView {
         frame.setResizable(true);
 
         sceneCreator = new SceneFactoryImpl();
-        firstPanel.add(sceneCreator.createScene(this, MENU_SCENE), MENU_SCENE);
-        firstPanel.add(sceneCreator.createScene(this, GALLERY_SCENE), GALLERY_SCENE);
-        firstPanel.add(sceneCreator.createScene(this, CREDITS_SCENE), CREDITS_SCENE);
+        firstPanel.add(sceneCreator.createScene(this, Scenes.MENU), Scenes.MENU.getScene());
+        firstPanel.add(sceneCreator.createScene(this, Scenes.CREDITS), Scenes.CREDITS.getScene());
+        firstPanel.add(sceneCreator.createScene(this, Scenes.GALLERY), Scenes.GALLERY.getScene());
 
         frame.add(firstPanel);
         frame.setVisible(true);
 
-        setScene(MENU_SCENE);
-        currentSceneName = MENU_SCENE;
+        setScene(Scenes.MENU.getScene());
     }
 
     @Override

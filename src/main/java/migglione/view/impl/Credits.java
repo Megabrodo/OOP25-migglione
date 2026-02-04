@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import migglione.view.api.MusicPlayer;
 import migglione.view.api.MusicStrategy;
+import migglione.view.api.Scenes;
 
 /**
  * Class Credits scene of the application,
@@ -36,7 +37,7 @@ public final class Credits extends JPanel implements MusicStrategy {
         creditsImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
 
         final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JButton back = new GenericButton(BACK, b -> view.setScene(SwingViewImpl.MENU_SCENE));
+        final JButton back = new GenericButton(BACK, b -> view.setScene(Scenes.MENU.getScene()));
 
         pSouth.setOpaque(false);
         pSouth.add(back);

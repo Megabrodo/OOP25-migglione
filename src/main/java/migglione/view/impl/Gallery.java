@@ -19,6 +19,7 @@ import migglione.model.impl.Card;
 import migglione.model.impl.Cards;
 import migglione.view.api.MusicPlayer;
 import migglione.view.api.MusicStrategy;
+import migglione.view.api.Scenes;
 
 /**
  * The class Gallery allows to see all the sprites of the cards.
@@ -62,7 +63,7 @@ public final class Gallery extends JPanel implements MusicStrategy {
 
         final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JPanel pGallery = createGalleryBox(cards);
-        final JButton back = new GenericButton(BACK, b -> view.setScene(SwingViewImpl.MENU_SCENE));
+        final JButton back = new GenericButton(BACK, b -> view.setScene(Scenes.MENU.getScene()));
 
         pSouth.setOpaque(false);
         pSouth.add(back);
