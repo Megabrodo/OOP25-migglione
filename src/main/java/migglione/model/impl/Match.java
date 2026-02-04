@@ -3,6 +3,8 @@ package migglione.model.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import migglione.model.api.Deck;
+import migglione.model.api.CardDraw;
 import migglione.model.api.Player;
 
 /**
@@ -13,7 +15,7 @@ import migglione.model.api.Player;
 public class Match {
 
     private static final int DECKS_SIZE = 24;
-    private final Map<Player, Integer> scores = new HashMap<>();
+    private final Map<Player, DoubleStore<CardDraw, Integer>> scores = new HashMap<>();
     private int turn = 1;
 
     /**
@@ -24,10 +26,9 @@ public class Match {
      * @param starter the player that starts the first turn
      * @param second the player that will go second in the first turn
      */
-    public Match(final Player starter, final Player second) {
-        // setting up players' scores
-        scores.put(starter, 0);
-        scores.put(second, 0);
+    public Match(final Player starter, final Player second, final CardDraw stDeck, final CardDraw scDeck) {
+        scores.put(starter, new DoubleStore<CardDraw,Integer>(stDeck, 0));
+        scores.put(second, new DoubleStore<CardDraw,Integer>(scDeck, 0));
         //other setup needed
     }
 
@@ -42,7 +43,7 @@ public class Match {
      * </ol>
      */
     public void playTurn() {
-        final int attrChoice = turn % 5; //rudimental sub, should be like: players.get(turnStart % 2).chooseAttr();
+        final int attrChoice = scores.keySet().stream().toList().get(turn % 2 - 1).getAttr();
         int compSign = 1;
         int comparison = 0;
         for ( Player p : scores.keySet()) {
@@ -50,7 +51,7 @@ public class Match {
             compSign *= -1;
         }
         final Player winner = scores.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
-        scores.replace(winner, scores.get(winner) + Math.abs(comparison));
+        scores.get(winner).setY(scores.get(winner).getY() + Math.abs(comparison));
         turn++;
     }
 
@@ -72,7 +73,7 @@ public class Match {
 
     public int getScore(Player player) {
         if(scores.keySet().contains(player)) {
-            return scores.get(player);
+            return scores.get(player).getY();
         } else {
             throw new IllegalArgumentException("Requested score of a player not in this match.");
         }
