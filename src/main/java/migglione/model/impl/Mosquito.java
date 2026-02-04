@@ -50,4 +50,9 @@ public class Mosquito implements Player {
     public void chooseAttr(int Attr) {
         this.chosenAttr = Attr;
     }
+
+    @Override
+    public int getAttr() {
+        return this.chosenAttr;
+    }
 }

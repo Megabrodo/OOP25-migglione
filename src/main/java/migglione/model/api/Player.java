@@ -42,4 +42,12 @@ public interface Player {
      * @param Attr
      */
     void chooseAttr(final int Attr);
+
+    /**
+     * Method to understand what attribute a player is using in a round
+     * 
+     * @param Attr
+     * @return current selected attribute
+     */
+    int getAttr();
 }
