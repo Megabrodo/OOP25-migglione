@@ -6,20 +6,35 @@ import java.util.List;
 import migglione.model.api.Player;
 
 public class Mosquito implements Player {
-    private final List<Integer> hand = new ArrayList<>();
+    private final List<Card> hand = new ArrayList<>();
 
-    public Mosquito(List<Integer> hand) {
+    public Mosquito(List<Card> hand) {
         this.hand.addAll(hand);
     }
 
     @Override
-    public void playCard(int cardNum) {
-        this.hand.remove(this.hand.indexOf(cardNum));
+    public int playCard(int attrChoice, Card playedCard) {
+        final Card attrCard = this.hand.remove(this.hand.indexOf(playedCard));
+        switch (attrChoice) {
+            case 0: return attrCard.getAttk();
+            case 1: return attrCard.getDeff();
+            case 2: return attrCard.getStrength();
+            case 3: return attrCard.getIntelligence();
+            case 4: return attrCard.getStealth();
+            default: throw new IllegalArgumentException("Illegal attribute chosen.");
+        }
+        
     }
 
     @Override
-    public List<Integer> getHand() {
+    public List<Card> getHand() {
         return hand;
     }
-    
+
+    @Override
+    public void drawCard(Card drawnCard) {
+        if (hand.size() < 3) {
+            this.hand.addLast(drawnCard);
+        }
+    }
 }
