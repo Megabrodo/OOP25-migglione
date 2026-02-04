@@ -4,7 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 
 /**
@@ -38,5 +41,22 @@ public final class GenericButton extends JButton {
         this.setForeground(Color.YELLOW);
         this.setBackground(Color.BLACK);
         this.setFocusPainted(false);
+        setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setBackground(Color.YELLOW);
+                setForeground(Color.BLACK);
+                setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setBackground(Color.BLACK);
+                setForeground(Color.YELLOW);
+                setBorder(BorderFactory.createLineBorder(Color.YELLOW, 1));
+            }
+        });
     }
 }

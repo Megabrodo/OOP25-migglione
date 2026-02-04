@@ -26,7 +26,7 @@ import migglione.view.api.MusicStrategy;
 public final class Menu extends JPanel implements MusicStrategy {
 
     private static final long serialVersionUID = 9879879879L;
-    private static final String TITLE = "Il Migglione";
+    private static final String TITLE = "IL MIGGLIONE";
     private static final String START_GAME = "Start Game";
     private static final String TUTORIAL = "Tutorial";
     private static final String GALLERY = "Gallery";
