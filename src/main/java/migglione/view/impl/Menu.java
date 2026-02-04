@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.util.Locale;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -17,6 +16,7 @@ import javax.swing.JPanel;
 
 import migglione.view.api.MusicPlayer;
 import migglione.view.api.MusicStrategy;
+import migglione.view.api.Scenes;
 
 /**
  * Class designed to construct the Menu scene of the application,
@@ -28,6 +28,7 @@ public final class Menu extends JPanel implements MusicStrategy {
     private static final long serialVersionUID = 9879879879L;
     private static final String TITLE = "IL MIGGLIONE";
     private static final String START_GAME = "Start Game";
+    private static final String SCORES = "Scores";
     private static final String TUTORIAL = "Tutorial";
     private static final String GALLERY = "Gallery";
     private static final String CREDITS = "Credits";
@@ -54,8 +55,9 @@ public final class Menu extends JPanel implements MusicStrategy {
         final JLabel title = new JLabel(TITLE);
         final JButton startButton = new GenericButton(START_GAME, b -> view.quit());
         final JButton tutorial = new GenericButton(TUTORIAL, b -> view.quit());
-        final JButton gallery = new GenericButton(GALLERY, b -> view.setScene(GALLERY.toUpperCase(Locale.getDefault())));
-        final JButton credits = new GenericButton(CREDITS, b -> view.setScene(CREDITS.toUpperCase(Locale.getDefault())));
+        final JButton scores = new GenericButton(SCORES, b -> view.quit());
+        final JButton gallery = new GenericButton(GALLERY, b -> view.setScene(Scenes.GALLERY.getScene()));
+        final JButton credits = new GenericButton(CREDITS, b -> view.setScene(Scenes.CREDITS.getScene()));
         final JButton quit = new GenericButton(QUIT, b -> view.quit());
 
         cPanel.setLayout(new BoxLayout(cPanel, BoxLayout.Y_AXIS));
@@ -80,6 +82,8 @@ public final class Menu extends JPanel implements MusicStrategy {
         cPanel.add(startButton);
         cPanel.add(Box.createVerticalGlue());
         cPanel.add(tutorial);
+        cPanel.add(Box.createVerticalGlue());
+        cPanel.add(scores);
         cPanel.add(Box.createVerticalGlue());
         cPanel.add(gallery);
         cPanel.add(Box.createVerticalGlue());

@@ -3,7 +3,6 @@ package migglione.view.impl;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -106,7 +105,6 @@ public final class SwingViewImpl implements SwingView {
      * @param args is functional
      */
     public static void main(final String[] args) {
-        Locale.setDefault(Locale.ROOT);
         new SwingViewImpl();
     }
 }

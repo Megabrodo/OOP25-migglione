@@ -41,8 +41,8 @@ public final class Gallery extends JPanel implements MusicStrategy {
     private static final long serialVersionUID = 9879879879L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
-    private static final int CARDS_WIDTH = 150;
-    private static final int CARDS_HEIGHT = 200;
+    private static final int CARDS_WIDTH = 200;
+    private static final int CARDS_HEIGHT = 250;
     private static final String TRACK_PATH = "/soundtracks/Jodio-vibin-to-his-opening.wav";
     private static final String BACK = "Back";
 
