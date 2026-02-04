@@ -3,7 +3,6 @@ package migglione.model.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import migglione.model.api.Deck;
 import migglione.model.api.CardDraw;
 import migglione.model.api.Player;
 
@@ -14,14 +13,14 @@ import migglione.model.api.Player;
  */
 public class Match {
 
-    private static final int DECKS_SIZE = 24;
+    private static final int HAND_SIZE = 3;
     private final Map<Player, DoubleStore<CardDraw, Integer>> scores = new HashMap<>();
     private int turn = 1;
 
     /**
      * Constructor of the class.
      * Creates a match involving an amount of players,
-     * and manages all aspects of a game.
+     * and creates the starting position of the game.
      * 
      * @param starter the player that starts the first turn
      * @param second the player that will go second in the first turn
@@ -29,6 +28,7 @@ public class Match {
     public Match(final Player starter, final Player second, final CardDraw stDeck, final CardDraw scDeck) {
         scores.put(starter, new DoubleStore<CardDraw,Integer>(stDeck, 0));
         scores.put(second, new DoubleStore<CardDraw,Integer>(scDeck, 0));
+        this.allDraw(HAND_SIZE);
         //other setup needed
     }
 
@@ -53,6 +53,15 @@ public class Match {
         final Player winner = scores.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
         scores.get(winner).setY(scores.get(winner).getY() + Math.abs(comparison));
         turn++;
+        this.allDraw(1);
+    }
+
+    private void allDraw(int n) {
+        for (int i = 0; i < n; i++) {
+            for (Player p : scores.keySet()) {
+                p.drawCard(scores.get(p).getX().getCard());
+            }
+        }
     }
 
     /**
@@ -68,7 +77,12 @@ public class Match {
      * Checks if the match has ended.
     */
     public boolean matchEnded() {
-        return this.turn == DECKS_SIZE;
+        for (Player p : scores.keySet()) {
+            if(scores.get(p).getX().isDeckEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getScore(Player player) {
