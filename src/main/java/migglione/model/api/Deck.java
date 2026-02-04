@@ -16,12 +16,14 @@ public interface Deck {
     /**
      * Method used to shuffle the deck.
      * 
+     * @return the now randomized list of cards
+     * 
      * <p>
      * While it can be different by adopting different implementation,
      * in our case we will use an implementation that lets us
      * shuffle it randomly, without any constraints.
      */
-    void shuffle();
+    List<Card> shuffle();
 
     /**
      * Used to return the list full of the indexes of the cards.

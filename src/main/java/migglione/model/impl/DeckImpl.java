@@ -39,18 +39,16 @@ public final class DeckImpl implements Deck {
     }
 
     @Override
-    public void shuffle() {
+    public List<Card> shuffle() {
         final List<Card> temp = new ArrayList<>();
-        final int deckSize = deck.size();
-        int n = random.nextInt(deckSize);
 
         for (int i = deck.size(); i > 0; i--) {
-            temp.addLast(deck.get(n));
-            deck.remove(n);
-            n = random.nextInt(deckSize);
+            int n = random.nextInt(deck.size());
+            temp.addLast(deck.remove(n));
         }
 
         deck.addAll(temp);
+        return this.getDeck();
     }
 
     @Override
