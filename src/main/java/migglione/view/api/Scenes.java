@@ -1,5 +1,8 @@
 package migglione.view.api;
 
+/**
+ * Enum used to store the names of the different scenes used.
+ */
 public enum Scenes {
     MENU("MENU"),
     START_GAME("START GAME"),
@@ -10,10 +13,15 @@ public enum Scenes {
 
     private final String sceneName;
 
-    private Scenes(final String sceneName) {
+    Scenes(final String sceneName) {
         this.sceneName = sceneName;
     }
 
+    /**
+     * Simple getter.
+     * 
+     * @return the name of the scene.
+     */
     public String getScene() {
         return this.sceneName;
     }
