@@ -73,7 +73,7 @@ public final class SwingViewImpl implements SwingView {
 
         for (final var c : firstPanel.getComponents()) {
             if (c.isVisible() && c instanceof MusicStrategy musicGetter) {
-                MusicPlayer newMusic = musicGetter.getMusic();
+                final MusicPlayer newMusic = musicGetter.getMusic();
                 if (music != null) {
                     if (!sameMusic(music, newMusic)) {
                         endMusic();
@@ -89,8 +89,8 @@ public final class SwingViewImpl implements SwingView {
         }
     }
 
-    private boolean sameMusic(MusicPlayer music, MusicPlayer newMusic) {
-        return newMusic.getPath().equals(music.getPath());
+    private boolean sameMusic(final MusicPlayer oldMusic, final MusicPlayer newMusic) {
+        return newMusic.getPath().equals(oldMusic.getPath());
     }
 
     private void endMusic() {
