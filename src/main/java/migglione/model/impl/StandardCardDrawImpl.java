@@ -1,6 +1,7 @@
 package migglione.model.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import migglione.model.api.CardDraw;
 import migglione.model.api.Deck;
@@ -21,7 +22,6 @@ import migglione.model.api.Deck;
 public final class StandardCardDrawImpl implements CardDraw {
 
     private final List<Card> cards;
-    private final Deck deck;
 
     /**
      * Constructor of the class.
@@ -31,9 +31,8 @@ public final class StandardCardDrawImpl implements CardDraw {
      * makes that the cards that are able to be drawn
      * are the one shuffled in the chosen Deck implementation
      */
-    public StandardCardDrawImpl() {
-        this.deck = new DeckImpl();
-        this.cards = new ArrayList<>(deck.getDeck());
+    public StandardCardDrawImpl(Deck deck) {
+        this.cards = new ArrayList<>(deck.shuffle());
     }
 
     @Override
@@ -44,5 +43,10 @@ public final class StandardCardDrawImpl implements CardDraw {
     @Override
     public boolean isDeckEmpty() {
         return this.cards.isEmpty();
+    }
+
+    @Override
+    public List<Card> getRemainingCards() {
+        return Collections.unmodifiableList(this.cards);
     }
 }
