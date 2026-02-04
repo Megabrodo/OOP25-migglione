@@ -19,7 +19,7 @@ import migglione.model.impl.Cards;
 import migglione.model.impl.DeckImpl;
 import migglione.model.impl.StandardCardDrawImpl;
 
-public class CardDrawTest {
+public class StandardCardDrawTest {
 
     private final Deck deck = new DeckImpl();
     private final CardDraw standardDraw = new StandardCardDrawImpl(deck);

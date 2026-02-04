@@ -14,7 +14,7 @@ import migglione.model.api.Deck;
 import migglione.model.impl.Card;
 import migglione.model.impl.DeckImpl;
 
-public class DeckTest {
+public class DeckImplTest {
     
     private final Deck deck = new DeckImpl();
     private final Deck deck2 = new DeckImpl();

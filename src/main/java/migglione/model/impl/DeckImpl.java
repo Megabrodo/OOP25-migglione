@@ -44,7 +44,7 @@ public final class DeckImpl implements Deck {
         final List<Card> temp = new ArrayList<>();
 
         for (int i = deck.size(); i > 0; i--) {
-            int n = random.nextInt(deck.size());
+            final int n = random.nextInt(deck.size());
             temp.addLast(deck.remove(n));
         }
 
