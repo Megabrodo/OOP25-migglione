@@ -1,6 +1,7 @@
 package migglione.model.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import migglione.model.api.Deck;
@@ -53,6 +54,6 @@ public final class DeckImpl implements Deck {
 
     @Override
     public List<Card> getDeck() {
-        return deck;
+        return Collections.unmodifiableList(this.deck);
     }
 }
