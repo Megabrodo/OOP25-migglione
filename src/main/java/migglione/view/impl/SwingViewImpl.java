@@ -34,6 +34,8 @@ public final class SwingViewImpl implements SwingView {
     private static final Dimension MONITOR_DIMENSION = Toolkit.getDefaultToolkit().getScreenSize();
     private static final int INITIAL_WIDTH = (int) (MONITOR_DIMENSION.getWidth() * 0.7);
     private static final int INITIAL_HEIGHT = (int) (MONITOR_DIMENSION.getHeight() * 0.7);
+    private static final int MIN_WIDTH = (int) (INITIAL_WIDTH * 0.9);
+    private static final int MIN_HEIGHT = (int) (INITIAL_HEIGHT * 0.9);
     private static final String FRAME_NAME = "Migglione: the game";
     private static final String CREDITS_SCENE = "CREDITS";
     private static final String GALLERY_SCENE = "GALLERY";
@@ -53,7 +55,8 @@ public final class SwingViewImpl implements SwingView {
      */
     public SwingViewImpl() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(INITIAL_WIDTH, INITIAL_HEIGHT));
+        frame.setSize(new Dimension(INITIAL_WIDTH, INITIAL_HEIGHT));
+        frame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         frame.setResizable(true);
 
         sceneCreator = new SceneFactoryImpl();
