@@ -54,4 +54,9 @@ public final class LoopingMusicPlayerImpl implements MusicPlayer {
         audioClip = null;
     }
 
+    @Override
+    public String getPath() {
+        return this.trackPath;
+    }
+
 }

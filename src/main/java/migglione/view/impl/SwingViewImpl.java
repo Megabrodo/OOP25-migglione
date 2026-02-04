@@ -73,14 +73,24 @@ public final class SwingViewImpl implements SwingView {
 
         for (final var c : firstPanel.getComponents()) {
             if (c.isVisible() && c instanceof MusicStrategy musicGetter) {
+                MusicPlayer newMusic = musicGetter.getMusic();
                 if (music != null) {
-                    endMusic();
+                    if (!sameMusic(music, newMusic)) {
+                        endMusic();
+                        this.music = musicGetter.getMusic();
+                        this.music.playMusic();
+                    }
+                } else {
+                    this.music = newMusic;
+                    this.music.playMusic();
                 }
-                this.music = musicGetter.getMusic();
-                this.music.playMusic();
                 break;
             }
         }
+    }
+
+    private boolean sameMusic(MusicPlayer music, MusicPlayer newMusic) {
+        return newMusic.getPath().equals(music.getPath());
     }
 
     private void endMusic() {

@@ -18,4 +18,11 @@ public interface MusicPlayer {
      * Functional method to stop the music.
      */
     void stopMusic();
+
+    /**
+     * Getter for the path of the track.
+     * 
+     * @return the String rapresenting the path
+     */
+    String getPath();
 }
