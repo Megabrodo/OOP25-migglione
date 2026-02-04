@@ -13,7 +13,7 @@ import migglione.model.api.Player;
 public class Match {
 
     private final Map<Player, Integer> scores = new HashMap<>();
-    private int turnStart;
+    private int turn = 1;
 
     /**
      * Constructor of the class.
@@ -41,7 +41,7 @@ public class Match {
      * </ol>
      */
     public void playTurn() {
-        final int attrChoice = turnStart; //rudimental sub, should be like: players.get(turnStart).chooseAttr();
+        final int attrChoice = turn % 5; //rudimental sub, should be like: players.get(turnStart % 2).chooseAttr();
         int compSign = 1;
         int comparison = 0;
         for ( Player p : scores.keySet()) {
@@ -50,6 +50,6 @@ public class Match {
         }
         final Player winner = scores.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
         scores.replace(winner, scores.get(winner) + Math.abs(comparison));
-        turnStart = (turnStart + 1) % scores.keySet().size();
+        turn++;
     }
 }
