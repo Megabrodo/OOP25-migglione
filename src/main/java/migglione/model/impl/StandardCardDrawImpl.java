@@ -27,11 +27,15 @@ public final class StandardCardDrawImpl implements CardDraw {
      * Constructor of the class.
      * 
      * <p>
-     * By initializing the deck, the constructor
+     * By using the deck in its definition, the constructor
      * makes that the cards that are able to be drawn
      * are the one shuffled in the chosen Deck implementation
+     * 
+     * @param deck is the deck which implementation can
+     *             be freely chosen and will make the base of the
+     *             cards that can be drawn after being shuffled
      */
-    public StandardCardDrawImpl(Deck deck) {
+    public StandardCardDrawImpl(final Deck deck) {
         this.cards = new ArrayList<>(deck.shuffle());
     }
 
