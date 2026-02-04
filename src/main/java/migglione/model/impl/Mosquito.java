@@ -7,15 +7,23 @@ import migglione.model.api.Player;
 
 public class Mosquito implements Player {
     private final List<Card> hand = new ArrayList<>();
-
-    public Mosquito(List<Card> hand) {
+    private int chosenAttr;
+    
+    /**
+     * Constructor for mosquito player, there is the hand of the player and:
+     * *there will be more variables for checking the game state*
+     * 
+     * @param hand
+     */
+    public Mosquito(final List<Card> hand) {
         this.hand.addAll(hand);
     }
 
     @Override
-    public int playCard(int attrChoice, Card playedCard) {
+    public int playCard(final int Attr, final Card playedCard) {
         final Card attrCard = this.hand.remove(this.hand.indexOf(playedCard));
-        switch (attrChoice) {
+        chooseAttr(Attr);
+        switch (chosenAttr) {
             case 0: return attrCard.getAttk();
             case 1: return attrCard.getDeff();
             case 2: return attrCard.getStrength();
@@ -32,9 +40,14 @@ public class Mosquito implements Player {
     }
 
     @Override
-    public void drawCard(Card drawnCard) {
+    public void drawCard(final Card drawnCard) {
         if (hand.size() < 3) {
             this.hand.addLast(drawnCard);
         }
+    }
+
+    @Override
+    public void chooseAttr(int Attr) {
+        this.chosenAttr = Attr;
     }
 }

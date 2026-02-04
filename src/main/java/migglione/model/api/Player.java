@@ -12,8 +12,12 @@ public interface Player {
      * Method used for playing a specified card.
      * Needs the Integer representing the card in the Cards.java class,
      * then removes the card from the player's hand.
+     * 
+     * @param attr
+     * @param playedCard
+     * @return
      */
-    public int playCard(int attrChoice, Card playedCard);
+    int playCard(final int attr, final Card playedCard);
 
     /**
      * Used for knowing the cards in hand at the beginning for each round 
@@ -21,7 +25,7 @@ public interface Player {
      * @return the List of Integer values representing
      *         the cards in Player's hand
      */
-    public List<Card> getHand();
+    List<Card> getHand();
 
     /**
      * Method to draw a card at the start of each round,
@@ -29,5 +33,13 @@ public interface Player {
      * 
      * @param drawnCard
      */
-    public void drawCard(Card drawnCard);
+    void drawCard(final Card drawnCard);
+
+    /**
+     * The chosen attribute is stored internally to the player, 
+     * so that playing a card and choosing the attributes are 2 separate methods
+     * 
+     * @param Attr
+     */
+    void chooseAttr(final int Attr);
 }
