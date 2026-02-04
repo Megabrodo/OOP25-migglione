@@ -20,7 +20,7 @@ public class Cards {
         cards.put(10, new Card("Calabria", 1, 10, 1, 1, 1));
         cards.put(11, new Card("Ulisse", 9, 9, 9, 7, 8));
         cards.put(12, new Card("Maestro Zanus", 7, 8, 8, 9, 3));
-        cards.put(13, new Card("Dio Rey", 8, 8, 8, 9, 9));
+        cards.put(13, new Card("Il Dio Rey", 8, 8, 8, 9, 9));
         cards.put(14, new Card("La Lega Delle Leggende", 7, 8, 9 ,6, 2));
         cards.put(15, new Card("Il Grande Danizambo Magno", 1, 1, 1, 1, 1));
         cards.put(16, new Card("La Lomgo", 1, 1, 9, 8, 10));
