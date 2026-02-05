@@ -50,13 +50,14 @@ public final class LoopingMusicPlayerImpl implements MusicPlayer {
 
     @Override
     public void stopMusic() {
-        audioClip.stop();
-        audioClip = null;
+        if (audioClip != null) {
+            audioClip.stop();
+            audioClip = null;
+        }
     }
 
     @Override
     public String getPath() {
         return this.trackPath;
     }
-
 }
