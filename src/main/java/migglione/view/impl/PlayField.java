@@ -9,18 +9,23 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 
+import migglione.view.api.music.MusicPlayer;
+import migglione.view.api.music.MusicStrategy;
+import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
+
 /** 
  * Class for managing the playing field's view, 
  * with both player's hands, decks and scores,
  * along with a settings section.
  * */
-public class PlayField extends JPanel {
+public final class PlayField extends JPanel implements MusicStrategy {
 
     private static final long serialVersionUID = 5456545654L;
     private static final int RED_HUE = 173;
     private static final int GREEN_HUE = 103;
     private static final int BLUE_HUE = 44;
     private static final Color TABLE_COLOR = new Color(RED_HUE, GREEN_HUE, BLUE_HUE);
+    private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
 
     /**
      * Constructor of this class. 
@@ -28,16 +33,18 @@ public class PlayField extends JPanel {
      * opponent's hand, menu and scores.
      */
     public PlayField() {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BorderLayout()); //prob is "this inside boxlayout"
+
         final JPanel pCards = new JPanel();
         final JPanel oCards = new JPanel();
         final JPanel mainField = new JPanel();
         final JPanel scoreCol = new JPanel();
         final JButton pScore = new JButton("0");
         final JButton oScore = new JButton("0");
-        this.add(oCards);
-        this.add(mainField);
-        this.add(pCards);
+
+        this.add(oCards, BorderLayout.NORTH);
+        this.add(mainField, BorderLayout.CENTER);
+        this.add(pCards, BorderLayout.SOUTH);
 
         mainField.setBackground(TABLE_COLOR);
         mainField.setBorder(new SoftBevelBorder(1, Color.BLACK, Color.DARK_GRAY));
@@ -53,5 +60,10 @@ public class PlayField extends JPanel {
         scoreCol.add(oScore);
         scoreCol.add(Box.createVerticalGlue());
         scoreCol.add(pScore);
+    }
+
+    @Override
+    public MusicPlayer getMusic() {
+        return new LoopingMusicPlayerImpl(TRACK_PATH);
     }
 }
