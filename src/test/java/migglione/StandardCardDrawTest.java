@@ -40,8 +40,8 @@ class StandardCardDrawTest {
         final List<Card> cardsDraw = new ArrayList<>(standardDraw.getRemainingCards());
 
         assertEquals(
-            cardsInDeck.stream().map(c -> c.getName()).sorted().toList(),
-            cardsDraw.stream().map(c -> c.getName()).sorted().toList());
+            cardsInDeck.stream().map(Card::getName).sorted().toList(),
+            cardsDraw.stream().map(Card::getName).sorted().toList());
     }
 
     @Test
@@ -59,7 +59,7 @@ class StandardCardDrawTest {
         final Card removedCard = standardDraw.getCard();
         final Set<String> cardsNames = database.getCards().values()
             .stream()
-            .map(c -> c.getName())
+            .map(Card::getName)
             .collect(Collectors.toSet());
 
         assertTrue(cardsNames.contains(removedCard.getName()));
