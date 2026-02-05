@@ -1,5 +1,6 @@
 package migglione.view.impl.musicimpl;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
@@ -36,7 +37,9 @@ public final class LoopingMusicPlayerImpl implements MusicPlayer {
     @Override
     public void playMusic() {
         try {
-            final AudioInputStream audioStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(trackPath));
+            final AudioInputStream audioStream = AudioSystem.getAudioInputStream(
+                new BufferedInputStream(getClass().getResourceAsStream(trackPath))
+            );
 
             audioClip = AudioSystem.getClip();
             audioClip.open(audioStream);

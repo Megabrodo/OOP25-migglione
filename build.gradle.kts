@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     // Apply the java plugin to add support for Java
     java
@@ -54,5 +56,12 @@ tasks.withType<Test>().configureEach {
         // Display all events (test started, succeeded, failed...)
         events(*org.gradle.api.tasks.testing.logging.TestLogEvent.entries.toTypedArray())
         showStandardStreams = true // Show the standard output
+    }
+}
+
+tasks.named<ShadowJar>("shadowJar") {
+    mergeServiceFiles()
+    manifest {
+        attributes("Main-Class" to "migglione.MigglioneStart")
     }
 }
