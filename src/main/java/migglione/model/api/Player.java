@@ -5,7 +5,7 @@ import java.util.List;
 import migglione.model.impl.Card;
 
 /**
- * interface where the methods in common with the user and the CPU are described
+ * interface where the methods in common with the user and the CPU are described.
  */
 public interface Player {
     /**
@@ -13,14 +13,14 @@ public interface Player {
      * Needs the Integer representing the card in the Cards.java class,
      * then removes the card from the player's hand.
      * 
-     * @param attr
-     * @param playedCard
-     * @return
+     * @param attr the attribute decided to determine who wins
+     * @param playedCard the played card who's going to be removed from the hand
+     * @return the value of card's attribute
      */
-    int playCard(final int attr, final Card playedCard);
+    int playCard(int attr, Card playedCard);
 
     /**
-     * Used for knowing the cards in hand at the beginning for each round 
+     * Used for knowing the cards in hand at the beginning for each round.
      * 
      * @return the List of Integer values representing
      *         the cards in Player's hand
@@ -28,25 +28,24 @@ public interface Player {
     List<Card> getHand();
 
     /**
-     * Method to draw a card at the start of each round,
-     * only if player has < 3 cards in hand or the deck is not empty
+     * Method to draw a card at the start of each round.
+     * Only if player has < 3 cards in hand or the deck is not empty
      * 
-     * @param drawnCard
+     * @param drawnCard the card to put in hand
      */
-    void drawCard(final Card drawnCard);
+    void drawCard(Card drawnCard);
 
     /**
-     * The chosen attribute is stored internally to the player, 
-     * so that playing a card and choosing the attributes are 2 separate methods
+     * The chosen attribute is stored internally to the player.
+     * So that playing a card and choosing the attributes are 2 separate methods
      * 
-     * @param Attr
+     * @param attr the attribute to play the card with
      */
-    void chooseAttr(final int Attr);
+    void chooseAttr(int attr);
 
     /**
-     * Method to understand what attribute a player is using in a round
+     * Method to understand what attribute a player is using in a round.
      * 
-     * @param Attr
      * @return current selected attribute
      */
     int getAttr();
