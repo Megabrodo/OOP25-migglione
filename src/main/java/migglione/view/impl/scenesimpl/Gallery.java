@@ -49,7 +49,7 @@ public final class Gallery extends JPanel implements MusicStrategy {
     private static final String BACK = "Back";
 
     private final transient Image galleryImage;
-    private final Cards database;
+    private final transient Cards database;
     private JScrollPane galleryScroll;
 
     /**
