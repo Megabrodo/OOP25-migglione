@@ -13,6 +13,12 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
+    public void setPlayerName(String name) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPlayerName'");
+    }
+
+    @Override
     public void move() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'move'");
@@ -29,5 +35,4 @@ public class ControllerImpl implements Controller {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'endMatch'");
     }
-    
 }
