@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -37,21 +36,30 @@ class StandardCardDrawTest {
     @Test
     void drawSameCardsInDeck() {
         final List<Card> cardsInDeck = new ArrayList<>(deck.getDeck()); 
-        final List<Card> cardsDraw = new ArrayList<>(standardDraw.getRemainingCards());
+        final List<Card> cardsWithDraw = createDeckList();
 
         assertEquals(
             cardsInDeck.stream().map(Card::getName).sorted().toList(),
-            cardsDraw.stream().map(Card::getName).sorted().toList());
+            cardsWithDraw.stream().map(Card::getName).sorted().toList());
+    }
+
+    private List<Card> createDeckList() {
+        final List<Card> deckList = new ArrayList<>();
+        final int fullDeckSize = standardDraw.getSizeDeck();
+    
+        for (int i = 0; i < fullDeckSize; i++) {
+            deckList.add(standardDraw.getCard());
+        }
+        return deckList;
     }
 
     @Test
     void checkDrawRemovesCard() {
-        final Set<Card> beforeDraw = new HashSet<>(standardDraw.getRemainingCards());
+        final int beforeDraw = standardDraw.getSizeDeck();
         standardDraw.getCard();
-        final Set<Card> afterDraw = new HashSet<>(standardDraw.getRemainingCards());
+        final int afterDraw = standardDraw.getSizeDeck();
 
         assertNotEquals(beforeDraw, afterDraw);
-        assertNotEquals(beforeDraw.size(), afterDraw.size());
     }
 
     @Test

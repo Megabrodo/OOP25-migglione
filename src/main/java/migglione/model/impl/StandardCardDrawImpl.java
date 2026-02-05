@@ -1,7 +1,6 @@
 package migglione.model.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import migglione.model.api.CardDraw;
 import migglione.model.api.Deck;
@@ -50,7 +49,7 @@ public final class StandardCardDrawImpl implements CardDraw {
     }
 
     @Override
-    public List<Card> getRemainingCards() {
-        return Collections.unmodifiableList(this.cards);
+    public int getSizeDeck() {
+        return this.cards.size();
     }
 }

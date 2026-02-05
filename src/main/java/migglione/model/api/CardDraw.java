@@ -1,7 +1,5 @@
 package migglione.model.api;
 
-import java.util.List;
-
 import migglione.model.impl.Card;
 
 /**
@@ -32,9 +30,9 @@ public interface CardDraw {
     boolean isDeckEmpty();
 
     /**
-     * Getter for the list of the cards remaining to draw.
+     * Getter for the size of the list of the cards remaining to draw.
      * 
-     * @return the list of the cards still able to be drawn
+     * @return the size of the list of the cards still able to be drawn
      */
-    List<Card> getRemainingCards();
+    int getSizeDeck();
 }
