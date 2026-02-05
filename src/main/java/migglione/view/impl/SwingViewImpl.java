@@ -115,13 +115,4 @@ public final class SwingViewImpl implements SwingView {
         endMusic();
         frame.dispose();
     }
-
-    /**
-     * Functional main put just to see the implementations better.
-     * 
-     * @param args is functional
-     */
-    public static void main(final String[] args) {
-        new SwingViewImpl();
-    }
 }
