@@ -48,6 +48,7 @@ public final class Gallery extends JPanel implements MusicStrategy {
 
     private final transient Image galleryImage;
     private final Cards database;
+    private JScrollPane galleryScroll;
 
     /**
      * Constructor of Gallery.
@@ -88,7 +89,7 @@ public final class Gallery extends JPanel implements MusicStrategy {
             cardsGrid.add(cardLabel);
         }
 
-        final JScrollPane galleryScroll = new JScrollPane(cardsGrid);
+        galleryScroll = new JScrollPane(cardsGrid);
 
         galleryScroll.getViewport().setBackground(Color.BLACK);
         galleryScroll.setOpaque(false);
@@ -97,6 +98,10 @@ public final class Gallery extends JPanel implements MusicStrategy {
 
         galleryBox.add(galleryScroll, BorderLayout.CENTER);
         return galleryBox;
+    }
+
+    public void resetScrollBar() {
+        this.galleryScroll.getVerticalScrollBar().setValue(0);
     }
 
     @Override

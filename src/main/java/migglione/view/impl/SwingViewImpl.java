@@ -72,19 +72,24 @@ public final class SwingViewImpl implements SwingView {
         currentSceneName = sceneName;
 
         for (final var c : firstPanel.getComponents()) {
-            if (c.isVisible() && c instanceof MusicStrategy musicGetter) {
-                final MusicPlayer newMusic = musicGetter.getMusic();
-                if (music != null) {
-                    if (!sameMusic(music, newMusic)) {
-                        endMusic();
-                        this.music = musicGetter.getMusic();
+            if (c.isVisible()) {
+                if (c instanceof Gallery gallery) {
+                    gallery.resetScrollBar();
+                }
+                if (c instanceof MusicStrategy musicGetter) {
+                    final MusicPlayer newMusic = musicGetter.getMusic();
+                    if (music != null) {
+                        if (!sameMusic(music, newMusic)) {
+                            endMusic();
+                            this.music = musicGetter.getMusic();
+                            this.music.playMusic();
+                        }
+                    } else {
+                        this.music = newMusic;
                         this.music.playMusic();
                     }
-                } else {
-                    this.music = newMusic;
-                    this.music.playMusic();
+                    break;
                 }
-                break;
             }
         }
     }
