@@ -11,7 +11,7 @@ public class Cards {
         cards.put(1, new Card("Ander Bleido", 6, 5, 7, 4, 7));
         cards.put(2, new Card("Capitan Vesuvio", 7, 8, 5, 2, 5));
         cards.put(3, new Card("Acquaman", 7, 4, 7, 6, 8));
-        cards.put(4, new Card("IL Mazzo Di Carte", 10, 10, 10, 10, 10));
+        cards.put(4, new Card("Il Mazzo Di Carte", 10, 10, 10, 10, 10));
         cards.put(5, new Card("Il Dia-Bolo", 9, 3, 5, 6, 3));
         cards.put(6, new Card("Il Grande Barraza Magno", 8, 9, 8, 5, 3));
         cards.put(7, new Card("Il Falchiere", 6, 4, 2, 7, 9));
