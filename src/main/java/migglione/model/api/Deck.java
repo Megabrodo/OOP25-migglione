@@ -20,10 +20,8 @@ public interface Deck {
      * While it can be different by adopting different implementation,
      * in our case we will use an implementation that lets us
      * shuffle it randomly, without any constraints
-     * 
-     * @return the now randomized list of cards
      */
-    List<Card> shuffle();
+    void shuffle();
 
     /**
      * Used to return the list full of the indexes of the cards.

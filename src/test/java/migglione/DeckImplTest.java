@@ -49,8 +49,10 @@ class DeckImplTest {
             secondCardsList.stream().map(Card::getName).collect(Collectors.toSet())
         );
 
-        firstCardsList = new ArrayList<>(deck.shuffle());
-        secondCardsList = new ArrayList<>(deck2.shuffle());
+        deck.shuffle();
+        deck2.shuffle();
+        firstCardsList = new ArrayList<>(deck.getDeck());
+        secondCardsList = new ArrayList<>(deck2.getDeck());
 
         assertEquals(
             firstCardsList.stream().map(Card::getName).collect(Collectors.toSet()),

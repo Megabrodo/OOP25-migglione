@@ -40,7 +40,7 @@ public final class DeckImpl implements Deck {
     }
 
     @Override
-    public List<Card> shuffle() {
+    public void shuffle() {
         final List<Card> temp = new ArrayList<>();
 
         for (int i = deck.size(); i > 0; i--) {
@@ -49,7 +49,6 @@ public final class DeckImpl implements Deck {
         }
 
         deck.addAll(temp);
-        return this.getDeck();
     }
 
     @Override

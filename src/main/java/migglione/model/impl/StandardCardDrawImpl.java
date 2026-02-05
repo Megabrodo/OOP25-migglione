@@ -35,7 +35,8 @@ public final class StandardCardDrawImpl implements CardDraw {
      *             cards that can be drawn after being shuffled
      */
     public StandardCardDrawImpl(final Deck deck) {
-        this.cards = new ArrayList<>(deck.shuffle());
+        deck.shuffle();
+        this.cards = new ArrayList<>(deck.getDeck());
     }
 
     @Override
