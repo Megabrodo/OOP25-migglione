@@ -102,6 +102,13 @@ public final class Gallery extends JPanel implements MusicStrategy {
         return galleryBox;
     }
 
+    /**
+     * Method used to reset the scroll bar.
+     * 
+     * <p>
+     * It allows it to return to its default position
+     * upon re-entering the scene
+     */
     public void resetScrollBar() {
         this.galleryScroll.getVerticalScrollBar().setValue(0);
     }
