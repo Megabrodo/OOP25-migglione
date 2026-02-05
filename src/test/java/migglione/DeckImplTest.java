@@ -14,8 +14,23 @@ import migglione.model.api.Deck;
 import migglione.model.impl.Card;
 import migglione.model.impl.DeckImpl;
 
+/**
+ * Test used to make sure that the Deck and DeckImpl classes work.
+ * 
+ * <p>
+ * It is responsible for testing: if the deck is empty
+ * when initialized, if two deck are equal when initialized
+ * and if their size doesn't change upon shuffling and if the
+ * cards are effectivly shuffled with the shuffle method
+ * 
+ * <p>
+ * WARNING: there is the tiniest rarest chance that the last
+ * test could fail if the randomized deck placed the cards in the
+ * same order of the first deck, but that is intentional since we want
+ * to make sure that the randomness is true for all cases
+ */
 public class DeckImplTest {
-    
+
     private final Deck deck = new DeckImpl();
     private final Deck deck2 = new DeckImpl();
 
@@ -46,9 +61,9 @@ public class DeckImplTest {
 
     @Test
     void randomizedShuffle() {
-        List<Card> cards = new ArrayList<>(deck.getDeck());
+        final List<Card> cards = new ArrayList<>(deck.getDeck());
         deck.shuffle();
-        List<Card> cardsAfter = new ArrayList<>(deck.getDeck());
+        final List<Card> cardsAfter = new ArrayList<>(deck.getDeck());
 
         assertNotEquals(cards, cardsAfter);
     }
