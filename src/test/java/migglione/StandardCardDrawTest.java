@@ -19,7 +19,16 @@ import migglione.model.impl.Cards;
 import migglione.model.impl.DeckImpl;
 import migglione.model.impl.StandardCardDrawImpl;
 
-public class StandardCardDrawTest {
+/**
+ * Responsible for testing the StandardCardDrawImpl class.
+ * 
+ * <p>
+ * This test check the validity for: if no cards have been
+ * drawn then it contains the same cards as the deck, when a
+ * card is drawn it is removed from the remainingCards and that
+ * what is removed is indeed an object Card
+ */
+class StandardCardDrawTest {
 
     private final Deck deck = new DeckImpl();
     private final CardDraw standardDraw = new StandardCardDrawImpl(deck);
@@ -27,9 +36,9 @@ public class StandardCardDrawTest {
 
     @Test
     void drawSameCardsInDeck() {
-        List<Card> cardsInDeck = new ArrayList<>(deck.getDeck()); 
-        List<Card> cardsDraw = new ArrayList<>(standardDraw.getRemainingCards());
-    
+        final List<Card> cardsInDeck = new ArrayList<>(deck.getDeck()); 
+        final List<Card> cardsDraw = new ArrayList<>(standardDraw.getRemainingCards());
+
         assertEquals(
             cardsInDeck.stream().map(c -> c.getName()).sorted().toList(),
             cardsDraw.stream().map(c -> c.getName()).sorted().toList());
@@ -37,9 +46,9 @@ public class StandardCardDrawTest {
 
     @Test
     void checkDrawRemovesCard() {
-        HashSet<Card> beforeDraw = new HashSet<>(standardDraw.getRemainingCards());
+        final Set<Card> beforeDraw = new HashSet<>(standardDraw.getRemainingCards());
         standardDraw.getCard();
-        HashSet<Card> afterDraw = new HashSet<>(standardDraw.getRemainingCards());
+        final Set<Card> afterDraw = new HashSet<>(standardDraw.getRemainingCards());
 
         assertNotEquals(beforeDraw, afterDraw);
         assertNotEquals(beforeDraw.size(), afterDraw.size());
@@ -47,8 +56,8 @@ public class StandardCardDrawTest {
 
     @Test
     void removedObjectIsCard() {
-        Card removedCard = standardDraw.getCard();
-        Set<String> cardsNames = database.getCards().values()
+        final Card removedCard = standardDraw.getCard();
+        final Set<String> cardsNames = database.getCards().values()
             .stream()
             .map(c -> c.getName())
             .collect(Collectors.toSet());

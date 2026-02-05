@@ -29,7 +29,7 @@ import migglione.model.impl.DeckImpl;
  * same order of the first deck, but that is intentional since we want
  * to make sure that the randomness is true for all cases
  */
-public class DeckImplTest {
+class DeckImplTest {
 
     private final Deck deck = new DeckImpl();
     private final Deck deck2 = new DeckImpl();
