@@ -1,4 +1,4 @@
-package migglione.view.api;
+package migglione.view.api.scenes;
 
 import javax.swing.JPanel;
 

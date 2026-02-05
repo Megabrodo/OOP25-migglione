@@ -7,11 +7,13 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import migglione.view.api.SceneFactory;
-import migglione.view.api.Scenes;
 import migglione.view.api.SwingView;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicStrategy;
+import migglione.view.api.scenes.SceneFactory;
+import migglione.view.api.scenes.Scenes;
+import migglione.view.impl.scenesimpl.Gallery;
+import migglione.view.impl.scenesimpl.SceneFactoryImpl;
 
 /**
  * Implementation of the SwingView interface.

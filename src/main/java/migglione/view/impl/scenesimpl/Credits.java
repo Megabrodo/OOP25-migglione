@@ -1,4 +1,4 @@
-package migglione.view.impl;
+package migglione.view.impl.scenesimpl;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -9,9 +9,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import migglione.view.api.Scenes;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicStrategy;
+import migglione.view.api.scenes.Scenes;
+import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
 /**

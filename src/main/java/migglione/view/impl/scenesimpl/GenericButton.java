@@ -1,4 +1,4 @@
-package migglione.view.impl;
+package migglione.view.impl.scenesimpl;
 
 import java.awt.Color;
 import java.awt.Dimension;

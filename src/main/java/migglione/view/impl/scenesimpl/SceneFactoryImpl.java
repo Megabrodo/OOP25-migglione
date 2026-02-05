@@ -1,9 +1,10 @@
-package migglione.view.impl;
+package migglione.view.impl.scenesimpl;
 
 import javax.swing.JPanel;
 
-import migglione.view.api.SceneFactory;
-import migglione.view.api.Scenes;
+import migglione.view.api.scenes.SceneFactory;
+import migglione.view.api.scenes.Scenes;
+import migglione.view.impl.SwingViewImpl;
 
 /**
  * Implementation of SceneFactory.

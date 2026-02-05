@@ -1,4 +1,4 @@
-package migglione.view.impl;
+package migglione.view.impl.scenesimpl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,9 +17,10 @@ import javax.swing.JScrollPane;
 
 import migglione.model.impl.Card;
 import migglione.model.impl.Cards;
-import migglione.view.api.Scenes;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicStrategy;
+import migglione.view.api.scenes.Scenes;
+import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
 /**

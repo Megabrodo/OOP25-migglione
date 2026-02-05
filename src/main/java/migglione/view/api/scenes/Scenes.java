@@ -1,4 +1,4 @@
-package migglione.view.api;
+package migglione.view.api.scenes;
 
 /**
  * Enum used to store the names of the different scenes used.
