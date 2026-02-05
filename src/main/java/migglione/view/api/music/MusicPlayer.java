@@ -1,4 +1,4 @@
-package migglione.view.api;
+package migglione.view.api.music;
 
 /**
  * Interface used to describes the main methods for playing music.

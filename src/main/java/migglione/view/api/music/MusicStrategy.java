@@ -1,4 +1,4 @@
-package migglione.view.api;
+package migglione.view.api.music;
 
 /**
  * Functional interface to apply the Strategy method.

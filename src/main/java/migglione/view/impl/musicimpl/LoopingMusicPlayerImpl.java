@@ -1,4 +1,4 @@
-package migglione.view.impl;
+package migglione.view.impl.musicimpl;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import migglione.view.api.MusicPlayer;
+import migglione.view.api.music.MusicPlayer;
 
 /**
  * Implementation of MusicPlayer.

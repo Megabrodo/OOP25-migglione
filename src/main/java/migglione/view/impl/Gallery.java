@@ -17,9 +17,10 @@ import javax.swing.JScrollPane;
 
 import migglione.model.impl.Card;
 import migglione.model.impl.Cards;
-import migglione.view.api.MusicPlayer;
-import migglione.view.api.MusicStrategy;
 import migglione.view.api.Scenes;
+import migglione.view.api.music.MusicPlayer;
+import migglione.view.api.music.MusicStrategy;
+import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
 /**
  * The class Gallery allows to see all the sprites of the cards.

@@ -9,9 +9,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import migglione.view.api.MusicPlayer;
-import migglione.view.api.MusicStrategy;
 import migglione.view.api.Scenes;
+import migglione.view.api.music.MusicPlayer;
+import migglione.view.api.music.MusicStrategy;
+import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
 /**
  * Class Credits scene of the application,

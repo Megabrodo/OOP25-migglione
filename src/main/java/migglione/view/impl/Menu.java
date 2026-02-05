@@ -14,9 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import migglione.view.api.MusicPlayer;
-import migglione.view.api.MusicStrategy;
 import migglione.view.api.Scenes;
+import migglione.view.api.music.MusicPlayer;
+import migglione.view.api.music.MusicStrategy;
+import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
 /**
  * Class designed to construct the Menu scene of the application,
