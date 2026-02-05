@@ -38,7 +38,7 @@ public final class Menu extends JPanel implements MusicStrategy {
     private static final String FONT_NAME = "Times New Roman";
     private static final int FONT_SIZE = 70;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
-    private static final String TRACK_PATH = "/soundtracks/Machine-Love-_feat.-Neuro-sama_-Neuro-sama-Community-Collab.wav";
+    private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private final transient Image titleImage;
 
     /**

@@ -24,7 +24,7 @@ public final class Credits extends JPanel implements MusicStrategy {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/credits.png";
-    private static final String TRACK_PATH = "/soundtracks/Machine-Love-_feat.-Neuro-sama_-Neuro-sama-Community-Collab.wav";
+    private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private static final String BACK = "Back";
     private final transient Image creditsImage;
 
