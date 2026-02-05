@@ -2,7 +2,6 @@ package migglione.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import migglione.model.api.Player;
 
@@ -23,7 +22,7 @@ public class Mosquito implements Player {
     }
 
     @Override
-    public int playCard(final int Attr, final Optional<Card> playedCard) {
+    public int playCard(final int Attr, final Card playedCard) {
         if (myTurn) {
             return playCardFirst(playedCard);
         } else {
@@ -60,14 +59,13 @@ public class Mosquito implements Player {
      * @param playedCard
      * @return
      */
-    private int playCardFirst(final Optional<Card> playedCard) {
-        Card bestCard = new Card("EmptyCard", 0, 0, 0, 0, 0);
+    private int playCardFirst(Card playedCard) {
         int maxStat = 0; 
         for (Card c : hand) {
             for (int i = 0; i < 5; i++) {
                 if (getAttr(i, c) > maxStat) {
                     maxStat = getAttr(i, c);
-                    bestCard = c;
+                    playedCard = c;
                     chooseAttr(i);
                 }
                 if (maxStat == 10) {
@@ -75,7 +73,7 @@ public class Mosquito implements Player {
                 }
             }
         }
-        hand.remove(bestCard);
+        hand.remove(playedCard);
         return maxStat;
     }
 
@@ -86,10 +84,11 @@ public class Mosquito implements Player {
      * @param playedCard
      * @return
      */
-    private int playCardSecond(final int Attr, final Optional<Card> playedCard) {
+    private int playCardSecond(final int Attr, Card playedCard) {
         chooseAttr(Attr);
-        Card bestCard = maxStat(Attr, playedCard);
-        return getAttr(Attr, bestCard);
+        playedCard = maxStat(Attr, playedCard);
+        hand.remove(playedCard);
+        return getAttr(Attr, playedCard);
     }
 
     /**
@@ -100,14 +99,13 @@ public class Mosquito implements Player {
      * @param BestCard
      * @return
      */
-    private Card maxStat(final int Attr, Optional<Card> BestCard) {
-        Card maxStat = new Card("EmptyCard", 0, 0, 0, 0, 0);
+    private Card maxStat(final int Attr, Card BestCard) {
         for (Card c : hand) {
-            if (getAttr(Attr, c) > getAttr(Attr, maxStat)) {
-                maxStat = c;
+            if (getAttr(Attr, c) > getAttr(Attr, BestCard)) {
+                BestCard = c;
             }
         }
-        return maxStat;
+        return BestCard;
     }
 
     private int getAttr(final int Attr, final Card playedCard) {
