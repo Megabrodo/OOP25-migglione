@@ -24,10 +24,12 @@ public class Match {
      * 
      * @param starter the player that starts the first turn
      * @param second the player that will go second in the first turn
+     * @param stDeck the CardDraw strategy implemented for the first player
+     * @param scDeck the CardDraw strategy implemented for the second player
      */
     public Match(final Player starter, final Player second, final CardDraw stDeck, final CardDraw scDeck) {
-        scores.put(starter, new DoubleStore<CardDraw,Integer>(stDeck, 0));
-        scores.put(second, new DoubleStore<CardDraw,Integer>(scDeck, 0));
+        scores.put(starter, new DoubleStore<>(stDeck, 0));
+        scores.put(second, new DoubleStore<>(scDeck, 0));
         this.allDraw(HAND_SIZE);
         //other setup needed
     }
@@ -46,7 +48,7 @@ public class Match {
         final int attrChoice = scores.keySet().stream().toList().get(turn % 2 - 1).getAttr();
         int compSign = 1;
         int comparison = 0;
-        for ( Player p : scores.keySet()) {
+        for (final Player p : scores.keySet()) {
             comparison += p.playCard(attrChoice, p.getHand().getFirst()) * compSign; //card currently chosen automatically
             compSign *= -1;
         }
@@ -56,9 +58,9 @@ public class Match {
         this.allDraw(1);
     }
 
-    private void allDraw(int n) {
+    private void allDraw(final int n) {
         for (int i = 0; i < n; i++) {
-            for (Player p : scores.keySet()) {
+            for (final Player p : scores.keySet()) {
                 p.drawCard(scores.get(p).getX().getCard());
             }
         }
@@ -75,18 +77,26 @@ public class Match {
 
     /** 
      * Checks if the match has ended.
-    */
+     * 
+     * @return a boolean indicating if this match has ended.
+     */
     public boolean matchEnded() {
-        for (Player p : scores.keySet()) {
-            if(scores.get(p).getX().isDeckEmpty()) {
+        for (final var p : scores.entrySet()) {
+            if (p.getValue().getX().isDeckEmpty()) {
                 return true;
             }
         }
         return false;
     }
 
-    public int getScore(Player player) {
-        if(scores.keySet().contains(player)) {
+    /**
+     * Method to get the current score of one player.
+     * 
+     * @param player the player whose score is requested.
+     * @return the score of said player.
+     */
+    public int getScore(final Player player) {
+        if (scores.keySet().contains(player)) {
             return scores.get(player).getY();
         } else {
             throw new IllegalArgumentException("Requested score of a player not in this match.");
