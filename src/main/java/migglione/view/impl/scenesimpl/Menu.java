@@ -27,7 +27,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  */
 public final class Menu extends JPanel implements MusicStrategy {
 
-    private static final long serialVersionUID = 9879879879L;
+    private static final long serialVersionUID = 9879879872L;
     private static final String TITLE = "IL MIGGLIONE";
     private static final String START_GAME = "Start Game";
     private static final String SCORES = "Scores";

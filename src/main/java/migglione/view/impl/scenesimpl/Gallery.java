@@ -40,7 +40,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  */
 public final class Gallery extends JPanel implements MusicStrategy {
 
-    private static final long serialVersionUID = 9879879879L;
+    private static final long serialVersionUID = 9879879870L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final int CARDS_WIDTH = 200;
