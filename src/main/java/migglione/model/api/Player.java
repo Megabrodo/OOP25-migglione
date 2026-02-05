@@ -1,6 +1,7 @@
 package migglione.model.api;
 
 import java.util.List;
+import java.util.Optional;
 
 import migglione.model.impl.Card;
 
@@ -17,7 +18,7 @@ public interface Player {
      * @param playedCard
      * @return
      */
-    int playCard(final int attr, final Card playedCard);
+    int playCard(final int attr, final Optional<Card> playedCard);
 
     /**
      * Used for knowing the cards in hand at the beginning for each round 

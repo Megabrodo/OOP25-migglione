@@ -2,6 +2,7 @@ package migglione.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import migglione.model.api.Player;
 
@@ -22,11 +23,11 @@ public class Mosquito implements Player {
     }
 
     @Override
-    public int playCard(final int Attr, final Card playedCard) {
+    public int playCard(final int Attr, final Optional<Card> playedCard) {
         if (myTurn) {
-            return playCardFirst();
+            return playCardFirst(playedCard);
         } else {
-            return playCardSecond(Attr);
+            return playCardSecond(Attr, playedCard);
         }
     }
 
@@ -59,11 +60,25 @@ public class Mosquito implements Player {
      * @param playedCard
      * @return
      */
-    private int playCardFirst() {
-        //algoritmo per capire che attributo usare
-        
-        return 0;
+    private int playCardFirst(final Optional<Card> playedCard) {
+        Card bestCard = new Card("EmptyCard", 0, 0, 0, 0, 0);
+        int maxStat = 0; 
+        for (Card c : hand) {
+            for (int i = 0; i < 5; i++) {
+                if (getAttr(i, c) > maxStat) {
+                    maxStat = getAttr(i, c);
+                    bestCard = c;
+                    chooseAttr(i);
+                }
+                if (maxStat == 10) {
+                    i = 4;
+                }
+            }
+        }
+        hand.remove(bestCard);
+        return maxStat;
     }
+
     /**
      * If mosquito's second, he'll play a card that has the highest attribute
      * 
@@ -71,44 +86,44 @@ public class Mosquito implements Player {
      * @param playedCard
      * @return
      */
-    private int playCardSecond(final int Attr) {
+    private int playCardSecond(final int Attr, final Optional<Card> playedCard) {
         chooseAttr(Attr);
-        return maxStat(chosenAttr);
+        Card bestCard = maxStat(Attr, playedCard);
+        return getAttr(Attr, bestCard);
     }
 
-    private int maxStat(final int Attr) {
-        int max = 0;
+    /**
+     * To understand what card is best to be played, this is the algorhythm.
+     * Might be optimized with "if i can't win, might use the worst"
+     * 
+     * @param Attr
+     * @param BestCard
+     * @return
+     */
+    private Card maxStat(final int Attr, Optional<Card> BestCard) {
+        Card maxStat = new Card("EmptyCard", 0, 0, 0, 0, 0);
         for (Card c : hand) {
-            switch (Attr) {
-                case 1:
-                    if (c.getAttk() > max) {
-                        max = c.getAttk();
-                    }
-                    break;
-                case 2:
-                    if (c.getDeff() > max) {
-                        max = c.getDeff();
-                    }
-                    break;
-                case 3:
-                    if (c.getStrength() > max) {
-                        max = c.getStrength();
-                    }
-                    break;
-                case 4:
-                    if (c.getIntelligence() > max) {
-                        max = c.getIntelligence();
-                    }
-                    break;
-                case 5:
-                    if (c.getStealth() > max) {
-                        max = c.getStealth();
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid attribute: " + Attr);
+            if (getAttr(Attr, c) > getAttr(Attr, maxStat)) {
+                maxStat = c;
             }
         }
-        return max;
+        return maxStat;
+    }
+
+    private int getAttr(final int Attr, final Card playedCard) {
+        switch (Attr) {
+            case 1:
+                return playedCard.getAttk();
+            case 2:
+                return playedCard.getDeff();
+            case 3:
+                return playedCard.getStrength();
+            case 4:
+                return playedCard.getIntelligence();
+            case 5:
+                return playedCard.getStealth();
+            default:
+                throw new IllegalArgumentException("Invalid attribute: " + Attr);
+        }
     }
 }
