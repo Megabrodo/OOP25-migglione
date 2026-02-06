@@ -3,15 +3,13 @@ package migglione.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import migglione.model.api.Player;
-
 /**
  * The class in which the methods of the Mosquito player are used.
  * Different from the user class as the user gets to choose autonomously.
  */
-public final class Mosquito implements Player {
+public final class Mosquito extends User {
     private final List<Card> hand = new ArrayList<>();
-    private int chosenAttr;
+    //private int chosenAttr;
     private boolean myTurn;
 
     /**
@@ -22,64 +20,17 @@ public final class Mosquito implements Player {
      * @param turn which turn is at the first round
      */
     public Mosquito(final List<Card> hand, final boolean turn) {
-        this.hand.addAll(hand);
+        super(hand);
         myTurn = turn;
     }
 
     @Override
-    public int playCard(final int attr, final Card playedCard) {
+    public final int playCard(final String attr, final Card playedCard) {
         //to implement a way to understand if it's mosquito's turn
-        setMyTurn(!myTurn);
         if (myTurn) {
             return playCardFirst(playedCard);
         } else {
             return playCardSecond(attr, playedCard);
-        }
-    }
-
-    @Override
-    public List<Card> getHand() {
-        return hand;
-    }
-
-    @Override
-    public void drawCard(final Card drawnCard) {
-        if (hand.size() < 3) {
-            this.hand.addLast(drawnCard);
-        }
-    }
-
-    @Override
-    public void chooseAttr(final int attr) {
-        this.chosenAttr = attr;
-    }
-
-    @Override
-    public int getAttr() {
-        return this.chosenAttr;
-    }
-
-    /**
-     * A method to understand what attributes is being searched.
-     * 
-     * @param attr used to know what attribute to use
-     * @param playedCard the card we want to know the value of
-     * @return the value of the specified card's attribute
-     */
-    private int getAttr(final int attr, final Card playedCard) {
-        switch (attr) {
-            case 1:
-                return playedCard.getAttk();
-            case 2:
-                return playedCard.getDeff();
-            case 3:
-                return playedCard.getStrength();
-            case 4:
-                return playedCard.getIntelligence();
-            case 5:
-                return playedCard.getStealth();
-            default:
-                throw new IllegalArgumentException("Invalid attribute: " + attr);
         }
     }
 
@@ -94,15 +45,34 @@ public final class Mosquito implements Player {
         int maxStat = 0;
         Card bestCard = playedCard;
         for (final Card c : hand) {
-            for (int i = 1; i < 6; i++) {
-                if (getAttr(i, c) > maxStat) {
-                    maxStat = getAttr(i, c);
-                    bestCard = c;
-                    chooseAttr(i);
-                }
-                if (maxStat == 10) {
-                    i = 5;
-                }
+            //implementato di schifo adesso sistemo
+            if (getAttr("Attk", c) > maxStat) {
+                maxStat = getAttr("Attk", c);
+                bestCard = c;
+                chooseAttr("Attk");
+            }
+            if (getAttr("Deff", c) > maxStat) {
+                maxStat = getAttr("Deff", c);
+                bestCard = c;
+                chooseAttr("Deff");
+            }
+            if (getAttr("Strength", c) > maxStat) {
+                maxStat = getAttr("Strength", c);
+                bestCard = c;
+                chooseAttr("Strength");
+            }
+            if (getAttr("Intelligence", c) > maxStat) {
+                maxStat = getAttr("Intelligence", c);
+                bestCard = c;
+                chooseAttr("Intelligence");
+            }
+            if (getAttr("Attk", c) > maxStat) {
+                maxStat = getAttr("Attk", c);
+                bestCard = c;
+                chooseAttr("Attk");
+            }
+            if (maxStat == 10) {
+                break;
             }
         }
         hand.remove(bestCard);
@@ -116,7 +86,7 @@ public final class Mosquito implements Player {
      * @param playedCard the card that will be played and removed from hand
      * @return the value of the played card in the specified attribute
      */
-    private int playCardSecond(final int attr, final Card playedCard) {
+    private int playCardSecond(final String attr, final Card playedCard) {
         chooseAttr(attr);
         final Card bestCard = maxStat(attr, playedCard);
         hand.remove(bestCard);
@@ -131,7 +101,7 @@ public final class Mosquito implements Player {
      * @param playedCard the card that will be played and removed from hand
      * @return the value of the played card in the specified attribute
      */
-    private Card maxStat(final int attr, final Card playedCard) {
+    private Card maxStat(final String attr, final Card playedCard) {
         Card bestCard = playedCard;
         for (final Card c : hand) {
             if (getAttr(attr, c) > getAttr(attr, bestCard)) {
@@ -147,7 +117,7 @@ public final class Mosquito implements Player {
      * 
      * @param turn whose turn it is, true for mosquito, false for user
      */
-    private void setMyTurn(final boolean turn) {
+    public void setMyTurn(final boolean turn) {
         this.myTurn = turn;
     }
 }

@@ -17,7 +17,7 @@ public interface Player {
      * @param playedCard the played card who's going to be removed from the hand
      * @return the value of card's attribute
      */
-    int playCard(int attr, Card playedCard);
+    int playCard(String attr, Card playedCard);
 
     /**
      * Used for knowing the cards in hand at the beginning for each round.
@@ -41,12 +41,12 @@ public interface Player {
      * 
      * @param attr the attribute to play the card with
      */
-    void chooseAttr(int attr);
+    void chooseAttr(String attr);
 
     /**
      * Method to understand what attribute a player is using in a round.
      * 
      * @return current selected attribute
      */
-    int getAttr();
+    String getAttr();
 }

@@ -6,34 +6,34 @@ import java.util.List;
 import migglione.model.api.CardDraw;
 import migglione.model.api.Deck;
 
-public class discardPile {
+public class PointsPile {
 
 //List<Card> pile = new ArrayList<>();
-private List<Card> discardPile;
+private List<Card> pile;
     
-    public discardPile(){
+    public PointsPile(){
         //this.pile = new ArrayList<>();
-        this.discardPile = new ArrayList<>();
+        this.pile = new ArrayList<>();
     }
 
     public void discard (Card card){
-        discardPile.add(card);
+        pile.add(card);
     }
 
-    public boolean isDiscardPileEmpty(){
-        return this.discardPile.isEmpty();
+    public boolean ispileEmpty(){
+        return this.pile.isEmpty();
     }
 
     public Card scry(){
-        if(isDiscardPileEmpty()){
+        if(ispileEmpty()){
             return null;
         }
-        return discardPile.get(discardPile.size() -1);
+        return pile.get(pile.size() -1);
     }
 
     /*
     public void replace(ArrayList<Cards> cards){
-        this.discardPile = discardPile.toArray(new Cards cards.size());
+        this.pile = pile.toArray(new Cards cards.size());
         this.
     }
     */
