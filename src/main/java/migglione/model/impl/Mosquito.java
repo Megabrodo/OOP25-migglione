@@ -3,13 +3,11 @@ package migglione.model.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import migglione.model.api.Player;
-
 /**
  * The class in which the methods of the Mosquito player are used.
  * Different from the user class as the user gets to choose autonomously.
  */
-public final class Mosquito implements Player {
+public final class Mosquito extends User {
     private final List<Card> hand = new ArrayList<>();
     private int chosenAttr;
     private boolean myTurn;
@@ -22,7 +20,7 @@ public final class Mosquito implements Player {
      * @param turn which turn is at the first round
      */
     public Mosquito(final List<Card> hand, final boolean turn) {
-        this.hand.addAll(hand);
+        super(hand);
         myTurn = turn;
     }
 
