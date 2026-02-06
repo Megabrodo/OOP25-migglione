@@ -27,7 +27,6 @@ public final class Mosquito extends User {
     @Override
     public final int playCard(final String attr, final Card playedCard) {
         //to implement a way to understand if it's mosquito's turn
-        setMyTurn(!myTurn);
         if (myTurn) {
             return playCardFirst(playedCard);
         } else {
@@ -46,7 +45,7 @@ public final class Mosquito extends User {
         int maxStat = 0;
         Card bestCard = playedCard;
         for (final Card c : hand) {
-            //implementato di merda adesso sistemo
+            //implementato di schifo adesso sistemo
             if (getAttr("Attk", c) > maxStat) {
                 maxStat = getAttr("Attk", c);
                 bestCard = c;
@@ -118,7 +117,7 @@ public final class Mosquito extends User {
      * 
      * @param turn whose turn it is, true for mosquito, false for user
      */
-    private void setMyTurn(final boolean turn) {
+    public void setMyTurn(final boolean turn) {
         this.myTurn = turn;
     }
 }
