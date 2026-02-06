@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.Box;
@@ -25,7 +24,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * it offers the option to start the game, see the tutorial, the gallery,
  * the credits and to quit the application.
  */
-public final class Menu extends JPanel implements MusicStrategy {
+public final class Menu extends GamePanel implements MusicStrategy {
 
     private static final long serialVersionUID = 9879879872L;
     private static final String TITLE = "IL MIGGLIONE";
@@ -98,13 +97,12 @@ public final class Menu extends JPanel implements MusicStrategy {
     }
 
     @Override
-    protected void paintComponent(final Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(titleImage, 0, 0, getWidth(), getHeight(), this);
+    public MusicPlayer getMusic() {
+        return new LoopingMusicPlayerImpl(TRACK_PATH);
     }
 
     @Override
-    public MusicPlayer getMusic() {
-        return new LoopingMusicPlayerImpl(TRACK_PATH);
+    protected Image getImage() {
+        return titleImage;
     }
 }

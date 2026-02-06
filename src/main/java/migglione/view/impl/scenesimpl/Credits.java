@@ -2,7 +2,6 @@ package migglione.view.impl.scenesimpl;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -20,7 +19,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * it simply presents the creators and gives
  * credits to whoever was involved in the project.
  */
-public final class Credits extends JPanel implements MusicStrategy {
+public final class Credits extends GamePanel implements MusicStrategy {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/credits.png";
@@ -47,13 +46,12 @@ public final class Credits extends JPanel implements MusicStrategy {
     }
 
     @Override
-    protected void paintComponent(final Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(creditsImage, 0, 0, getWidth(), getHeight(), this);
+    public MusicPlayer getMusic() {
+        return new LoopingMusicPlayerImpl(TRACK_PATH);
     }
 
     @Override
-    public MusicPlayer getMusic() {
-        return new LoopingMusicPlayerImpl(TRACK_PATH);
+    protected Image getImage() {
+        return creditsImage;
     }
 }
