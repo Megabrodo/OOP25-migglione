@@ -1,7 +1,7 @@
 package migglione.view.api.music;
 
 /**
- * Functional interface to apply the Strategy method.
+ * Functional interface to return a Strategy.
  * 
  * <p>
  * This interface makes so every scene can return it's

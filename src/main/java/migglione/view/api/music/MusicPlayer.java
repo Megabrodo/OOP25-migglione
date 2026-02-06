@@ -1,7 +1,7 @@
 package migglione.view.api.music;
 
 /**
- * Interface used to describes the main methods for playing music.
+ * Interface used to to apply the Strategy method.
  * 
  * <p>
  * This way, different types of music can be played and also
