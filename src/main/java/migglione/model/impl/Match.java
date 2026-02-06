@@ -81,8 +81,8 @@ public class Match {
      * @return a boolean indicating if this match has ended.
      */
     public boolean matchEnded() {
-        for (final var p : scores.entrySet()) {
-            if (p.getValue().getX().isDeckEmpty()) {
+        for (final var p : scores.keySet()) {
+            if (scores.get(p).getX().isDeckEmpty() && p.getHand().isEmpty()) {
                 return true;
             }
         }
