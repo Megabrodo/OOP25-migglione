@@ -15,11 +15,13 @@ public class Match {
 
     private static final int HAND_SIZE = 3;
     private static final int MAX_CONSEC_WINS = 3;
-    private final Map<Player, DoubleStore<CardDraw, Integer>> scores = new HashMap<>();
+    private final Map<Player, Integer> scoring = new HashMap<>();
+    private final CardDraw deck;
     private int turn = 1;
     private int consecWins;
     private Player latestWin;
     private int turnLead;
+    private int cardsStakes;
 
     /**
      * Constructor of the class.
@@ -31,11 +33,11 @@ public class Match {
      * @param stDeck the CardDraw strategy implemented for the first player
      * @param scDeck the CardDraw strategy implemented for the second player
      */
-    public Match(final Player starter, final Player second, final CardDraw stDeck, final CardDraw scDeck) {
-        scores.put(starter, new DoubleStore<>(stDeck, 0));
-        scores.put(second, new DoubleStore<>(scDeck, 0));
+    public Match(final Player starter, final Player second, final CardDraw deck) {
+        scoring.put(starter, 0);
+        scoring.put(second, 0);
+        this.deck = deck;
         this.allDraw(HAND_SIZE);
-        //other setup needed
     }
 
     /**
@@ -49,24 +51,28 @@ public class Match {
      * </ol>
      */
     public void playTurn() {
-        final int attrChoice = scores.keySet().stream().toList().get(turnLead).getAttr();
+        final int attrChoice = scoring.keySet().stream().toList().get(turnLead).getAttr(); 
         int compSign = 1;
         int comparison = 0;
-        for (final Player p : scores.keySet()) {
+        for (final Player p : scoring.keySet()) {
             comparison += p.playCard(attrChoice, p.getHand().getFirst()) * compSign;
             compSign *= -1;
+            cardsStakes++;
         }
-        final Player winner = scores.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
-        scores.get(winner).setY(scores.get(winner).getY() + Math.abs(comparison));
+        if (comparison != 0) {
+        final Player winner = scoring.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
+        scoring.replace(winner, scoring.get(winner) + cardsStakes);
+        this.changeTurn(winner);
+        cardsStakes = 0;
+        }
         turn++;
         this.allDraw(1);
-        this.changeTurn(winner);
     }
 
     private void allDraw(final int n) {
         for (int i = 0; i < n; i++) {
-            for (final Player p : scores.keySet()) {
-                p.drawCard(scores.get(p).getX().getCard());
+            for (final Player p : scoring.keySet()) {
+                p.drawCard(deck.getCard());
             }
         }
     }
@@ -74,7 +80,7 @@ public class Match {
     private void changeTurn(final Player winner) {
         if (consecWins == 0) {
             latestWin = winner;
-        } else if (latestWin == winner) {
+        } else if (latestWin.equals(winner)) {
             consecWins++;
             if (consecWins >= MAX_CONSEC_WINS) {
                 turnLead = 1 - turnLead;
@@ -84,7 +90,6 @@ public class Match {
             latestWin = winner;
             consecWins = 1;
         }
-        
     }
 
     /**
@@ -102,12 +107,12 @@ public class Match {
      * @return a boolean indicating if this match has ended.
      */
     public boolean matchEnded() {
-        for (final var p : scores.keySet()) {
-            if (scores.get(p).getX().isDeckEmpty() && p.getHand().isEmpty()) {
-                return true;
+        for (final var p : scoring.keySet()) {
+            if (!p.getHand().isEmpty()) {
+                return false;
             }
         }
-        return false;
+        return deck.isDeckEmpty();
     }
 
     /**
@@ -117,8 +122,8 @@ public class Match {
      * @return the score of said player.
      */
     public int getScore(final Player player) {
-        if (scores.keySet().contains(player)) {
-            return scores.get(player).getY();
+        if (scoring.keySet().contains(player)) {
+            return scoring.get(player);
         } else {
             throw new IllegalArgumentException("Requested score of a player not in this match.");
         }
