@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import migglione.view.api.music.MusicPlayer;
-import migglione.view.api.music.MusicStrategy;
+import migglione.view.api.music.MusicProvider;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -24,7 +24,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * it offers the option to start the game, see the tutorial, the gallery,
  * the credits and to quit the application.
  */
-public final class Menu extends GamePanel implements MusicStrategy {
+public final class Menu extends GamePanel implements MusicProvider {
 
     private static final long serialVersionUID = 9879879872L;
     private static final String TITLE = "IL MIGGLIONE";

@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.SoftBevelBorder;
 
 import migglione.view.api.music.MusicPlayer;
-import migglione.view.api.music.MusicStrategy;
+import migglione.view.api.music.MusicProvider;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
 /** 
@@ -18,7 +18,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * with both player's hands, decks and scores,
  * along with a settings section.
  * */
-public final class PlayField extends JPanel implements MusicStrategy {
+public final class PlayField extends JPanel implements MusicProvider {
 
     private static final long serialVersionUID = 5456545654L;
     private static final int RED_HUE = 173;

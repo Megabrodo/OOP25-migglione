@@ -15,7 +15,7 @@ package migglione.view.api.music;
  * previous one (check SetScene)
  */
 @FunctionalInterface
-public interface MusicStrategy {
+public interface MusicProvider {
     /**
      * Method used to return the scene's MusicPlayer.
      * 

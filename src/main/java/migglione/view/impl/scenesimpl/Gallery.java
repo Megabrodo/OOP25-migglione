@@ -17,7 +17,7 @@ import javax.swing.JScrollPane;
 import migglione.model.impl.Card;
 import migglione.model.impl.Cards;
 import migglione.view.api.music.MusicPlayer;
-import migglione.view.api.music.MusicStrategy;
+import migglione.view.api.music.MusicProvider;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -37,7 +37,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * createGalleryBox method, which makes sure that only the sprites
  * are visible (looking at the values would be cheating!)
  */
-public final class Gallery extends GamePanel implements MusicStrategy {
+public final class Gallery extends GamePanel implements MusicProvider {
 
     private static final long serialVersionUID = 9879879870L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";

@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import migglione.view.api.music.MusicPlayer;
-import migglione.view.api.music.MusicStrategy;
+import migglione.view.api.music.MusicProvider;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -19,7 +19,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * it simply presents the creators and gives
  * credits to whoever was involved in the project.
  */
-public final class Credits extends GamePanel implements MusicStrategy {
+public final class Credits extends GamePanel implements MusicProvider {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/credits.png";

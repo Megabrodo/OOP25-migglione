@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import migglione.view.api.SwingView;
 import migglione.view.api.music.MusicPlayer;
-import migglione.view.api.music.MusicStrategy;
+import migglione.view.api.music.MusicProvider;
 import migglione.view.api.scenes.SceneFactory;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.scenesimpl.Gallery;
@@ -78,7 +78,7 @@ public final class SwingViewImpl implements SwingView {
                 if (c instanceof Gallery gallery) {
                     gallery.resetScrollBar();
                 }
-                if (c instanceof MusicStrategy musicGetter) {
+                if (c instanceof MusicProvider musicGetter) {
                     final MusicPlayer newMusic = musicGetter.getMusic();
                     if (music != null) {
                         if (!sameMusic(music, newMusic)) {
