@@ -51,7 +51,7 @@ public class Match {
      * </ol>
      */
     public void playTurn() {
-        final int attrChoice = scoring.keySet().stream().toList().get(turnLead).getAttr(); 
+        final String attrChoice = scoring.keySet().stream().toList().get(turnLead).getAttr(); 
         int compSign = 1;
         int comparison = 0;
         for (final Player p : scoring.keySet()) {
