@@ -3,7 +3,6 @@ package migglione.view.impl.scenesimpl;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.Map;
@@ -38,7 +37,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * createGalleryBox method, which makes sure that only the sprites
  * are visible (looking at the values would be cheating!)
  */
-public final class Gallery extends JPanel implements MusicStrategy {
+public final class Gallery extends GamePanel implements MusicStrategy {
 
     private static final long serialVersionUID = 9879879870L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
@@ -114,14 +113,13 @@ public final class Gallery extends JPanel implements MusicStrategy {
     }
 
     @Override
-    protected void paintComponent(final Graphics g) {
-        super.paintComponent(g);
-        g.drawImage(galleryImage, 0, 0, getWidth(), getHeight(), this);
+    public MusicPlayer getMusic() {
+        return new LoopingMusicPlayerImpl(TRACK_PATH);
     }
 
     @Override
-    public MusicPlayer getMusic() {
-        return new LoopingMusicPlayerImpl(TRACK_PATH);
+    protected Image getImage() {
+        return galleryImage;
     }
 }
 
