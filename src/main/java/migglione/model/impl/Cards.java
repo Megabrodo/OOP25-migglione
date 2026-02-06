@@ -1,13 +1,13 @@
 package migglione.model.impl;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class Cards {
-    private Map <Integer,Card> cards = new HashMap <> ();
+    private Map <Integer, Card> cards = new HashMap<>();
 
-    public Cards(){
+    public Cards() {
         cards.put(1, new Card("Ander Bleido", 6, 5, 7, 4, 7));
         cards.put(2, new Card("Capitan Vesuvio", 7, 8, 5, 2, 5));
         cards.put(3, new Card("Acquaman", 7, 4, 7, 6, 8));
@@ -34,7 +34,7 @@ public class Cards {
         cards.put(24, new Card("Geppetto", 7, 7, 7, 7, 7));
     }
 
-    public Map<Integer,Card> getCards(){
+    public Map<Integer,Card> getCards() {
         return Collections.unmodifiableMap(cards);
     }
     
