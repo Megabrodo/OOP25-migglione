@@ -14,8 +14,12 @@ import migglione.model.api.Player;
 public class Match {
 
     private static final int HAND_SIZE = 3;
+    private static final int MAX_CONSEC_WINS = 3;
     private final Map<Player, DoubleStore<CardDraw, Integer>> scores = new HashMap<>();
     private int turn = 1;
+    private int consecWins;
+    private Player latestWin;
+    private int turnLead;
 
     /**
      * Constructor of the class.
@@ -45,17 +49,18 @@ public class Match {
      * </ol>
      */
     public void playTurn() {
-        final int attrChoice = scores.keySet().stream().toList().get(turn % 2 - 1).getAttr();
+        final int attrChoice = scores.keySet().stream().toList().get(turnLead).getAttr();
         int compSign = 1;
         int comparison = 0;
         for (final Player p : scores.keySet()) {
-            comparison += p.playCard(attrChoice, p.getHand().getFirst()) * compSign; //card currently chosen automatically
+            comparison += p.playCard(attrChoice, p.getHand().getFirst()) * compSign;
             compSign *= -1;
         }
         final Player winner = scores.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
         scores.get(winner).setY(scores.get(winner).getY() + Math.abs(comparison));
         turn++;
         this.allDraw(1);
+        this.changeTurn(winner);
     }
 
     private void allDraw(final int n) {
@@ -64,6 +69,22 @@ public class Match {
                 p.drawCard(scores.get(p).getX().getCard());
             }
         }
+    }
+
+    private void changeTurn(final Player winner) {
+        if (consecWins == 0) {
+            latestWin = winner;
+        } else if (latestWin == winner) {
+            consecWins++;
+            if (consecWins >= MAX_CONSEC_WINS) {
+                turnLead = 1 - turnLead;
+                consecWins = 1;
+            }
+        } else {
+            latestWin = winner;
+            consecWins = 1;
+        }
+        
     }
 
     /**
