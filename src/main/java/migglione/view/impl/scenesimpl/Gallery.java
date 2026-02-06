@@ -58,7 +58,7 @@ public final class Gallery extends GamePanel implements MusicProvider {
      */
     public Gallery(final SwingViewImpl view) {
         this.database = new Cards();
-        final Map<Integer, Card> cards = database.getCards();
+        final Map<String,Card> cards = database.getCards();
 
         this.setLayout(new BorderLayout());
         galleryImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
@@ -74,7 +74,7 @@ public final class Gallery extends GamePanel implements MusicProvider {
         this.add(pSouth, BorderLayout.SOUTH);
     }
 
-    private JPanel createGalleryBox(final Map<Integer, Card> cards) {
+    private JPanel createGalleryBox(final Map<String, Card> cards) {
 
         final JPanel galleryBox = new JPanel(new BorderLayout());
         final JPanel cardsGrid = new JPanel(new GridLayout(0, 3, 10, 20));
