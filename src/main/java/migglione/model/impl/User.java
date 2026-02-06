@@ -11,7 +11,7 @@ import migglione.model.api.Player;
  */
 public class User implements Player {
     private final List<Card> hand = new ArrayList<>();
-    private int chosenAttr;
+    private String chosenAttr;
     private final String name;
 
     /**
@@ -36,7 +36,7 @@ public class User implements Player {
     }
 
     @Override
-    public int playCard(final int attr, final Card playedCard) {
+    public int playCard(final String attr, final Card playedCard) {
         hand.remove(playedCard);
         return getAttr(attr, playedCard);
     }
@@ -54,12 +54,12 @@ public class User implements Player {
     }
 
     @Override
-    public final void chooseAttr(final int attr) {
+    public final void chooseAttr(final String attr) {
         this.chosenAttr = attr;
     }
 
     @Override
-    public final int getAttr() {
+    public final String getAttr() {
         return chosenAttr;
     }
 
@@ -70,17 +70,17 @@ public class User implements Player {
      * @param playedCard the card we want to know the value of
      * @return the value of the specified card's attribute
      */
-    protected int getAttr(final int attr, final Card playedCard) {
+    protected int getAttr(final String attr, final Card playedCard) {
         switch (attr) {
-            case 1:
+            case "Attk":
                 return playedCard.getAttk();
-            case 2:
+            case "Deff":
                 return playedCard.getDeff();
-            case 3:
+            case "Strength":
                 return playedCard.getStrength();
-            case 4:
+            case "Intelligence":
                 return playedCard.getIntelligence();
-            case 5:
+            case "Stealth":
                 return playedCard.getStealth();
             default:
                 throw new IllegalArgumentException("Invalid attribute: " + attr);

@@ -25,7 +25,7 @@ public final class Mosquito extends User {
     }
 
     @Override
-    public final int playCard(final int attr, final Card playedCard) {
+    public final int playCard(final String attr, final Card playedCard) {
         //to implement a way to understand if it's mosquito's turn
         setMyTurn(!myTurn);
         if (myTurn) {
@@ -46,15 +46,34 @@ public final class Mosquito extends User {
         int maxStat = 0;
         Card bestCard = playedCard;
         for (final Card c : hand) {
-            for (int i = 1; i < 6; i++) {
-                if (getAttr(i, c) > maxStat) {
-                    maxStat = getAttr(i, c);
-                    bestCard = c;
-                    chooseAttr(i);
-                }
-                if (maxStat == 10) {
-                    i = 5;
-                }
+            //implementato di merda adesso sistemo
+            if (getAttr("Attk", c) > maxStat) {
+                maxStat = getAttr("Attk", c);
+                bestCard = c;
+                chooseAttr("Attk");
+            }
+            if (getAttr("Deff", c) > maxStat) {
+                maxStat = getAttr("Deff", c);
+                bestCard = c;
+                chooseAttr("Deff");
+            }
+            if (getAttr("Strength", c) > maxStat) {
+                maxStat = getAttr("Strength", c);
+                bestCard = c;
+                chooseAttr("Strength");
+            }
+            if (getAttr("Intelligence", c) > maxStat) {
+                maxStat = getAttr("Intelligence", c);
+                bestCard = c;
+                chooseAttr("Intelligence");
+            }
+            if (getAttr("Attk", c) > maxStat) {
+                maxStat = getAttr("Attk", c);
+                bestCard = c;
+                chooseAttr("Attk");
+            }
+            if (maxStat == 10) {
+                break;
             }
         }
         hand.remove(bestCard);
@@ -68,7 +87,7 @@ public final class Mosquito extends User {
      * @param playedCard the card that will be played and removed from hand
      * @return the value of the played card in the specified attribute
      */
-    private int playCardSecond(final int attr, final Card playedCard) {
+    private int playCardSecond(final String attr, final Card playedCard) {
         chooseAttr(attr);
         final Card bestCard = maxStat(attr, playedCard);
         hand.remove(bestCard);
@@ -83,7 +102,7 @@ public final class Mosquito extends User {
      * @param playedCard the card that will be played and removed from hand
      * @return the value of the played card in the specified attribute
      */
-    private Card maxStat(final int attr, final Card playedCard) {
+    private Card maxStat(final String attr, final Card playedCard) {
         Card bestCard = playedCard;
         for (final Card c : hand) {
             if (getAttr(attr, c) > getAttr(attr, bestCard)) {
