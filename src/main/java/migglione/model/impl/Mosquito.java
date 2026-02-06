@@ -9,7 +9,7 @@ import java.util.List;
  */
 public final class Mosquito extends User {
     private final List<Card> hand = new ArrayList<>();
-    private int chosenAttr;
+    //private int chosenAttr;
     private boolean myTurn;
 
     /**
@@ -25,7 +25,7 @@ public final class Mosquito extends User {
     }
 
     @Override
-    public int playCard(final int attr, final Card playedCard) {
+    public final int playCard(final int attr, final Card playedCard) {
         //to implement a way to understand if it's mosquito's turn
         setMyTurn(!myTurn);
         if (myTurn) {
@@ -33,28 +33,6 @@ public final class Mosquito extends User {
         } else {
             return playCardSecond(attr, playedCard);
         }
-    }
-
-    @Override
-    public List<Card> getHand() {
-        return hand;
-    }
-
-    @Override
-    public void drawCard(final Card drawnCard) {
-        if (hand.size() < 3) {
-            this.hand.addLast(drawnCard);
-        }
-    }
-
-    @Override
-    public void chooseAttr(final int attr) {
-        this.chosenAttr = attr;
-    }
-
-    @Override
-    public int getAttr() {
-        return this.chosenAttr;
     }
 
     /**
