@@ -58,30 +58,6 @@ public final class Mosquito extends User {
     }
 
     /**
-     * A method to understand what attributes is being searched.
-     * 
-     * @param attr used to know what attribute to use
-     * @param playedCard the card we want to know the value of
-     * @return the value of the specified card's attribute
-     */
-    private int getAttr(final int attr, final Card playedCard) {
-        switch (attr) {
-            case 1:
-                return playedCard.getAttk();
-            case 2:
-                return playedCard.getDeff();
-            case 3:
-                return playedCard.getStrength();
-            case 4:
-                return playedCard.getIntelligence();
-            case 5:
-                return playedCard.getStealth();
-            default:
-                throw new IllegalArgumentException("Invalid attribute: " + attr);
-        }
-    }
-
-    /**
      * If it's mosquito's turn, he'll decide what attribute to play on.
      * An algorhythm to understand what could be best is used.
      * 

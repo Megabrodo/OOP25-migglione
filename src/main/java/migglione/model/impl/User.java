@@ -8,9 +8,16 @@ import migglione.model.api.Player;
 public class User implements Player {
     private final List<Card> hand = new ArrayList<>();
     private int chosenAttr;
+    private final String name;
 
     public User(List<Card> startHand) {
         hand.addAll(startHand);
+        this.name = "Player";
+    }
+
+    public User(List<Card> startHand, String name) {
+        hand.addAll(startHand);
+        this.name = name;
     }
 
     @Override
@@ -40,8 +47,19 @@ public class User implements Player {
     public int getAttr() {
         return chosenAttr;
     }
+
+    public String getName() {
+        return name;
+    }
     
-    private int getAttr(final int Attr, final Card playedCard) {
+    /**
+     * A method to understand what attributes is being searched.
+     * 
+     * @param attr used to know what attribute to use
+     * @param playedCard the card we want to know the value of
+     * @return the value of the specified card's attribute
+     */
+    protected int getAttr(final int Attr, final Card playedCard) {
         switch (Attr) {
             case 1:
                 return playedCard.getAttk();
