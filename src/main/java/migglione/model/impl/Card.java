@@ -7,8 +7,8 @@ public class Card {
     private final int strength;
     private final int intelligence;
     private final int stealth;
-    
-    public Card ( final String name, final int attk, final int deff,
+
+    public Card (final String name, final int attk, final int deff,
         final int strength, final int intelligence, final int stealth) {
         this.name = name;
         this.attk = attk;

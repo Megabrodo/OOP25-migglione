@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cards {
-    private Map <String, Card> cards = new HashMap<>();
+    private Map<String, Card> cards = new HashMap<>();
 
     public Cards() {
         cards.put("Ander Bleido",
@@ -35,7 +35,7 @@ public class Cards {
         cards.put("Il Dio Rey",
         new Card("Il Dio Rey", 8, 8, 8, 9, 9));
         cards.put("La Lega Delle Leggende",
-        new Card("La Lega Delle Leggende", 7, 8, 9 ,6, 2));
+        new Card("La Lega Delle Leggende", 7, 8, 9, 6, 2));
         cards.put("Il Grande Danizambo Magno",
         new Card("Il Grande Danizambo Magno", 1, 1, 1, 1, 1));
         cards.put("La Lomgo",
