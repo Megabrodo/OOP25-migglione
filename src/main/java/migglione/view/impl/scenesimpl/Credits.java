@@ -19,7 +19,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * it simply presents the creators and gives
  * credits to whoever was involved in the project.
  */
-public final class Credits extends GamePanel implements MusicProvider {
+public final class Credits extends AbstractGamePanel implements MusicProvider {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/credits.png";

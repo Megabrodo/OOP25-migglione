@@ -36,7 +36,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * createGalleryBox method, which makes sure that only the sprites
  * are visible (looking at the values would be cheating!)
  */
-public final class Gallery extends GamePanel implements MusicProvider {
+public final class Gallery extends AbstractGamePanel implements MusicProvider {
 
     private static final long serialVersionUID = 9879879870L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
