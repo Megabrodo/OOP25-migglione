@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import migglione.model.impl.Cards;
@@ -42,6 +43,7 @@ public final class Gallery extends AbstractGamePanel implements MusicProvider {
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private static final int CARDS_WIDTH = 200;
     private static final int CARDS_HEIGHT = 250;
+    private static final int BAR_INCREMENT = 20;
     private static final String TRACK_PATH = "/soundtracks/Trophy Gallery.wav";
     private static final String BACK = "Back";
 
@@ -93,7 +95,10 @@ public final class Gallery extends AbstractGamePanel implements MusicProvider {
         galleryScroll.getViewport().setBackground(Color.BLACK);
         galleryScroll.setOpaque(false);
         galleryScroll.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));
-        galleryScroll.getVerticalScrollBar().setBackground(Color.BLACK);
+
+        final JScrollBar bar = galleryScroll.getVerticalScrollBar();
+        bar.setBackground(Color.BLACK);
+        bar.setUnitIncrement(BAR_INCREMENT);
 
         galleryBox.add(galleryScroll, BorderLayout.CENTER);
         return galleryBox;
@@ -120,4 +125,3 @@ public final class Gallery extends AbstractGamePanel implements MusicProvider {
         return galleryImage;
     }
 }
-
