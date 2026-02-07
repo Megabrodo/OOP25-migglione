@@ -34,4 +34,12 @@ public enum CardId {
         this.id = id;
         this.card = new Card(name, attk, deff, strength, intelligence, stealth);
     }
+
+    public Card getCardId() {
+        return card;
+    }
+
+    public int getId() {
+        return id;
+    }
 }
