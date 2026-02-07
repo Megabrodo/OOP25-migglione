@@ -70,9 +70,11 @@ public class Match {
     }
 
     private void allDraw(final int n) {
-        for (int i = 0; i < n; i++) {
-            for (final Player p : scoring.keySet()) {
-                p.drawCard(deck.getCard());
+        if (!deck.isDeckEmpty()) {
+            for (int i = 0; i < n; i++) {
+                for (final Player p : scoring.keySet()) {
+                    p.drawCard(deck.getCard());
+                }
             }
         }
     }
@@ -129,6 +131,11 @@ public class Match {
         }
     }
 
+    /**
+     * Method to obtain the players involved in the match.
+     * 
+     * @return a list containing the players in the match.
+     */
     public List<Player> getPlayers() {
         return scoring.keySet().stream().toList();
     }
