@@ -2,7 +2,9 @@ package migglione.model.impl;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Cards {
     private Map<String, Card> cards = new HashMap<>();
@@ -60,5 +62,14 @@ public class Cards {
 
     public Map<String, Card> getCards() {
         return Collections.unmodifiableMap(cards);
+    }
+
+    /**
+     * Getter for the path of the sprites of the cards.
+     * 
+     * @return the path of the image (see Gallery for use)
+     */
+    public List<String> getCardsPaths() {
+        return cards.keySet().stream().map(n -> "/images/cards/" + n + ".png").collect(Collectors.toList());
     }
 }

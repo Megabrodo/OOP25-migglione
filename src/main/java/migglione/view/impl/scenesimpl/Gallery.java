@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.util.Map;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -14,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import migglione.model.impl.Card;
 import migglione.model.impl.Cards;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
@@ -41,7 +40,6 @@ public final class Gallery extends GamePanel implements MusicProvider {
 
     private static final long serialVersionUID = 9879879870L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
-    private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final int CARDS_WIDTH = 200;
     private static final int CARDS_HEIGHT = 250;
     private static final String TRACK_PATH = "/soundtracks/Trophy Gallery.wav";
@@ -58,13 +56,13 @@ public final class Gallery extends GamePanel implements MusicProvider {
      */
     public Gallery(final SwingViewImpl view) {
         this.database = new Cards();
-        final Map<String, Card> cards = database.getCards();
+        final List<String> cardsPath = database.getCardsPaths();
 
         this.setLayout(new BorderLayout());
         galleryImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
 
         final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        final JPanel pGallery = createGalleryBox(cards);
+        final JPanel pGallery = createGalleryBox(cardsPath);
         final JButton back = new GenericButton(BACK, b -> view.setScene(Scenes.MENU.getScene()));
 
         pSouth.setOpaque(false);
@@ -74,14 +72,14 @@ public final class Gallery extends GamePanel implements MusicProvider {
         this.add(pSouth, BorderLayout.SOUTH);
     }
 
-    private JPanel createGalleryBox(final Map<String, Card> cards) {
+    private JPanel createGalleryBox(final List<String> cardsPath) {
 
         final JPanel galleryBox = new JPanel(new BorderLayout());
         final JPanel cardsGrid = new JPanel(new GridLayout(0, 3, 10, 20));
         cardsGrid.setOpaque(false);
 
-        for (final var entry : cards.entrySet()) {
-            final ImageIcon card = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + entry.getValue().getName() + ".png"));
+        for (final var path : cardsPath) {
+            final ImageIcon card = new ImageIcon(getClass().getResource(path));
             final ImageIcon scaledCard = new ImageIcon(
                 card.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
             );
