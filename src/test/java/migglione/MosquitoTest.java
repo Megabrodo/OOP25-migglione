@@ -24,7 +24,8 @@ class MosquitoTest {
 
     @Test
     void drawToFull() {
-        for (int i = 0; i < 5; i++) {
+        int moreThanEnoughCards = 5;
+        for (int i = 0; i < moreThanEnoughCards; i++) {
             mosquitoPlayer.drawCard(new Card("EmptyCard", 0, 0, 0, 0, 0));
         }
         assertEquals(3, mosquitoPlayer.getHand().size());
@@ -47,20 +48,20 @@ class MosquitoTest {
 
     @Test
     void playCardFirst() {
-        Card bestCard = new Card("best", 10, 10, 10, 10, 10);
-        Card okCard = new Card("ok", 4, 5, 5, 3, 5);
-        Card worstCard = new Card("worst", 1, 0, 0, 0, 0);
+        final Card bestCard = new Card("best", 9, 9, 9, 10, 10);
+        final Card okCard = new Card("ok", 4, 1, 5, 3, 2);
+        final Card worstCard = new Card("worst", 1, 0, 0, 0, 0);
         mosquitoPlayer.drawCard(bestCard);
         mosquitoPlayer.drawCard(okCard);
         mosquitoPlayer.drawCard(worstCard);
         mosquitoPlayer.setMyTurn(true);
-        int bestAttr = mosquitoPlayer.playCard("placeholder", okCard);
+        int bestAttr = mosquitoPlayer.playCard("placeholderBest", okCard);
         assertEquals(2, mosquitoPlayer.getHand().size());
-        assertEquals(10, bestAttr);
-        bestAttr = mosquitoPlayer.playCard("placeholder", okCard);
-        assertEquals(5, bestAttr);
-        bestAttr = mosquitoPlayer.playCard("placeholder", okCard);
-        assertEquals(1, bestAttr);
+        assertEquals(bestCard.getStealth(), bestAttr);
+        bestAttr = mosquitoPlayer.playCard("placeholderOk", okCard);
+        assertEquals(okCard.getStrength(), bestAttr);
+        bestAttr = mosquitoPlayer.playCard("placeholderWorst", okCard);
+        assertEquals(worstCard.getAttk(), bestAttr);
     }
 
     @Test
