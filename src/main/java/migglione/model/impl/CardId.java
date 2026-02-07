@@ -40,11 +40,11 @@ public enum CardId {
     }
 
     public Card getCardId() {
-        return card;
+        return this.card;
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public static Map<Integer, Card> buildCardsMap() {
