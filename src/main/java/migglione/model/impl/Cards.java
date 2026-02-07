@@ -47,7 +47,7 @@ public class Cards {
         card.put("Brigus",
         new Card("Brigus", 3, 3, 3, 9, 9));
         card.put("Giotaro Giorgio",
-        new Card("Giotàro Giorgio", 4, 8, 4, 7, 4));
+        new Card("Giotaro Giorgio", 4, 8, 4, 7, 4));
         card.put("Lo Sgreve",
         new Card("Lo Sgreve", 2, 2, 3, 4, 8));
         card.put("La Cally",
