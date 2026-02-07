@@ -11,7 +11,7 @@ private final List<Card> pile;
         this.pile = new ArrayList<>();
     }
 
-    public void discard(final Card card) {
+    public void addPile(final Card card) {
         pile.add(card);
     }
 
