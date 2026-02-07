@@ -13,6 +13,7 @@ public class User implements Player {
     private final List<Card> hand = new ArrayList<>();
     private String chosenAttr;
     private final String name;
+    private final PointsPile pile = new PointsPile();
 
     /**
      * Constructor for the Mosquito player(or anonymous).
@@ -61,6 +62,14 @@ public class User implements Player {
     @Override
     public final String getAttr() {
         return chosenAttr;
+    }
+
+    @Override
+    public final PointsPile getPile(List<Card> pointsWon) {
+        for (Card point : pointsWon) {
+            pile.addPile(point);
+        }
+        return pile;
     }
 
     /**
