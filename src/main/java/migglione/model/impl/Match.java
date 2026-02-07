@@ -49,8 +49,10 @@ public class Match {
      * <li> sends the cards to the winner's winnings pile;
      * <li> updates the score.
      * </ol>
+     * 
+     * @return if this was the last turn of the match.
      */
-    public void playTurn() {
+    public boolean playTurn() {
         final String attrChoice = scoring.keySet().stream().toList().get(turnLead).getAttr(); 
         int compSign = 1;
         int comparison = 0;
@@ -65,8 +67,12 @@ public class Match {
         this.changeTurn(winner);
         cardsStakes = 0;
         }
-        turn++;
-        this.allDraw(1);
+        final boolean isEnd = matchEnded();
+        if (!isEnd) {
+            turn++;
+            this.allDraw(1);
+        }
+        return isEnd;
     }
 
     private void allDraw(final int n) {
