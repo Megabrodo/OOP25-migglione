@@ -9,7 +9,7 @@ import java.util.List;
  */
 public final class Mosquito extends User {
     private final List<Card> hand = new ArrayList<>();
-    //private int chosenAttr;
+    private String chosenAttr;
     private boolean myTurn;
 
     /**
@@ -45,31 +45,10 @@ public final class Mosquito extends User {
         int maxStat = 0;
         Card bestCard = playedCard;
         for (final Card c : hand) {
-            //implementato di schifo adesso sistemo
-            if (getAttr("Attk", c) > maxStat) {
-                maxStat = getAttr("Attk", c);
+            chooseAttr(bestAttr(playedCard));
+            if (getAttr(chosenAttr, c) > maxStat) {
+                maxStat = getAttr(chosenAttr, c);
                 bestCard = c;
-                chooseAttr("Attk");
-            }
-            if (getAttr("Deff", c) > maxStat) {
-                maxStat = getAttr("Deff", c);
-                bestCard = c;
-                chooseAttr("Deff");
-            }
-            if (getAttr("Strength", c) > maxStat) {
-                maxStat = getAttr("Strength", c);
-                bestCard = c;
-                chooseAttr("Strength");
-            }
-            if (getAttr("Intelligence", c) > maxStat) {
-                maxStat = getAttr("Intelligence", c);
-                bestCard = c;
-                chooseAttr("Intelligence");
-            }
-            if (getAttr("Stealth", c) > maxStat) {
-                maxStat = getAttr("Stealth", c);
-                bestCard = c;
-                chooseAttr("Stealth");
             }
             if (maxStat == 10) {
                 break;
@@ -77,6 +56,26 @@ public final class Mosquito extends User {
         }
         hand.remove(bestCard);
         return maxStat;
+    }
+
+    /**
+     * 
+     * 
+     * @param playedCard
+     * @return
+     */
+    private String bestAttr(final Card playedCard) {
+        if (playedCard.getAttk() > playedCard.getDeff() && playedCard.getAttk() > playedCard.getStrength() && playedCard.getAttk() > playedCard.getIntelligence() && playedCard.getAttk() > playedCard.getStealth()) {
+            return "Attk";
+        } else if (playedCard.getDeff() > playedCard.getStrength() && playedCard.getDeff() > playedCard.getIntelligence() && playedCard.getDeff() > playedCard.getStealth()) {
+            return "Deff";
+        } else if (playedCard.getStrength() > playedCard.getIntelligence() && playedCard.getStrength() > playedCard.getStealth()) {
+            return "Strength";
+        } else if (playedCard.getIntelligence() > playedCard.getStealth()) {
+            return "Intelligence";
+        } else {
+            return "Stealth";
+        }
     }
 
     /**
