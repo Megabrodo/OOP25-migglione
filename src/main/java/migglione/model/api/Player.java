@@ -58,4 +58,11 @@ public interface Player {
      * @param pointsWon the cards to add to pile
      */
     PointsPile getPile(List<Card> pointsWon);
+
+    /**
+     * A method to get the name of the player, used for the scoreboard.
+     *
+     * @return User's name
+     */
+    String getName();
 }

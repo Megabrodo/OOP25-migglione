@@ -9,7 +9,6 @@ import java.util.List;
  */
 public final class Mosquito extends User {
     private final List<Card> hand = new ArrayList<>();
-    private String chosenAttr;
     private boolean myTurn;
 
     /**
@@ -34,6 +33,14 @@ public final class Mosquito extends User {
         }
     }
 
+    @Override
+    public PointsPile getPile(List<Card> pointsWon) {
+        for (Card point : pointsWon) {
+            pile.addPile(point);
+        }
+        return pile;
+    }
+
     /**
      * If it's mosquito's turn, he'll decide what attribute to play on.
      * An algorhythm to understand what could be best is used.
@@ -45,7 +52,7 @@ public final class Mosquito extends User {
         int maxStat = 0;
         Card bestCard = playedCard;
         for (final Card c : hand) {
-            chooseAttr(bestAttr(playedCard));
+            chooseAttr(bestAttr(c));
             if (getAttr(chosenAttr, c) > maxStat) {
                 maxStat = getAttr(chosenAttr, c);
                 bestCard = c;
@@ -59,10 +66,10 @@ public final class Mosquito extends User {
     }
 
     /**
+     * Method to understand what attribute is best for the card, used in playCardFirst.
      * 
-     * 
-     * @param playedCard
-     * @return
+     * @param playedCard the card to analyze
+     * @return the name of the best attribute for the card, in case of tie the last with the best is chosen
      */
     private String bestAttr(final Card playedCard) {
         if (playedCard.getAttk() > playedCard.getDeff() && playedCard.getAttk() > playedCard.getStrength() && playedCard.getAttk() > playedCard.getIntelligence() && playedCard.getAttk() > playedCard.getStealth()) {
