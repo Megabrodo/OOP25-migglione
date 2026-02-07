@@ -66,10 +66,19 @@ class MosquitoTest {
 
     @Test
     void playCardSecond() {
-        mosquitoPlayer.drawCard(new Card("Card1", 1, 1, 1, 1, 1));
-        mosquitoPlayer.drawCard(new Card("Card2", 2, 2, 2, 2, 2));
-        mosquitoPlayer.drawCard(new Card("Card3", 3, 3, 3, 3, 3));
-        mosquitoPlayer.setMyTurn(true);
-        //assertEquals();
+        final Card bestCard = new Card("best", 9, 9, 9, 10, 10);
+        final Card okCard = new Card("ok", 4, 1, 5, 3, 2);
+        final Card worstCard = new Card("worst", 1, 0, 0, 0, 0);
+        mosquitoPlayer.drawCard(bestCard);
+        mosquitoPlayer.drawCard(okCard);
+        mosquitoPlayer.drawCard(worstCard);
+        mosquitoPlayer.setMyTurn(false);
+        int bestAttr = mosquitoPlayer.playCard("Attk", okCard);
+        assertEquals(2, mosquitoPlayer.getHand().size());
+        assertEquals(bestCard.getAttk(), bestAttr);
+        bestAttr = mosquitoPlayer.playCard("Deff", okCard);
+        assertEquals(okCard.getDeff(), bestAttr);
+        bestAttr = mosquitoPlayer.playCard("Stealth", okCard);
+        assertEquals(worstCard.getStealth(), bestAttr);
     }
 }

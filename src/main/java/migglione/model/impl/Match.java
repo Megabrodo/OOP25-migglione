@@ -1,6 +1,7 @@
 package migglione.model.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import migglione.model.api.CardDraw;
@@ -30,8 +31,7 @@ public class Match {
      * 
      * @param starter the player that starts the first turn
      * @param second the player that will go second in the first turn
-     * @param stDeck the CardDraw strategy implemented for the first player
-     * @param scDeck the CardDraw strategy implemented for the second player
+     * @param deck the CardDraw strategy implemented
      */
     public Match(final Player starter, final Player second, final CardDraw deck) {
         scoring.put(starter, 0);
@@ -49,8 +49,10 @@ public class Match {
      * <li> sends the cards to the winner's winnings pile;
      * <li> updates the score.
      * </ol>
+     * 
+     * @return if this was the last turn of the match.
      */
-    public void playTurn() {
+    public boolean playTurn() {
         final String attrChoice = scoring.keySet().stream().toList().get(turnLead).getAttr(); 
         int compSign = 1;
         int comparison = 0;
@@ -65,14 +67,20 @@ public class Match {
         this.changeTurn(winner);
         cardsStakes = 0;
         }
-        turn++;
-        this.allDraw(1);
+        final boolean isEnd = matchEnded();
+        if (!isEnd) {
+            turn++;
+            this.allDraw(1);
+        }
+        return isEnd;
     }
 
     private void allDraw(final int n) {
-        for (int i = 0; i < n; i++) {
-            for (final Player p : scoring.keySet()) {
-                p.drawCard(deck.getCard());
+        if (!deck.isDeckEmpty()) {
+            for (int i = 0; i < n; i++) {
+                for (final Player p : scoring.keySet()) {
+                    p.drawCard(deck.getCard());
+                }
             }
         }
     }
@@ -127,5 +135,14 @@ public class Match {
         } else {
             throw new IllegalArgumentException("Requested score of a player not in this match.");
         }
+    }
+
+    /**
+     * Method to obtain the players involved in the match.
+     * 
+     * @return a list containing the players in the match.
+     */
+    public List<Player> getPlayers() {
+        return scoring.keySet().stream().toList();
     }
 }

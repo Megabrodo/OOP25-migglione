@@ -27,7 +27,7 @@ public final class Mosquito extends User {
         if (myTurn) {
             return playCardFirst(playedCard);
         } else {
-            return playCardSecond(attr, playedCard);
+            return playCardSecond(attr);
         }
     }
 
@@ -55,7 +55,7 @@ public final class Mosquito extends User {
      * If it's mosquito's turn, he'll decide what attribute to play on.
      * An algorhythm to understand what could be best is used.
      * 
-     * @param playedCard the card that is going to be played and removed from the hand
+     * @param playedCard the placeholder card that is going to be played and removed from the hand
      * @return the value of the played card in the best attribute, 10 is the max value for a card
      */
     private int playCardFirst(final Card playedCard) {
@@ -99,12 +99,11 @@ public final class Mosquito extends User {
      * If mosquito's second, he'll play a card that has the highest attribute.
      * 
      * @param attr the attribute used by the User
-     * @param playedCard the card that will be played and removed from hand
      * @return the value of the played card in the specified attribute
      */
-    private int playCardSecond(final String attr, final Card playedCard) {
+    private int playCardSecond(final String attr) {
         chooseAttr(attr);
-        final Card bestCard = maxStat(attr, playedCard);
+        final Card bestCard = maxStat(attr, new Card("placeholder", 0, 0, 0, 0, 0));
         hand.remove(bestCard);
         return getAttr(attr, bestCard);
     }
@@ -120,7 +119,7 @@ public final class Mosquito extends User {
     private Card maxStat(final String attr, final Card playedCard) {
         Card bestCard = playedCard;
         for (final Card c : hand) {
-            if (getAttr(attr, c) > getAttr(attr, bestCard)) {
+            if (getAttr(attr, c) >= getAttr(attr, bestCard)) {
                 bestCard = c;
             }
         }
