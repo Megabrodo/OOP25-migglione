@@ -47,7 +47,7 @@ public enum CardId {
         return id;
     }
 
-    public static Map<Integer, Card> buildCardsMap(){
+    public static Map<Integer, Card> buildCardsMap() {
         Map<Integer, Card> result = new HashMap<>();
         for (CardId cardId:CardId.values()) {
             result.put(cardId.id, cardId.card);
