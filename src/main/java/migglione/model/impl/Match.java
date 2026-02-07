@@ -1,6 +1,7 @@
 package migglione.model.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import migglione.model.api.CardDraw;
@@ -30,8 +31,7 @@ public class Match {
      * 
      * @param starter the player that starts the first turn
      * @param second the player that will go second in the first turn
-     * @param stDeck the CardDraw strategy implemented for the first player
-     * @param scDeck the CardDraw strategy implemented for the second player
+     * @param deck the CardDraw strategy implemented
      */
     public Match(final Player starter, final Player second, final CardDraw deck) {
         scoring.put(starter, 0);
@@ -127,5 +127,9 @@ public class Match {
         } else {
             throw new IllegalArgumentException("Requested score of a player not in this match.");
         }
+    }
+
+    public List<Player> getPlayers() {
+        return scoring.keySet().stream().toList();
     }
 }
