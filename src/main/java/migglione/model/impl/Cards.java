@@ -70,6 +70,6 @@ public class Cards {
      * @return the path of the image (see Gallery for use)
      */
     public List<String> getCardsPaths() {
-        return cards.keySet().stream().map(n -> "/images/cards/" + n + ".png").collect(Collectors.toList());
+        return card.keySet().stream().map(n -> "/images/cards/" + n + ".png").collect(Collectors.toList());
     }
 }
