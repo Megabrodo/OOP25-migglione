@@ -11,9 +11,9 @@ import migglione.model.api.Player;
  */
 public class User implements Player {
     private final List<Card> hand = new ArrayList<>();
-    private String chosenAttr;
+    protected String chosenAttr;
     private final String name;
-    private final PointsPile pile = new PointsPile();
+    protected final PointsPile pile = new PointsPile();
 
     /**
      * Constructor for the Mosquito player(or anonymous).
@@ -65,7 +65,7 @@ public class User implements Player {
     }
 
     @Override
-    public final PointsPile getPile(List<Card> pointsWon) {
+    public PointsPile getPile(List<Card> pointsWon) {
         for (Card point : pointsWon) {
             pile.addPile(point);
         }
@@ -96,11 +96,7 @@ public class User implements Player {
         }
     }
 
-    /**
-     * A method to get the name of the player, used for the scoreboard.
-     *
-     * @return User's name
-     */
+    @Override
     public String getName() {
         return name;
     }
