@@ -106,7 +106,7 @@ public final class SwingViewImpl implements SwingView {
     }
 
     @Override
-    public String getScene() {
+    public String getSceneName() {
         return currentSceneName;
     }
 

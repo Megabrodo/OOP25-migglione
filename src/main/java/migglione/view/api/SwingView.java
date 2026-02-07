@@ -16,7 +16,7 @@ public interface SwingView {
      * 
      * @return a String, that is the current scene name
      */
-    String getScene();
+    String getSceneName();
 
     /**
      * Functional method to quit the application.

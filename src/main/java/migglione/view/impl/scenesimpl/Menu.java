@@ -24,7 +24,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  * it offers the option to start the game, see the tutorial, the gallery,
  * the credits and to quit the application.
  */
-public final class Menu extends GamePanel implements MusicProvider {
+public final class Menu extends AbstractGamePanel implements MusicProvider {
 
     private static final long serialVersionUID = 9879879872L;
     private static final String TITLE = "IL MIGGLIONE";

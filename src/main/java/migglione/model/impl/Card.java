@@ -1,55 +1,54 @@
 package migglione.model.impl;
 
 public class Card {
-private String Name;
-    private int Attk;
-    private int Deff;
-    private int Strength;
-    private int Intelligence;
-    private int Stealth;
-    
+    private final String name;
+    private final int attk;
+    private final int deff;
+    private final int strength;
+    private final int intelligence;
+    private final int stealth;
 
-    public Card (final String Name, final int Attk, final int Deff,
-         final int Strength, final int Intelligence, final int Stealth){
-        this.Name = Name;
-        this.Attk = Attk;
-        this.Deff = Deff;
-        this.Strength = Strength;
-        this.Intelligence = Intelligence;
-        this.Stealth = Stealth;
+    public Card(final String name, final int attk, final int deff,
+        final int strength, final int intelligence, final int stealth) {
+        this.name = name;
+        this.attk = attk;
+        this.deff = deff;
+        this.strength = strength;
+        this.intelligence = intelligence;
+        this.stealth = stealth;
     }
 
     public String getName() {
-        return this.Name;
+        return this.name;
     }
 
     public int getAttk() {
-        return this.Attk;
+        return this.attk;
     }
 
     public int getDeff() {
-        return this.Deff;
+        return this.deff;
     }
 
-    public int getStrength(){
-        return this.Strength;
+    public int getStrength() {
+        return this.strength;
     }
 
-    public int getIntelligence(){
-        return this.Intelligence;
+    public int getIntelligence() {
+        return this.intelligence;
     }
 
     public int getStealth() {
-        return this.Stealth;
+        return this.stealth;
     }
 
-    public String getCard(){
+    public String getCard() {
         return "Card= " 
-        + "Name: " + this.Name
-        + "Attk: " + this.Attk 
-        + "Deff: " + this.Deff
-        + "Strength: " + this.Strength
-        + "Intelligence: " + this.Intelligence
-        + "Stealth: " + this.Stealth;
-    }  
+        + "name: " + this.name
+        + "attk: " + this.attk 
+        + "deff: " + this.deff
+        + "strength: " + this.strength
+        + "intelligence: " + this.intelligence
+        + "stealth: " + this.stealth;
+    }
 }

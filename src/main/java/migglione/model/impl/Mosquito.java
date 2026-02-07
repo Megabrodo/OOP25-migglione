@@ -66,10 +66,10 @@ public final class Mosquito extends User {
                 bestCard = c;
                 chooseAttr("Intelligence");
             }
-            if (getAttr("Attk", c) > maxStat) {
-                maxStat = getAttr("Attk", c);
+            if (getAttr("Stealth", c) > maxStat) {
+                maxStat = getAttr("Stealth", c);
                 bestCard = c;
-                chooseAttr("Attk");
+                chooseAttr("Stealth");
             }
             if (maxStat == 10) {
                 break;

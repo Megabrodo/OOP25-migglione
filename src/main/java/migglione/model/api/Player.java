@@ -3,6 +3,7 @@ package migglione.model.api;
 import java.util.List;
 
 import migglione.model.impl.Card;
+import migglione.model.impl.PointsPile;
 
 /**
  * interface where the methods in common with the user and the CPU are described.
@@ -49,4 +50,12 @@ public interface Player {
      * @return current selected attribute
      */
     String getAttr();
+
+    /**
+     * Method to get the points of the player
+     * 
+     * @return the pile of points won
+     * @param pointsWon the cards to add to pile
+     */
+    PointsPile getPile(List<Card> pointsWon);
 }
