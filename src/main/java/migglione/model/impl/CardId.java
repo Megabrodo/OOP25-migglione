@@ -48,8 +48,8 @@ public enum CardId {
     }
 
     public static Map<Integer, Card> buildCardsMap() {
-        Map<Integer, Card> result = new HashMap<>();
-        for (CardId cardId:CardId.values()) {
+        final Map<Integer, Card> result = new HashMap<>();
+        for (final CardId cardId:CardId.values()) {
             result.put(cardId.id, cardId.card);
         }
         return Collections.unmodifiableMap(result);
