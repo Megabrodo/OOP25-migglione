@@ -1,5 +1,9 @@
 package migglione.model.impl;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public enum CardId {
     ANDER_BLEIDO(1, "Ander Bleido", 6, 5, 7, 4, 7),
     CAPITAN_VESUVIO(2, "Capitan vesuvio", 7, 8, 5, 2, 5),
@@ -41,5 +45,13 @@ public enum CardId {
 
     public int getId() {
         return id;
+    }
+
+    public static Map<Integer, Card> buildCardsMap(){
+        Map<Integer, Card> result = new HashMap<>();
+        for (CardId cardId:CardId.values()) {
+            result.put(cardId.id, cardId.card);
+        }
+        return Collections.unmodifiableMap(result);
     }
 }
