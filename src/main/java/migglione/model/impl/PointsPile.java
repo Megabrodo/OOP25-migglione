@@ -5,13 +5,13 @@ import java.util.List;
 
 public class PointsPile {
 
-private List<Card> pile;
-    
+private final List<Card> pile;
+
     public PointsPile() {
         this.pile = new ArrayList<>();
     }
 
-    public void discard(Card card) {
+    public void discard(final Card card) {
         pile.add(card);
     }
 
@@ -20,13 +20,13 @@ private List<Card> pile;
     }
 
     public List<Card> getPile() {
-        return this.pile;
+        return List.copyOf(this.pile);
     }
 
     public Card scry() {
-        if(isPileEmpty()) {
+        if (isPileEmpty()) {
             return null;
         }
-        return pile.get(pile.size() -1);
+        return pile.get(pile.size() - 1);
     }
 }
