@@ -10,6 +10,7 @@ import java.util.List;
 public final class Mosquito extends User {
     private final List<Card> hand = new ArrayList<>();
     private boolean myTurn;
+    private int consecWins = 0;
 
     /**
      * Constructor for mosquito player.
@@ -25,7 +26,6 @@ public final class Mosquito extends User {
 
     @Override
     public final int playCard(final String attr, final Card playedCard) {
-        //to implement a way to understand if it's mosquito's turn
         if (myTurn) {
             return playCardFirst(playedCard);
         } else {
@@ -35,8 +35,20 @@ public final class Mosquito extends User {
 
     @Override
     public PointsPile getPile(List<Card> pointsWon) {
+        if (pointsWon.isEmpty()) {
+            setMyTurn(false);
+            consecWins = 0;
+            return pile;
+        }
         for (Card point : pointsWon) {
             pile.addPile(point);
+        }
+        consecWins++;
+        if (consecWins < 3) {
+            setMyTurn(true);
+        } else {
+            setMyTurn(false);
+            consecWins = 0;
         }
         return pile;
     }
