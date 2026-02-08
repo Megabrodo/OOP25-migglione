@@ -14,7 +14,7 @@ public enum CardId {
     ACQUAMAN(3, "Acquaman", 7, 4, 7, 6, 8),
     IL_MAZZO_DI_CARTE(4, "Il Mazzo Di Carte", 10, 10, 10, 10, 10),
     IL_DIA_BOLO(5, "Il Dia-Bolo", 9, 3, 5, 6, 3),
-    IL_GRANDE_BARAZZO_MAGNO(6, "Il Grande Barraza Magno", 8, 9, 8, 5, 3),
+    IL_GRANDE_BARRAZA_MAGNO(6, "Il Grande Barraza Magno", 8, 9, 8, 5, 3),
     IL_FALCHIERE(7, "Il Falchiere", 6, 4, 2, 7, 9),
     WAQUALUIGI(8, "Waqualuigi", 8, 3, 9, 5, 2),
     L(9, "L", 2, 2, 2, 10, 2),
