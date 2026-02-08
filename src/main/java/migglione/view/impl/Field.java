@@ -5,9 +5,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.Box;
@@ -17,6 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import migglione.model.api.Player;
+import migglione.model.impl.Card;
+import migglione.model.impl.Game;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -33,7 +33,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private final transient Image playField;
-    private final List<Player> players;
+    private final Game game;
 
     /**
      * Constructor of this class. 
@@ -42,26 +42,33 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
      */
     public Field() {
 
-        this.players = new ArrayList<>();
+        this.game = new Game();
         this.playField = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
         this.setLayout(new BorderLayout());
-
+        
         final JPanel pCards = new JPanel();
         final JPanel oCards = new JPanel();
         final JPanel mainField = new JPanel();
         final JPanel scoreCol = new JPanel();
         final JButton pScore = new JButton("0");
         final JButton oScore = new JButton("0");
-        /*final JButton card = new JButton();
+        for (final Player p : game.getPlayers()) {
+            if (p.getName().equals("Player")) {
+                for (final Card c : p.getHand()) {
+                    /*final JButton card = new JButton();
 
-        card.setBackground(Color.BLACK);
-        card.addActionListener(new ActionListener() {
+                card.setBackground(Color.BLACK);
+                card.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed(ActionEvent dispose) {
-                //to implement in the logic
+                    @Override
+                    public void actionPerformed(ActionEvent dispose) {
+                        //to implement in the logic
+                    }
+                });*/
+                }
             }
-        });*/
+        }
+        
 
         this.add(oCards, BorderLayout.NORTH);
         this.add(mainField, BorderLayout.CENTER);
