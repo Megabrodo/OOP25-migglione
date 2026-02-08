@@ -64,17 +64,17 @@ public class Match {
             cardsStakes.add(p.getHand().getFirst());
         }
         if (comparison != 0) {
-        final Player winner = scoring.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
-        scoring.replace(winner, scoring.get(winner) + cardsStakes.size());
-        for (final Player p : scoring.keySet()) {
-            if (p.equals(winner)) {
-                p.getPile(cardsStakes);
-            } else {
-                p.getPile(new ArrayList<>());
+            final Player winner = scoring.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
+            scoring.replace(winner, scoring.get(winner) + cardsStakes.size());
+            for (final Player p : scoring.keySet()) {
+                if (p.equals(winner)) {
+                    p.getPile(cardsStakes);
+                } else {
+                    p.getPile(new ArrayList<>());
+                }
             }
-        }
-        this.changeTurn(winner);
-        cardsStakes.clear();
+            this.changeTurn(winner);
+            cardsStakes.clear();
         }
         final boolean isEnd = matchEnded();
         if (!isEnd) {
