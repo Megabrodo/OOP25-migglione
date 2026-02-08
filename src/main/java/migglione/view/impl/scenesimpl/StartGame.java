@@ -2,6 +2,7 @@ package migglione.view.impl.scenesimpl;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -39,13 +40,17 @@ public class StartGame extends AbstractGamePanel implements MusicProvider {
             controller.startMatch(playerName);
         });
 
+        final JPanel pCenter = new JPanel(new GridBagLayout());
+        pCenter.setOpaque(false);
+        pCenter.add(start);
+
         final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         final JButton back = new GenericButton(BACK, b -> view.setScene(Scenes.MENU.getScene()));
-
         pSouth.setOpaque(false);
         pSouth.add(back);
+
         this.add(pSouth, BorderLayout.SOUTH);
-        this.add(start, BorderLayout.CENTER);
+        this.add(pCenter, BorderLayout.CENTER);
     }
 
     @Override
@@ -58,4 +63,3 @@ public class StartGame extends AbstractGamePanel implements MusicProvider {
         return startImage;
     }
 }
-
