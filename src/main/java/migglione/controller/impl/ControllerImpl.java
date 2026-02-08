@@ -30,21 +30,9 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void setPlayerName(final String name) {
+    public void startMatch(String name) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPlayerName'");
-    }
-
-    @Override
-    public void move() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
-
-    @Override
-    public void nextRound() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nextRound'");
+        throw new UnsupportedOperationException("Unimplemented method 'startMatch'");
     }
 
     @Override
@@ -52,4 +40,5 @@ public final class ControllerImpl implements Controller {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'endMatch'");
     }
+
 }
