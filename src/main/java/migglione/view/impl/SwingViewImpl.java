@@ -50,8 +50,10 @@ public final class SwingViewImpl implements SwingView {
      * Thanks to the implementations of different scenes,
      * it has only the responsibility to change them and to set the
      * restraints of the frame, which is resizable over a certain point.
+     * 
+     * @param controller is the controller of the application
      */
-    public SwingViewImpl(Controller controller) {
+    public SwingViewImpl(final Controller controller) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(INITIAL_WIDTH, INITIAL_HEIGHT));
         frame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
