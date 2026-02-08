@@ -61,7 +61,6 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
             public void actionPerformed(ActionEvent dispose) {
                 //to implement in the logic
             }
-            
         });*/
 
         this.add(oCards, BorderLayout.NORTH);
