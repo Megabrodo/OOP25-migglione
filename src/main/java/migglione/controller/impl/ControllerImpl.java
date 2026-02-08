@@ -2,6 +2,7 @@ package migglione.controller.impl;
 
 import migglione.controller.api.Controller;
 import migglione.view.api.SwingView;
+import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 
 /**
@@ -26,25 +27,14 @@ public final class ControllerImpl implements Controller {
      * of the GUI, so that the menu is seen by the player
      */
     public ControllerImpl() {
-        this.view = new SwingViewImpl();
+        this.view = new SwingViewImpl(this);
     }
 
     @Override
-    public void setPlayerName(final String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPlayerName'");
-    }
-
-    @Override
-    public void move() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
-
-    @Override
-    public void nextRound() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'nextRound'");
+    public void startMatch(final String name) {
+        this.playerName = name;
+        //Qui inizializzo la classe del model che gestisce la partita
+        view.setScene(Scenes.FIELD.getScene());
     }
 
     @Override
@@ -52,4 +42,5 @@ public final class ControllerImpl implements Controller {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'endMatch'");
     }
+
 }

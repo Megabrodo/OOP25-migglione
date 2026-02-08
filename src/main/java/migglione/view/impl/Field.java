@@ -27,7 +27,7 @@ import migglione.view.impl.scenesimpl.AbstractGamePanel;
  * with both player's hands, decks and scores,
  * along with a settings section.
  * */
-public final class StartGame extends AbstractGamePanel implements MusicProvider {
+public final class Field extends AbstractGamePanel implements MusicProvider {
 
     private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
@@ -40,7 +40,7 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
      * Divides screen into play field, player's hand,
      * opponent's hand, menu and scores.
      */
-    public StartGame() {
+    public Field() {
 
         this.players = new ArrayList<>();
         this.playField = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();

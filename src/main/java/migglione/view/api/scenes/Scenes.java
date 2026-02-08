@@ -6,6 +6,7 @@ package migglione.view.api.scenes;
 public enum Scenes {
     MENU("MENU"),
     START_GAME("START GAME"),
+    FIELD("FIELD"),
     TUTORIAL("TUTORIAL"),
     SCORES("SCORES"),
     GALLERY("GALLERY"),

@@ -10,7 +10,7 @@ import migglione.model.api.Player;
  * The user gets to choose autonomously what card to play and what attribute to use.
  */
 public class User implements Player {
-    private final List<Card> hand = new ArrayList<>();
+    protected final List<Card> hand = new ArrayList<>();
     protected String chosenAttr;
     private final String name;
     protected final PointsPile pile = new PointsPile();

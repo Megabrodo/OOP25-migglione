@@ -52,10 +52,10 @@ public interface Player {
     String getAttr();
 
     /**
-     * Method to get the points of the player
+     * Method to get the points of the player.
      * 
-     * @return the pile of points won
      * @param pointsWon the cards to add to pile
+     * @return the pile of points won
      */
     PointsPile getPile(List<Card> pointsWon);
 

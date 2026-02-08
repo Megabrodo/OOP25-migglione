@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import migglione.controller.api.Controller;
 import migglione.view.api.SwingView;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
@@ -49,17 +50,21 @@ public final class SwingViewImpl implements SwingView {
      * Thanks to the implementations of different scenes,
      * it has only the responsibility to change them and to set the
      * restraints of the frame, which is resizable over a certain point.
+     * 
+     * @param controller is the controller of the application
      */
-    public SwingViewImpl() {
+    public SwingViewImpl(final Controller controller) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(INITIAL_WIDTH, INITIAL_HEIGHT));
         frame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
         frame.setResizable(true);
 
         sceneCreator = new SceneFactoryImpl();
-        firstPanel.add(sceneCreator.createScene(this, Scenes.MENU), Scenes.MENU.getScene());
-        firstPanel.add(sceneCreator.createScene(this, Scenes.CREDITS), Scenes.CREDITS.getScene());
-        firstPanel.add(sceneCreator.createScene(this, Scenes.GALLERY), Scenes.GALLERY.getScene());
+        firstPanel.add(sceneCreator.createScene(this, Scenes.MENU, controller), Scenes.MENU.getScene());
+        firstPanel.add(sceneCreator.createScene(this, Scenes.START_GAME, controller), Scenes.START_GAME.getScene());
+        firstPanel.add(sceneCreator.createScene(this, Scenes.FIELD, controller), Scenes.FIELD.getScene());
+        firstPanel.add(sceneCreator.createScene(this, Scenes.GALLERY, controller), Scenes.GALLERY.getScene());
+        firstPanel.add(sceneCreator.createScene(this, Scenes.CREDITS, controller), Scenes.CREDITS.getScene());
 
         frame.add(firstPanel);
         frame.setVisible(true);
