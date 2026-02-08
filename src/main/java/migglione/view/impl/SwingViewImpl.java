@@ -60,6 +60,7 @@ public final class SwingViewImpl implements SwingView {
         sceneCreator = new SceneFactoryImpl();
         firstPanel.add(sceneCreator.createScene(this, Scenes.MENU, controller), Scenes.MENU.getScene());
         firstPanel.add(sceneCreator.createScene(this, Scenes.START_GAME, controller), Scenes.START_GAME.getScene());
+        firstPanel.add(sceneCreator.createScene(this, Scenes.FIELD, controller), Scenes.FIELD.getScene());
         firstPanel.add(sceneCreator.createScene(this, Scenes.GALLERY, controller), Scenes.GALLERY.getScene());
         firstPanel.add(sceneCreator.createScene(this, Scenes.CREDITS, controller), Scenes.CREDITS.getScene());
 

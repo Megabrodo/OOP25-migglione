@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import migglione.controller.api.Controller;
 import migglione.view.api.scenes.SceneFactory;
 import migglione.view.api.scenes.Scenes;
+import migglione.view.impl.Field;
 import migglione.view.impl.SwingViewImpl;
 
 /**
@@ -23,6 +24,7 @@ public final class SceneFactoryImpl implements SceneFactory {
         return switch (scenes) {
             case MENU -> new Menu(view);
             case START_GAME -> new StartGame(view, controller);
+            case FIELD -> new Field();
             case GALLERY -> new Gallery(view);
             case CREDITS -> new Credits(view);
             default -> throw new IllegalArgumentException("No such scene exist");

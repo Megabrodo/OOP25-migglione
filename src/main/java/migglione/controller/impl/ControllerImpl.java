@@ -2,6 +2,7 @@ package migglione.controller.impl;
 
 import migglione.controller.api.Controller;
 import migglione.view.api.SwingView;
+import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 
 /**
@@ -32,6 +33,8 @@ public final class ControllerImpl implements Controller {
     @Override
     public void startMatch(String name) {
         this.playerName = name;
+        //Qui inizializzo la classe del model che gestisce la partita
+        view.setScene(Scenes.FIELD.getScene());
     }
 
     @Override
