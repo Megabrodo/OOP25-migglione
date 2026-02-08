@@ -10,9 +10,9 @@ package migglione.view.api.music;
  * 
  * <p>
  * Its true use however is seen in the implementation
- * of SwingView, since it is responsible for playing
- * the music of the new scene and eventually stopping the
- * previous one (check SetScene)
+ * of SwingViewImpl, since it is responsible for helping
+ * choosing the music to play of the new scene and eventually
+ * stopping the previous one (check SetScene)
  */
 @FunctionalInterface
 public interface MusicProvider {

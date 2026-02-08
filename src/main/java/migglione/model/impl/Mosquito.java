@@ -41,7 +41,7 @@ public final class Mosquito extends User {
         for (Card point : pointsWon) {
             pile.addPile(point);
         }
-        consecWins++;
+        consecWins += pointsWon.size() / 2;
         if (consecWins < 3) {
             setMyTurn(true);
         } else {
