@@ -2,6 +2,9 @@ package migglione.view.impl;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 import migglione.model.impl.Card;
 
@@ -13,10 +16,12 @@ import migglione.model.impl.Card;
  */
 public final class Hovering implements MouseMotionListener {
     private final HoveringCard hoveringCard;
+    private final JPanel gamePanel;
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
 
-    public Hovering(final Card hoveringCard) {
+    public Hovering(final Card hoveringCard, final JPanel gamePanel) {
         this.hoveringCard = new HoveringCard(hoveringCard, CARDS_IMAGE_PATH + hoveringCard.getName() + ".png");
+        this.gamePanel = gamePanel;
     }
 
     @Override
@@ -26,8 +31,10 @@ public final class Hovering implements MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        //here is the real hovering
-        
+        final Image cardImg = new ImageIcon(getClass().getResource(hoveringCard.getImage())).getImage();
+        //non so se quando va via il cursore va via anche l'immagine, se no bisogna implementare un metodo per farla sparire
+        gamePanel.getGraphics().drawImage(cardImg, e.getX(), e.getY(), 100, 150, gamePanel);
+        //o faccio immagini per le stat(banale word) oppure cerco di fare un panel in cui si scrive
     }
     
     /**
