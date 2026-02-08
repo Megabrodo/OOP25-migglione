@@ -27,6 +27,7 @@ public final class Mosquito extends User {
         if (myTurn) {
             return playCardFirst(playedCard);
         } else {
+            //attr to use, playedCard by the user
             return playCardSecond(attr);
         }
     }
@@ -113,11 +114,11 @@ public final class Mosquito extends User {
      * Might be optimized with "if i can't win, might use the worst"
      * 
      * @param attr the attribute used by the User
-     * @param playedCard the card that will be played and removed from hand
+     * @param emptyCard the card that will be played and removed from hand
      * @return the value of the played card in the specified attribute
      */
-    private Card maxStat(final String attr, final Card playedCard) {
-        Card bestCard = playedCard;
+    private Card maxStat(final String attr, final Card emptyCard) {
+        Card bestCard = emptyCard;
         for (final Card c : hand) {
             if (getAttr(attr, c) >= getAttr(attr, bestCard)) {
                 bestCard = c;
@@ -137,6 +138,11 @@ public final class Mosquito extends User {
         this.myTurn = turn;
     }
 
+    /**
+     * To know what turn does the mosquito think it is.
+     * 
+     * @return if it's its turn or not
+     */
     public boolean getMyTurn() {
         return myTurn;
     }
