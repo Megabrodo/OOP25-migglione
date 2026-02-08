@@ -3,6 +3,8 @@ package migglione;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -63,12 +65,20 @@ class MosquitoTest {
         mosquitoPlayer.drawCard(bestCard);
         mosquitoPlayer.drawCard(okCard);
         mosquitoPlayer.drawCard(worstCard);
-        //to make with the pile
+        //mosquito goes first
         int bestAttr = mosquitoPlayer.playCard("Attk", okCard);
-        assertEquals(bestCard.getAttk(), bestAttr);
+        assertEquals(bestCard.getStealth(), bestAttr);
+        mosquitoPlayer.getPile(Collections.emptyList());
+        assertEquals(false, mosquitoPlayer.getMyTurn());
+        //mosquito goes second
         bestAttr = mosquitoPlayer.playCard("Deff", okCard);
         assertEquals(okCard.getDeff(), bestAttr);
+        mosquitoPlayer.getPile(List.of(okCard, worstCard));
+        assertEquals(true, mosquitoPlayer.getMyTurn());
+        //goes first again
         bestAttr = mosquitoPlayer.playCard("Stealth", okCard);
-        assertEquals(worstCard.getStealth(), bestAttr);
+        assertEquals(worstCard.getAttk(), bestAttr);
+        mosquitoPlayer.getPile(List.of(worstCard, worstCard));
+        assertEquals(true, mosquitoPlayer.getMyTurn());
     }
 }

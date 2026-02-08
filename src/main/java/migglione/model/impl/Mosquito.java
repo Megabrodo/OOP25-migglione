@@ -136,4 +136,8 @@ public final class Mosquito extends User {
         //da mettere private
         this.myTurn = turn;
     }
+
+    public boolean getMyTurn() {
+        return myTurn;
+    }
 }
