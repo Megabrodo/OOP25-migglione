@@ -1,5 +1,6 @@
 package migglione.model.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class Match {
     private int consecWins;
     private Player latestWin;
     private int turnLead;
-    private int cardsStakes;
+    private List<Card> cardsStakes;
 
     /**
      * Constructor of the class.
@@ -38,6 +39,7 @@ public class Match {
         scoring.put(second, 0);
         this.deck = deck;
         this.allDraw(HAND_SIZE);
+        this.cardsStakes = new ArrayList<>();
     }
 
     /**
@@ -59,13 +61,20 @@ public class Match {
         for (final Player p : scoring.keySet()) {
             comparison += p.playCard(attrChoice, p.getHand().getFirst()) * compSign;
             compSign *= -1;
-            cardsStakes++;
+            cardsStakes.add(p.getHand().getFirst());
         }
         if (comparison != 0) {
         final Player winner = scoring.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
-        scoring.replace(winner, scoring.get(winner) + cardsStakes);
+        scoring.replace(winner, scoring.get(winner) + cardsStakes.size());
+        for (final Player p : scoring.keySet()) {
+            if (p.equals(winner)) {
+                p.getPile(cardsStakes);
+            } else {
+                p.getPile(new ArrayList<>());
+            }
+        }
         this.changeTurn(winner);
-        cardsStakes = 0;
+        cardsStakes.clear();
         }
         final boolean isEnd = matchEnded();
         if (!isEnd) {
