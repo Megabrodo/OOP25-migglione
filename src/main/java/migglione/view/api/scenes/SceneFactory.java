@@ -2,6 +2,7 @@ package migglione.view.api.scenes;
 
 import javax.swing.JPanel;
 
+import migglione.controller.api.Controller;
 import migglione.view.impl.SwingViewImpl;
 
 /**
@@ -14,7 +15,8 @@ public interface SceneFactory {
      * 
      * @param view is the parent View from which CardLayout is initialized
      * @param scenes will be used as a parameter to decide what scene it to be created
+     * @param controller is the controller of the application
      * @return a JPanel rapresenting the new Scene
      */
-    JPanel createScene(SwingViewImpl view, Scenes scenes);
+    JPanel createScene(SwingViewImpl view, Scenes scenes, Controller controller);
 }

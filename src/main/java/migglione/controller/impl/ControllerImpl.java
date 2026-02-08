@@ -26,7 +26,7 @@ public final class ControllerImpl implements Controller {
      * of the GUI, so that the menu is seen by the player
      */
     public ControllerImpl() {
-        this.view = new SwingViewImpl();
+        this.view = new SwingViewImpl(this);
     }
 
     @Override
