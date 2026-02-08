@@ -6,7 +6,6 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 

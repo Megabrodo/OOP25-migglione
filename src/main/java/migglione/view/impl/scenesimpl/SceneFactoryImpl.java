@@ -1,7 +1,5 @@
 package migglione.view.impl.scenesimpl;
 
-import java.util.ResourceBundle.Control;
-
 import javax.swing.JPanel;
 
 import migglione.controller.api.Controller;

@@ -31,8 +31,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void startMatch(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'startMatch'");
+        this.playerName = name;
     }
 
     @Override
