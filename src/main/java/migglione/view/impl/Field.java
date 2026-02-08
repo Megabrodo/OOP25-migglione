@@ -55,16 +55,18 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         for (final Player p : game.getPlayers()) {
             if (p.getName().equals("Player")) {
                 for (final Card c : p.getHand()) {
-                    /*final JButton card = new JButton();
+                    final JButton card = new JButton();
 
-                card.setBackground(Color.BLACK);
-                card.addActionListener(new ActionListener() {
+                    card.setBackground(Color.BLACK);
+                    final ImageIcon bg = new ImageIcon(CARDS_IMAGE_PATH + c.getName() + ".png");
+                    card.setIcon(bg);
+                    card.addActionListener(new ActionListener() {
 
                     @Override
                     public void actionPerformed(ActionEvent dispose) {
                         //to implement in the logic
                     }
-                });*/
+                });
                 }
             }
         }
