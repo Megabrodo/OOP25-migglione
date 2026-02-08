@@ -4,6 +4,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * enum cardId define 24 cards whit their name,
+ * five atrubute and the id used for the key map.
+ */
 public enum CardId {
     ANDER_BLEIDO(1, "Ander Bleido", 6, 5, 7, 4, 7),
     CAPITAN_VESUVIO(2, "Capitan vesuvio", 7, 8, 5, 2, 5),
@@ -33,20 +37,50 @@ public enum CardId {
     private final int id;
     private final Card card;
 
+    /**
+     * Constructor for define id, name and atribute of the card.
+     * 
+     * @param id is a key used for invoke the statistic of the card
+     * @param name of the card
+     * @param attk the atribute represent offensive power of the card
+     * @param deff the atribute represent defence
+     * @param strength the atribute ho represent hand to hand poewr of the card
+     * @param intelligence the atribute rapresent intelligence of the card
+     * @param stealth the atribute ho rapresent stealth
+     */
     CardId(final int id, final String name, final int attk, final int deff, final int strength,
         final int intelligence, final int stealth) {
         this.id = id;
         this.card = new Card(name, attk, deff, strength, intelligence, stealth);
     }
 
+    /**
+     * Getter Method for return card.
+     * 
+     * @return card name and atribute
+     */
     public Card getCardId() {
         return this.card;
     }
 
+    /**
+     * Getter for return number, 
+     * for accsess to name and atribute of the card,
+     * is used as key map or for replace it.
+     * 
+     * @return the id or key map number
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * Builder for define all cards,
+     * id become the key, put the name and atribute 
+     * in list for to be used.
+     * 
+     * @return result, the map conteined all cards defined whit id as a key.
+     */
     public static Map<Integer, Card> buildCardsMap() {
         final Map<Integer, Card> result = new HashMap<>();
         for (final CardId cardId:CardId.values()) {
