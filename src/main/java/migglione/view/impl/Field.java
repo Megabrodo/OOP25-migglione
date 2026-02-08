@@ -2,6 +2,7 @@ package migglione.view.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +33,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
+     private static final int CARDS_WIDTH = 200;
+    private static final int CARDS_HEIGHT = 250;
     private final transient Image playField;
     private final Game game;
 
@@ -52,21 +55,27 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         final JPanel scoreCol = new JPanel();
         final JButton pScore = new JButton("0");
         final JButton oScore = new JButton("0");
+        pCards.setOpaque(false);
+        pCards.setLayout(new FlowLayout(FlowLayout.CENTER)); //maybe grid is better?
         for (final Player p : game.getPlayers()) {
             if (p.getName().equals("Player")) {
                 for (final Card c : p.getHand()) {
                     final JButton card = new JButton();
-
-                    card.setBackground(Color.BLACK);
-                    final ImageIcon bg = new ImageIcon(CARDS_IMAGE_PATH + c.getName() + ".png");
+                    final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + c.getName() + ".png"));
+                    final ImageIcon bg = new ImageIcon(
+                        bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH) //should change size maybe
+                    );
                     card.setIcon(bg);
+                    
+                    //card.setPreferredSize(getPreferredSize());
                     card.addActionListener(new ActionListener() {
 
-                    @Override
-                    public void actionPerformed(ActionEvent dispose) {
-                        //to implement in the logic
-                    }
-                });
+                        @Override
+                        public void actionPerformed(ActionEvent dispose) {
+                            //to implement in the logic
+                        }
+                    });
+                    pCards.add(card);
                 }
             }
         }
