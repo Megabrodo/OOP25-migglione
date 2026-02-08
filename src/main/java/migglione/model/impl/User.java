@@ -14,6 +14,7 @@ public class User implements Player {
     protected String chosenAttr;
     private final String name;
     protected final PointsPile pile = new PointsPile();
+    protected Card lastPlayed;
 
     /**
      * Constructor for the Mosquito player(or anonymous).
@@ -38,6 +39,7 @@ public class User implements Player {
 
     @Override
     public int playCard(final String attr, final Card playedCard) {
+        lastPlayed = playedCard;
         hand.remove(playedCard);
         return getAttr(attr, playedCard);
     }
@@ -99,5 +101,10 @@ public class User implements Player {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public Card getPlayedCard() {
+        return lastPlayed;
     }
 }

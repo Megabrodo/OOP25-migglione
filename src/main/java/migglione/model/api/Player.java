@@ -65,4 +65,12 @@ public interface Player {
      * @return User's name
      */
     String getName();
+
+    /**
+     * Method to get the last played card by the player.
+     * Useful for the pile of points won
+     * 
+     * @return the played card
+     */
+    Card getPlayedCard();
 }
