@@ -31,7 +31,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void startMatch(String name) {
+    public void startMatch(final String name) {
         this.playerName = name;
         //Qui inizializzo la classe del model che gestisce la partita
         view.setScene(Scenes.FIELD.getScene());
