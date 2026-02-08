@@ -36,6 +36,6 @@ public class Cards {
      * @return the path of the image (see Gallery for use)
      */
     public List<String> getCardsPaths() {
-        return card.keySet().stream().map(n -> "/images/cards/" + n + ".png").collect(Collectors.toList());
+        return card.values().stream().map(n -> "/images/cards/" + n.getName() + ".png").collect(Collectors.toList());
     }
 }
