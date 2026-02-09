@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import migglione.model.api.Player;
 import migglione.model.impl.Card;
 import migglione.model.impl.Game;
+import migglione.model.impl.User;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -58,25 +59,26 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         pCards.setOpaque(false);
         pCards.setLayout(new FlowLayout(FlowLayout.CENTER)); //maybe grid is better?
         for (final Player p : game.getPlayers()) {
-            if (p.getName().equals("Player")) {
-                for (final Card c : p.getHand()) {
-                    final JButton card = new JButton();
-                    final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + c.getName() + ".png"));
-                    final ImageIcon bg = new ImageIcon(
-                        bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH) //should change size maybe
-                    );
-                    card.setIcon(bg);
-                    
-                    //card.setPreferredSize(getPreferredSize());
-                    card.addActionListener(new ActionListener() {
+            for (final Card c : p.getHand()) {
+                final JPanel handDisp = (p instanceof User) ? pCards : oCards;
+                final JButton card = new JButton();
+                final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + c.getName() + ".png"));
+                final ImageIcon bg = new ImageIcon(
+                    bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH) //should change size maybe
+                );
+                card.setIcon(bg);
+                card.setContentAreaFilled(false);
+                card.setBorderPainted(false);
+                card.setFocusPainted(false);
+                //card.setPreferredSize(getPreferredSize());
+                card.addActionListener(new ActionListener() {
 
-                        @Override
-                        public void actionPerformed(ActionEvent dispose) {
-                            //to implement in the logic
-                        }
-                    });
-                    pCards.add(card);
-                }
+                    @Override
+                    public void actionPerformed(ActionEvent dispose) {
+                        //to implement in the logic
+                    }
+                });
+                handDisp.add(card);
             }
         }
         
