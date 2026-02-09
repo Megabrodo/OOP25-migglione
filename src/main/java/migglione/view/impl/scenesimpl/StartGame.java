@@ -1,14 +1,26 @@
 package migglione.view.impl.scenesimpl;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
+import java.awt.Font;
 import java.awt.Image;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 
 import migglione.controller.api.Controller;
 import migglione.view.api.music.MusicPlayer;
@@ -30,8 +42,18 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
     private static final long serialVersionUID = 9879879800L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
+    private static final String FONT_NAME = "Times New Roman";
     private static final String BACK = "Back";
+    private static final int REQUEST_SIZE = 120;
+    private static final int REQUEST_TEXT_SIZE = 30;
+    private static final int TEXT_SIZE = 24;
+    private static final int TEXT_AREA_WIDTH = 300;
+    private static final int TEXT_AREA_HEIGHT = 80;
+    private static final int MAX_CHARACTERS = 15;
     private final transient Image startImage;
+
+    private JTextField textField;
+    private JButton start;
 
     /**
      * Constructor of StartGame.
@@ -45,13 +67,72 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
 
         startImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
 
-        final JButton start = new GenericButton("Start!", a -> {
-            final String playerName = JOptionPane.showInputDialog("Enter your name to play:");
-            controller.startMatch(playerName);
+        final JPanel pCenter = new JPanel();
+        pCenter.setLayout(new BoxLayout(pCenter, BoxLayout.Y_AXIS));
+        pCenter.setOpaque(false);
+
+        final JLabel request = new JLabel("Enter your name (max 15 chars):");
+        request.setFont(new Font(FONT_NAME, Font.PLAIN, REQUEST_TEXT_SIZE));
+        request.setForeground(Color.YELLOW);
+        request.setHorizontalAlignment(JLabel.CENTER);
+
+        final JPanel requestBox = new JPanel(new BorderLayout());
+        requestBox.setMaximumSize(new Dimension(Integer.MAX_VALUE, REQUEST_SIZE));
+        requestBox.setBackground(Color.BLACK);
+        requestBox.add(request);
+
+        this.textField = new JTextField();
+        textField.setMaximumSize(new Dimension(TEXT_AREA_WIDTH, TEXT_AREA_HEIGHT));
+        textField.setFont(new Font(FONT_NAME, Font.PLAIN, TEXT_SIZE));
+        textField.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
+        textField.setBackground(Color.BLACK);
+        textField.setForeground(Color.YELLOW);
+        textField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textField.setDocument(new PlainDocument() {
+            @Override
+            public void insertString(final int offs, final String s, final AttributeSet attr)
+            throws BadLocationException {
+                if (s == null) {
+                    return;
+                }
+                if ((getLength() + s.length()) <= MAX_CHARACTERS) {
+                    super.insertString(offs, s, attr);
+                }
+            }
         });
 
-        final JPanel pCenter = new JPanel(new GridBagLayout());
-        pCenter.setOpaque(false);
+        this.start = new GenericButton("Start!", a -> {
+            controller.startMatch(textField.getText());
+        });
+        start.setEnabled(false);
+
+        textField.getDocument().addDocumentListener(new DocumentListener() {
+
+            public void update() {
+                start.setEnabled(!textField.getText().trim().isEmpty());
+            }
+
+            @Override
+            public void insertUpdate(final DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void removeUpdate(final DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void changedUpdate(final DocumentEvent e) {
+                update();
+            }
+        });
+
+        pCenter.add(Box.createVerticalGlue());
+        pCenter.add(requestBox);
+        pCenter.add(Box.createVerticalGlue());
+        pCenter.add(textField);
+        pCenter.add(Box.createVerticalGlue());
         pCenter.add(start);
 
         final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -61,6 +142,11 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
 
         this.add(pSouth, BorderLayout.SOUTH);
         this.add(pCenter, BorderLayout.CENTER);
+    }
+
+    public void reset() {
+        this.textField.setText("");
+        this.start.setEnabled(false);
     }
 
     @Override
