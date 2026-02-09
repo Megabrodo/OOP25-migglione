@@ -46,9 +46,11 @@ public final class GenericButton extends JButton {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(final MouseEvent e) {
-                setBackground(Color.YELLOW);
-                setForeground(Color.BLACK);
-                setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                if (isVisible()) {
+                    setBackground(Color.YELLOW);
+                    setForeground(Color.BLACK);
+                    setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                }
             }
 
             @Override
