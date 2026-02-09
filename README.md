@@ -1,15 +1,14 @@
 # OOP25-migglione
 
-
 E-mail dei componenti:   
 
-    lorenzo.zanoni3@studio.unibo.it 
+- lorenzo.zanoni3@studio.unibo.it 
 
-    alessandro.zani3@studio.unibo.it
+- alessandro.zani3@studio.unibo.it
 
-    anton.abramov@studio.unibo.it
+- anton.abramov@studio.unibo.it
 
-    thomas.giovannini@studio.unibo.it
+- thomas.giovannini@studio.unibo.it
 
 Obiettivo : Realizzazione di una versione digitale del gioco di carte inventato "Migglione". 
 
@@ -17,34 +16,36 @@ Descrizione: Il gruppo si pone come obiettivo quello di realizzare un'applicazio
 
 Funzionalità minimali obbligatorie (realizzabili in circa il 70-80% del tempo a disposizione): 
 
-    Creazione del database di carte e attribuzione dei giusti valori
+- [x] Creazione del database di carte e attribuzione dei giusti valori
 
-    Metodo di pescata dal mazzo
+- [x] Metodo di pescata dal mazzo
 
-    Valutazione del punteggio dinamica
+- [x] Valutazione del punteggio dinamica
 
-    Gestione di una IA semplice
+- [x] Gestione di una IA semplice
 
-    GUI interattiva e user friendly
+- [x] GUI interattiva e user friendly
 
 Funzionalità opzionali (a completamento del 100% del tempo a disposizione): 
 
-    Modalità extra con reimissione delle carte, la partita finisce quando si raggiunge un limite di punti deciso dal giocatore
-    Tutorial opzionale in game che memorizza il suo completamento
+- [] Modalità extra con reimissione delle carte, la partita finisce quando si raggiunge un limite di punti deciso dal giocatore
+    
+- [x] Tutorial opzionale in game che memorizza il suo completamento
 
-    Aggiunta di carte "speciali", cioè che modificano lo stato di altre o presentano effetti particolari
+- [] Aggiunta di carte "speciali", cioè che modificano lo stato di altre o presentano effetti particolari
 
 "Challenge" principali: 
 
-    La gestione del turno, quindi: scelta attributo della carta, fase di gioco delle carte di ogni giocatore, comparazione dei valori, decretazione del vincitore del round 
+- La gestione del turno, quindi: scelta attributo della carta, fase di gioco delle carte di ogni giocatore, comparazione dei valori, decretazione del vincitore del round 
 
-    Valutazione del vincitore finale e metodo di conteggio dei punti
-    Creazione di un set di carte "bilanciato" e una GUI interattiva
+- Valutazione del vincitore finale e metodo di conteggio dei punti
+    
+- Creazione di un set di carte "bilanciato" e una GUI interattiva
 
-    Metodo di pescata di una carta e successiva eliminazione di questa dalle carte ancora giocabili e pescabili
+- Metodo di pescata di una carta e successiva eliminazione di questa dalle carte ancora giocabili e pescabili
 
-    Creazione di un mosquito-player, ossia una IA in grado di giocare contro il vero player in un modo semplice e scontato
-    Aggiunta di un semplice tutorial opzionale che memorizza se è già stato fatto oppure no
+- Creazione di un mosquito-player, ossia una IA in grado di giocare contro il vero player in un modo semplice e scontato
+    
+- Aggiunta di un semplice tutorial opzionale che memorizza se è già stato fatto oppure no
 
-    Uso di un file per contenere una classifica di tutti i giocatori
-
+- Uso di un file per contenere una classifica di tutti i giocatori
