@@ -2,7 +2,6 @@ package migglione.view.impl.scenesimpl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -52,8 +51,8 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
     private static final int MAX_CHARACTERS = 15;
     private final transient Image startImage;
 
-    private JTextField textField;
-    private JButton start;
+    private final JTextField textField;
+    private final JButton start;
 
     /**
      * Constructor of StartGame.
@@ -87,7 +86,7 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
         textField.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 3));
         textField.setBackground(Color.BLACK);
         textField.setForeground(Color.YELLOW);
-        textField.setAlignmentX(Component.CENTER_ALIGNMENT);
+        textField.setAlignmentX(CENTER_ALIGNMENT);
         textField.setDocument(new PlainDocument() {
             @Override
             public void insertString(final int offs, final String s, final AttributeSet attr)
@@ -109,7 +108,7 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
         textField.getDocument().addDocumentListener(new DocumentListener() {
 
             public void update() {
-                start.setEnabled(!textField.getText().trim().isEmpty());
+                start.setEnabled(!textField.getText().isBlank());
             }
 
             @Override
