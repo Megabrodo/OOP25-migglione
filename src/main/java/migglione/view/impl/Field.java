@@ -2,6 +2,8 @@ package migglione.view.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,10 +36,20 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
-    private static final int CARDS_WIDTH = 200;
-    private static final int CARDS_HEIGHT = 250;
+    private static final int CARDS_WIDTH = 100;
+    private static final int CARDS_HEIGHT = 125;
     private final transient Image playField;
     private final Game game;
+
+    private final JPanel pCards = new JPanel();
+    private final JPanel oCards = new JPanel();
+    private final JPanel mainField = new JPanel();
+    private final JPanel scoreCol = new JPanel();
+    private final JPanel plays = new JPanel();
+    private final JButton pScore = new JButton("0");
+    private final JButton oScore = new JButton("0");
+    private final JButton pPlay = new JButton();
+    private final JButton oPlay = new JButton(); 
 
     /**
      * Constructor of this class. 
@@ -49,20 +61,14 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         this.game = new Game();
         this.playField = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
         this.setLayout(new BorderLayout());
-        
-        final JPanel pCards = new JPanel();
-        final JPanel oCards = new JPanel();
-        final JPanel mainField = new JPanel();
-        final JPanel scoreCol = new JPanel();
-        final JButton pScore = new JButton("0");
-        final JButton oScore = new JButton("0");
 
         pCards.setOpaque(false);
         oCards.setOpaque(pCards.isOpaque());
-        pCards.setLayout(new BorderLayout()); //maybe grid is better?
+        pCards.setLayout(new FlowLayout(FlowLayout.CENTER)); //maybe grid is better?
         oCards.setLayout(pCards.getLayout());
-        
+
         for (final Player p : game.getPlayers()) {
+            final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
             for (final Card c : p.getHand()) {
                 final JButton card = new JButton();
                 final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + c.getName() + ".png"));
@@ -73,11 +79,14 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 card.setContentAreaFilled(false);
                 card.setBorderPainted(false);
                 card.setFocusPainted(false);
+                card.addMouseListener(new Hovering(c, mainField));
                 //card.setPreferredSize(getPreferredSize());
                 card.addActionListener(new ActionListener() {
 
                     @Override
                     public void actionPerformed(ActionEvent dispose) {
+                        pPlay.setIcon(bg);
+                        card.setVisible(false);
                         //to implement in the logic
                         /*
                         idea for logic - GUI level:
@@ -91,12 +100,11 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                           */
                     }
                 });
-                if (p instanceof Mosquito) {
-                    oCards.add(card, BorderLayout.CENTER);
-                } else {
-                    pCards.add(card, BorderLayout.CENTER);
-                }
+                pHand.add(card);
+                
             }
+            pHand.add(pScore, BorderLayout.WEST);
+            pHand.add(pScore, BorderLayout.EAST);
         }
         
         this.add(oCards, BorderLayout.NORTH);
@@ -111,6 +119,14 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         mainField.setOpaque(false);
         mainField.setLayout(new BorderLayout());
         mainField.add(scoreCol, BorderLayout.EAST);
+        mainField.add(plays);
+        plays.add(pPlay, BorderLayout.WEST);
+        setTransparentWithIcon(oPlay);
+        setTransparentWithIcon(pPlay);
+        plays.add(oPlay, BorderLayout.EAST);
+        plays.setOpaque(false);
+
+
         scoreCol.setLayout(new BoxLayout(scoreCol, BoxLayout.Y_AXIS));
         scoreCol.setOpaque(false);
         scoreCol.add(oScore);
@@ -123,9 +139,32 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         for (final JPanel p : cards) {
             p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
         }
+        resetHandIcons();
 
     }
 
+    private void resetHandIcons() {
+        for (final Player p : game.getPlayers()) {
+            final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
+            for (final Component c : pHand.getComponents()) {
+                if (c instanceof JButton) {
+                    final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + c.getName() + ".png"));
+                    final ImageIcon bg = new ImageIcon(
+                        bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+                    );
+                    final JButton cc = (JButton)c;
+                    cc.setIcon(bg);
+                }
+            }
+        }
+    }
+
+    private void setTransparentWithIcon(final JButton b) {
+        b.setOpaque(false);
+        b.setContentAreaFilled(false);
+        b.setBorderPainted(false);
+        b.setFocusPainted(false);
+    }
     @Override
     public MusicPlayer getMusic() {
         return new LoopingMusicPlayerImpl(TRACK_PATH);

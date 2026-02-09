@@ -27,6 +27,14 @@ public final class Hovering implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         //io farei qui la roba thomas, secondo me ti aiuta nel field e fai tutto in uno
+        /*
+        plan: 
+        detect the card clicked (auto)
+        if it's the player's turn to choose attribute, redirect to attribute choice 
+        (should have back button)
+        else find a way to obtain it
+        send to Game the user's choices.
+        */
     }
 
     @Override
