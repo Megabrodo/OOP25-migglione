@@ -59,9 +59,9 @@ public class Match {
         int compSign = 1;
         int comparison = 0;
         for (final Player p : scoring.keySet()) {
-            comparison += p.playCard(attrChoice, p.getHand().getFirst()) * compSign;
+            comparison += p.playCard(attrChoice, p.getPlayedCard()) * compSign;
             compSign *= -1;
-            cardsStakes.add(p.getHand().getFirst());
+            cardsStakes.add(p.getPlayedCard());
         }
         if (comparison != 0) {
             final Player winner = scoring.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);

@@ -20,4 +20,9 @@ public class Game extends Match {
     public Game() {
         super(new User(new ArrayList<>()), new Mosquito(new ArrayList<>(), false), new StandardCardDrawImpl(new DeckImpl()));
     }
+
+    public void userChosen(final String attr, final Card played) {
+        this.getPlayers().getFirst().playCard(attr, played);
+        playTurn();
+    }
 }
