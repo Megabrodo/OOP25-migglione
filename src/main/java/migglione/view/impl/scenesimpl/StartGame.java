@@ -144,6 +144,14 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
         this.add(pCenter, BorderLayout.CENTER);
     }
 
+    /**
+     * Method used by SwingViewImpl.
+     * 
+     * <p>
+     * It allows the area of the text and the button
+     * start to be reset after the player return to the
+     * home and then re-enter StartGame
+     */
     public void reset() {
         this.textField.setText("");
         this.start.setEnabled(false);
