@@ -15,7 +15,7 @@ import migglione.model.api.Player;
  */
 public class Match {
 
-    private static final int HAND_SIZE = 3;
+    public static final int HAND_SIZE = 3;
     private static final int MAX_CONSEC_WINS = 3;
     private final Map<Player, Integer> scoring = new HashMap<>();
     private final CardDraw deck;

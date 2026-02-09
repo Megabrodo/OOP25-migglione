@@ -2,7 +2,6 @@ package migglione.view.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +17,8 @@ import javax.swing.JPanel;
 import migglione.model.api.Player;
 import migglione.model.impl.Card;
 import migglione.model.impl.Game;
-import migglione.model.impl.User;
+import migglione.model.impl.Mosquito;
+//import migglione.model.impl.User;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -34,7 +34,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
-     private static final int CARDS_WIDTH = 200;
+    private static final int CARDS_WIDTH = 200;
     private static final int CARDS_HEIGHT = 250;
     private final transient Image playField;
     private final Game game;
@@ -56,15 +56,18 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         final JPanel scoreCol = new JPanel();
         final JButton pScore = new JButton("0");
         final JButton oScore = new JButton("0");
+
         pCards.setOpaque(false);
-        pCards.setLayout(new FlowLayout(FlowLayout.CENTER)); //maybe grid is better?
+        oCards.setOpaque(pCards.isOpaque());
+        pCards.setLayout(new BorderLayout()); //maybe grid is better?
+        oCards.setLayout(pCards.getLayout());
+        
         for (final Player p : game.getPlayers()) {
             for (final Card c : p.getHand()) {
-                final JPanel handDisp = (p instanceof User) ? pCards : oCards;
                 final JButton card = new JButton();
                 final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + c.getName() + ".png"));
                 final ImageIcon bg = new ImageIcon(
-                    bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH) //should change size maybe
+                    bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
                 );
                 card.setIcon(bg);
                 card.setContentAreaFilled(false);
@@ -76,17 +79,30 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                     @Override
                     public void actionPerformed(ActionEvent dispose) {
                         //to implement in the logic
+                        /*
+                        idea for logic - GUI level:
+                            REQUIRES: 2 buttons in the mainfield, one top one bottom
+
+                        - remove the player's hand from the view
+                        - add selected card into bottom button
+                        - await mosquito response
+                        - do same for top side
+                        - once draw ends, check for new hand and update icon
+                          */
                     }
                 });
-                handDisp.add(card);
+                if (p instanceof Mosquito) {
+                    oCards.add(card, BorderLayout.CENTER);
+                } else {
+                    pCards.add(card, BorderLayout.CENTER);
+                }
             }
         }
         
-
         this.add(oCards, BorderLayout.NORTH);
         this.add(mainField, BorderLayout.CENTER);
         this.add(pCards, BorderLayout.SOUTH);
-
+       
         pScore.setBackground(Color.BLUE);
         oScore.setBackground(Color.RED);
         pScore.setEnabled(false);
