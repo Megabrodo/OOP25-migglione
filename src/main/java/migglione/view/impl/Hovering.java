@@ -35,6 +35,11 @@ public final class Hovering implements MouseListener {
         else find a way to obtain it
         send to Game the user's choices.
         */
+       //add attr selection screen
+
+       /*
+       game.userChosen(attr, card);
+        */
     }
 
     @Override
