@@ -99,6 +99,14 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         - do same for top side
                         - once draw ends, check for new hand and update icon
                           */
+
+                        final Card cc = (Card) card.getClientProperty("card");
+                        System.out.println(cc.getCard() + "  is the card in le button");
+                        game.playUserTurn(game.getCurrAttr(), cc);
+
+                        updateScores();
+                        resetHandIcons();
+                        
                     }
                 });
                 pHand.add(card);
@@ -140,7 +148,6 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         for (final JPanel p : cards) {
             p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
         }
-        resetHandIcons();
 
     }
 
@@ -154,6 +161,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                     final JButton cc = (JButton) c;
                     final Card card = (Card) cc.getClientProperty("card");
                     if (!p.getHand().contains(card)) {
+                        c.setVisible(true);
                         cc.putClientProperty("card", newCard);
                         final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + newCard.getName() + ".png"));
                         final ImageIcon bg = new ImageIcon(
