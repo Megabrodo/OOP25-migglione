@@ -148,15 +148,21 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         updateScores();
         for (final Player p : game.getPlayers()) {
             final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
+            final Card newCard = p.getHand().getLast();
             for (final Component c : pHand.getComponents()) {
                 if (c instanceof JButton) {
                     final JButton cc = (JButton) c;
                     final Card card = (Card) cc.getClientProperty("card");
-                    final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + card.getName() + ".png"));
-                    final ImageIcon bg = new ImageIcon(
-                        bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
-                    );
-                    cc.setIcon(bg);
+                    if (!p.getHand().contains(card)) {
+                        cc.putClientProperty("card", newCard);
+                        final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + newCard.getName() + ".png"));
+                        final ImageIcon bg = new ImageIcon(
+                            bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+                        );
+                        cc.setIcon(bg);
+                        break;
+                    }
+                    
                 }
             }
         }
