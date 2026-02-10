@@ -10,11 +10,11 @@ import migglione.model.api.Player;
  * The user gets to choose autonomously what card to play and what attribute to use.
  */
 public class User implements Player {
-    protected final List<Card> hand = new ArrayList<>();
-    protected String chosenAttr;
+    private final List<Card> hand = new ArrayList<>();
+    private String chosenAttr;
     private final String name;
-    protected final PointsPile pile = new PointsPile();
-    protected Card lastPlayed;
+    private final PointsPile pile = new PointsPile();
+    private Card lastPlayed;
 
     /**
      * Constructor for the Mosquito player(or anonymous).
@@ -52,26 +52,18 @@ public class User implements Player {
     @Override
     public final void drawCard(final Card drawnCard) {
         if (hand.size() < 3) {
-            this.hand.addLast(drawnCard);
+            hand.addLast(drawnCard);
         }
     }
 
     @Override
     public final void chooseAttr(final String attr) {
-        this.chosenAttr = attr;
+        chosenAttr = attr;
     }
 
     @Override
     public final String getAttr() {
         return chosenAttr;
-    }
-
-    @Override
-    public List<Card> getPile(List<Card> pointsWon) {
-        for (Card point : pointsWon) {
-            pile.addPile(point);
-        }
-        return pile.getPile();
     }
 
     /**
@@ -99,12 +91,20 @@ public class User implements Player {
     }
 
     @Override
-    public String getName() {
+    public List<Card> getPile(final List<Card> pointsWon) {
+        for (final Card point : pointsWon) {
+            pile.addPile(point);
+        }
+        return pile.getPile();
+    }
+
+    @Override
+    public final String getName() {
         return name;
     }
 
     @Override
-    public Card getPlayedCard() {
+    public final Card getPlayedCard() {
         return lastPlayed;
     }
 }

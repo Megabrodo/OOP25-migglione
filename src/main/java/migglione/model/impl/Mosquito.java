@@ -1,5 +1,6 @@
 package migglione.model.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,8 +8,11 @@ import java.util.List;
  * Different from the user class as the user gets to choose autonomously.
  */
 public final class Mosquito extends User {
+    private final List<Card> hand = new ArrayList<>();
+    private String chosenAttr;
+    private final PointsPile pile = new PointsPile();
     private boolean myTurn;
-    private int consecWins = 0;
+    private int consecWins;
 
     /**
      * Constructor for mosquito player.
@@ -23,23 +27,33 @@ public final class Mosquito extends User {
     }
 
     @Override
-    public final int playCard(final String attr, final Card playedCard) {
+    public int playCard(final String attr, final Card playedCard) {
+        return playCard(attr);
+    }
+
+    /**
+     * Method to play a card, without an unused parameter.
+     * if it's mosquito's turn, he'll decide what attribute to play on.
+     * 
+     * @param attr the attribute used by the User, only used if it's not mosquito's turn
+     * @return the value of the played card in the best attribute, 10 is the max value for a card
+     */
+    private int playCard(final String attr) {
         if (myTurn) {
-            return playCardFirst(playedCard);
+            return playCardFirst();
         } else {
-            //attr to use, playedCard by the user
             return playCardSecond(attr);
         }
     }
 
     @Override
-    public List<Card> getPile(List<Card> pointsWon) {
+    public List<Card> getPile(final List<Card> pointsWon) {
         if (pointsWon.isEmpty()) {
             setMyTurn(false);
             consecWins = 0;
             return pile.getPile();
         }
-        for (Card point : pointsWon) {
+        for (final Card point : pointsWon) {
             pile.addPile(point);
         }
         consecWins += pointsWon.size() / 2;
@@ -56,10 +70,9 @@ public final class Mosquito extends User {
      * If it's mosquito's turn, he'll decide what attribute to play on.
      * An algorhythm to understand what could be best is used.
      * 
-     * @param playedCard the placeholder card that is going to be played and removed from the hand
      * @return the value of the played card in the best attribute, 10 is the max value for a card
      */
-    private int playCardFirst(final Card playedCard) {
+    private int playCardFirst() {
         int maxStat = 0;
         int bestCard = -1;
         for (final Card c : hand) {
@@ -83,17 +96,28 @@ public final class Mosquito extends User {
      * @return the name of the best attribute for the card, in case of tie the last with the best is chosen
      */
     private String bestAttr(final Card playedCard) {
-        if (playedCard.getAttk() > playedCard.getDeff() && playedCard.getAttk() > playedCard.getStrength() && playedCard.getAttk() > playedCard.getIntelligence() && playedCard.getAttk() > playedCard.getStealth()) {
-            return "Attk";
-        } else if (playedCard.getDeff() > playedCard.getStrength() && playedCard.getDeff() > playedCard.getIntelligence() && playedCard.getDeff() > playedCard.getStealth()) {
-            return "Deff";
-        } else if (playedCard.getStrength() > playedCard.getIntelligence() && playedCard.getStrength() > playedCard.getStealth()) {
+        if (playedCard.getAttk() > playedCard.getDeff()) {
+            if (playedCard.getAttk() > playedCard.getStrength()) {
+                if (playedCard.getAttk() > playedCard.getIntelligence() && playedCard.getAttk() > playedCard.getStealth()) {
+                    return "Attk";
+                }
+            } else if (playedCard.getStrength() > playedCard.getIntelligence()
+                    && playedCard.getStrength() > playedCard.getStealth()) {
+                return "Strength";
+            }
+        } else if (playedCard.getDeff() > playedCard.getStrength()) {
+            if (playedCard.getDeff() > playedCard.getIntelligence()
+                && playedCard.getDeff() > playedCard.getStealth()) {
+                return "Deff";
+            }
+        } else if (playedCard.getStrength() > playedCard.getIntelligence()
+            && playedCard.getStrength() > playedCard.getStealth()) {
             return "Strength";
-        } else if (playedCard.getIntelligence() > playedCard.getStealth()) {
-            return "Intelligence";
-        } else {
-            return "Stealth";
         }
+        if (playedCard.getIntelligence() > playedCard.getStealth()) {
+            return "Intelligence";
+        }
+        return "Stealth";
     }
 
     /**
@@ -143,7 +167,7 @@ public final class Mosquito extends User {
      * 
      * @return if it's its turn or not
      */
-    public boolean getMyTurn() {
+    public boolean isMyTurn() {
         return myTurn;
     }
 }
