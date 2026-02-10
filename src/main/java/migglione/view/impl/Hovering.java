@@ -60,6 +60,7 @@ public final class Hovering implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+        gamePanel.repaint();
     }
 
     /**
