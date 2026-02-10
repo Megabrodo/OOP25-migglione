@@ -46,7 +46,7 @@ public class User implements Player {
 
     @Override
     public final List<Card> getHand() {
-        return hand;
+        return List.copyOf(hand);
     }
 
     @Override
@@ -67,11 +67,11 @@ public class User implements Player {
     }
 
     @Override
-    public PointsPile getPile(List<Card> pointsWon) {
+    public List<Card> getPile(List<Card> pointsWon) {
         for (Card point : pointsWon) {
             pile.addPile(point);
         }
-        return pile;
+        return pile.getPile();
     }
 
     /**

@@ -3,7 +3,6 @@ package migglione.model.api;
 import java.util.List;
 
 import migglione.model.impl.Card;
-import migglione.model.impl.PointsPile;
 
 /**
  * interface where the methods in common with the user and the CPU are described.
@@ -57,7 +56,7 @@ public interface Player {
      * @param pointsWon the cards to add to pile
      * @return the pile of points won
      */
-    PointsPile getPile(List<Card> pointsWon);
+    List<Card> getPile(List<Card> pointsWon);
 
     /**
      * A method to get the name of the player, used for the scoreboard.

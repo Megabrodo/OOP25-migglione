@@ -33,11 +33,11 @@ public final class Mosquito extends User {
     }
 
     @Override
-    public PointsPile getPile(List<Card> pointsWon) {
+    public List<Card> getPile(List<Card> pointsWon) {
         if (pointsWon.isEmpty()) {
             setMyTurn(false);
             consecWins = 0;
-            return pile;
+            return pile.getPile();
         }
         for (Card point : pointsWon) {
             pile.addPile(point);
@@ -49,7 +49,7 @@ public final class Mosquito extends User {
             setMyTurn(false);
             consecWins = 0;
         }
-        return pile;
+        return pile.getPile();
     }
 
     /**
