@@ -21,8 +21,8 @@ public class Match {
     private final CardDraw deck;
     private int turn = 1;
     private int consecWins;
-    private Player latestWin;
-    private int turnLead;
+    protected Player latestWin;
+    protected int turnLead;
     private List<Card> cardsStakes;
 
     /**
@@ -59,6 +59,7 @@ public class Match {
         int compSign = 1;
         int comparison = 0;
         for (final Player p : scoring.keySet()) {
+            p.chooseAttr(attrChoice);
             comparison += p.playCard(attrChoice, p.getPlayedCard()) * compSign;
             compSign *= -1;
             cardsStakes.add(p.getPlayedCard());
