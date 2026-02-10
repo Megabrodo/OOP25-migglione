@@ -37,14 +37,21 @@ public class Game extends Match {
      * If the user isn't starting the next turn, the CPU's choice is already registered.
      */
     public void playUserTurn(final String attr, final Card played) {
+        System.out.println("entered, ");
+        getPlayers().getFirst().chooseAttr(attr);
         getPlayers().getFirst().playCard(attr, played);
         getPlayers().getFirst().drawCard(played);
+        System.out.print("set up, ");
         final boolean end = playTurn();
+        System.out.print("turned");
         if (end) {
             //post-game stuff
         } else if (getPlayers().get(turnLead).equals(getPlayers().getLast())) {
-            cpuStoredVal = getPlayers().get(turnLead).playCard(attr, played);
-            currAttr = getPlayers().get(turnLead).getAttr();
+            final Player msq = getPlayers().getLast();
+            cpuStoredVal = msq.playCard(attr, played);
+            currAttr = msq.getAttr();
+            getPlayers().getFirst().chooseAttr(currAttr);
+
         }
 
     }
