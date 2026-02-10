@@ -37,6 +37,17 @@ public class User implements Player {
         this.name = name;
     }
 
+    /**
+     * Method used for playing a specified card.
+     * Needs the Integer representing the card in the Cards.java class,
+     * then removes the card from the player's hand.
+     * Subclasses that override this method must:
+     * call super.playCard(attr, playedCard) to preserve this behavior
+     * 
+     * @param attr the attribute decided to determine who wins
+     * @param playedCard the played card who's going to be removed from the hand
+     * @return the value of card's attribute
+     */
     @Override
     public int playCard(final String attr, final Card playedCard) {
         lastPlayed = playedCard;
@@ -90,6 +101,14 @@ public class User implements Player {
         }
     }
 
+    /**
+     * Method to get the points of the player.
+     * Subclasses that override this method must:
+     * call super.getPile(pointsWon) to preserve this behavior
+     * 
+     * @param pointsWon the cards to add to pile
+     * @return the pile of points won
+     */
     @Override
     public List<Card> getPile(final List<Card> pointsWon) {
         for (final Card point : pointsWon) {

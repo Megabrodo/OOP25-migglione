@@ -1,6 +1,5 @@
 package migglione.model.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,9 +7,6 @@ import java.util.List;
  * Different from the user class as the user gets to choose autonomously.
  */
 public final class Mosquito extends User {
-    private final List<Card> hand = new ArrayList<>();
-    private String chosenAttr;
-    private final PointsPile pile = new PointsPile();
     private boolean myTurn;
     private int consecWins;
 
@@ -28,7 +24,11 @@ public final class Mosquito extends User {
 
     @Override
     public int playCard(final String attr, final Card playedCard) {
-        return playCard(attr);
+        final Card cardToPlay = playCard(attr);
+        if (myTurn) {
+            return super.playCard(bestAttr(cardToPlay), cardToPlay);
+        }
+        return super.playCard(attr, cardToPlay);
     }
 
     /**
@@ -38,7 +38,7 @@ public final class Mosquito extends User {
      * @param attr the attribute used by the User, only used if it's not mosquito's turn
      * @return the value of the played card in the best attribute, 10 is the max value for a card
      */
-    private int playCard(final String attr) {
+    private Card playCard(final String attr) {
         if (myTurn) {
             return playCardFirst();
         } else {
@@ -51,10 +51,7 @@ public final class Mosquito extends User {
         if (pointsWon.isEmpty()) {
             setMyTurn(false);
             consecWins = 0;
-            return pile.getPile();
-        }
-        for (final Card point : pointsWon) {
-            pile.addPile(point);
+            return super.getPile(pointsWon);
         }
         consecWins += pointsWon.size() / 2;
         if (consecWins < 3) {
@@ -63,7 +60,7 @@ public final class Mosquito extends User {
             setMyTurn(false);
             consecWins = 0;
         }
-        return pile.getPile();
+        return super.getPile(pointsWon);
     }
 
     /**
@@ -72,21 +69,20 @@ public final class Mosquito extends User {
      * 
      * @return the value of the played card in the best attribute, 10 is the max value for a card
      */
-    private int playCardFirst() {
+    private Card playCardFirst() {
         int maxStat = 0;
-        int bestCard = -1;
-        for (final Card c : hand) {
+        Card bestCard = new Card("placeholder", 0, 0, 0, 0, 0);
+        for (final Card c : super.getHand()) {
             chooseAttr(bestAttr(c));
-            if (getAttr(chosenAttr, c) > maxStat) {
-                maxStat = getAttr(chosenAttr, c);
-                bestCard = hand.indexOf(c);
+            if (getAttr(super.getAttr(), c) > maxStat) {
+                maxStat = getAttr(super.getAttr(), c);
+                bestCard = c;
             }
             if (maxStat == 10) {
                 break;
             }
         }
-        hand.remove(bestCard);
-        return maxStat;
+        return bestCard;
     }
 
     /**
@@ -126,11 +122,9 @@ public final class Mosquito extends User {
      * @param attr the attribute used by the User
      * @return the value of the played card in the specified attribute
      */
-    private int playCardSecond(final String attr) {
+    private Card playCardSecond(final String attr) {
         chooseAttr(attr);
-        final Card bestCard = maxStat(attr, new Card("placeholder", 0, 0, 0, 0, 0));
-        hand.remove(bestCard);
-        return getAttr(attr, bestCard);
+        return maxStat(attr, new Card("placeholder", 0, 0, 0, 0, 0));
     }
 
     /**
@@ -143,7 +137,7 @@ public final class Mosquito extends User {
      */
     private Card maxStat(final String attr, final Card emptyCard) {
         Card bestCard = emptyCard;
-        for (final Card c : hand) {
+        for (final Card c : super.getHand()) {
             if (getAttr(attr, c) >= getAttr(attr, bestCard)) {
                 bestCard = c;
             }
