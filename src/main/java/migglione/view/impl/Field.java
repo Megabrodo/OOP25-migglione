@@ -80,20 +80,21 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 card.setBorderPainted(false);
                 card.setFocusPainted(false);
                 card.addMouseListener(new Hovering(c, mainField));
+                card.putClientProperty("card", c);
                 //card.setPreferredSize(getPreferredSize());
                 card.addActionListener(new ActionListener() {
 
                     @Override
                     public void actionPerformed(ActionEvent dispose) {
-                        pPlay.setIcon(bg);
+                        final JButton pB = (p instanceof Mosquito) ? oPlay : pPlay;
+                        pB.setIcon(bg);
                         card.setVisible(false);
                         //to implement in the logic
                         /*
                         idea for logic - GUI level:
                             REQUIRES: 2 buttons in the mainfield, one top one bottom
 
-                        - remove the player's hand from the view
-                        - add selected card into bottom button
+                        - add selected card into bottom button (OK)
                         - await mosquito response
                         - do same for top side
                         - once draw ends, check for new hand and update icon
@@ -144,18 +145,27 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     }
 
     private void resetHandIcons() {
+        updateScores();
         for (final Player p : game.getPlayers()) {
             final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
             for (final Component c : pHand.getComponents()) {
                 if (c instanceof JButton) {
-                    final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + c.getName() + ".png"));
+                    final JButton cc = (JButton) c;
+                    final Card card = (Card) cc.getClientProperty("card");
+                    final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + card.getName() + ".png"));
                     final ImageIcon bg = new ImageIcon(
                         bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
                     );
-                    final JButton cc = (JButton)c;
                     cc.setIcon(bg);
                 }
             }
+        }
+    }
+
+    private void updateScores() {
+        for (final Player p : game.getPlayers()) {
+            final JButton b = (p instanceof Mosquito) ? oScore : pScore;
+            b.setText("" + game.getScore(p));
         }
     }
 
@@ -165,6 +175,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         b.setBorderPainted(false);
         b.setFocusPainted(false);
     }
+
     @Override
     public MusicPlayer getMusic() {
         return new LoopingMusicPlayerImpl(TRACK_PATH);
