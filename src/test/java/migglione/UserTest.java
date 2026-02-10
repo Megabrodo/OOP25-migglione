@@ -24,10 +24,10 @@ import migglione.model.impl.User;
 class UserTest {
     private final User userPlayer = new User(new ArrayList<>());
     private final CardDraw standardDraw = new StandardCardDrawImpl(new DeckImpl());
-    
+
     @Test
     void drawToFull() {
-        int moreThanEnoughCards = 5;
+        final int moreThanEnoughCards = 10;
         for (int i = 0; i < moreThanEnoughCards; i++) {
             userPlayer.drawCard(new Card("EmptyCard", 0, 0, 0, 0, 0));
         }

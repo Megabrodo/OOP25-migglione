@@ -1,6 +1,8 @@
 package migglione;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,9 +26,9 @@ class MosquitoTest {
 
     @Test
     void playCardFirst() {
-        final Card bestCard = new Card("best", 9, 9, 9, 10, 10);
-        final Card okCard = new Card("ok", 4, 1, 5, 3, 2);
-        final Card worstCard = new Card("worst", 1, 0, 0, 0, 0);
+        final Card bestCard = new Card("best1", 9, 9, 9, 10, 10);
+        final Card okCard = new Card("ok1", 4, 1, 5, 3, 2);
+        final Card worstCard = new Card("worst1", 1, 0, 0, 0, 0);
         mosquitoPlayer.drawCard(bestCard);
         mosquitoPlayer.drawCard(okCard);
         mosquitoPlayer.drawCard(worstCard);
@@ -42,9 +44,9 @@ class MosquitoTest {
 
     @Test
     void playCardSecond() {
-        final Card bestCard = new Card("best", 9, 9, 9, 10, 10);
-        final Card okCard = new Card("ok", 4, 1, 5, 3, 2);
-        final Card worstCard = new Card("worst", 1, 0, 0, 0, 0);
+        final Card bestCard = new Card("best2", 9, 9, 9, 10, 10);
+        final Card okCard = new Card("ok2", 4, 1, 5, 3, 2);
+        final Card worstCard = new Card("worst2", 1, 0, 0, 0, 0);
         mosquitoPlayer.drawCard(bestCard);
         mosquitoPlayer.drawCard(okCard);
         mosquitoPlayer.drawCard(worstCard);
@@ -59,9 +61,9 @@ class MosquitoTest {
 
     @Test
     void playCardSynchronized() {
-        final Card bestCard = new Card("best", 9, 9, 9, 10, 10);
-        final Card okCard = new Card("ok", 4, 1, 5, 3, 2);
-        final Card worstCard = new Card("worst", 1, 0, 0, 0, 0);
+        final Card bestCard = new Card("best3", 9, 9, 9, 10, 10);
+        final Card okCard = new Card("ok3", 4, 1, 5, 3, 2);
+        final Card worstCard = new Card("worst3", 1, 0, 0, 0, 0);
         mosquitoPlayer.drawCard(bestCard);
         mosquitoPlayer.drawCard(okCard);
         mosquitoPlayer.drawCard(worstCard);
@@ -69,16 +71,16 @@ class MosquitoTest {
         int bestAttr = mosquitoPlayer.playCard("Attk", okCard);
         assertEquals(bestCard.getStealth(), bestAttr);
         mosquitoPlayer.getPile(Collections.emptyList());
-        assertEquals(false, mosquitoPlayer.getMyTurn());
+        assertFalse(mosquitoPlayer.getMyTurn());
         //mosquito goes second
         bestAttr = mosquitoPlayer.playCard("Deff", okCard);
         assertEquals(okCard.getDeff(), bestAttr);
         mosquitoPlayer.getPile(List.of(okCard, worstCard));
-        assertEquals(true, mosquitoPlayer.getMyTurn());
+        assertTrue(mosquitoPlayer.getMyTurn());
         //goes first again
         bestAttr = mosquitoPlayer.playCard("Stealth", okCard);
         assertEquals(worstCard.getAttk(), bestAttr);
         mosquitoPlayer.getPile(List.of(worstCard, worstCard));
-        assertEquals(true, mosquitoPlayer.getMyTurn());
+        assertTrue(mosquitoPlayer.getMyTurn());
     }
 }
