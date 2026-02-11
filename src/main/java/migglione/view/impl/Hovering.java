@@ -63,8 +63,8 @@ public final class Hovering implements MouseListener {
     public void mouseEntered(final MouseEvent e) {
         final Image cardImg = new ImageIcon(getClass().getResource(hoveringCard.getImage())).getImage();
         final Image statsImg = new ImageIcon(getClass().getResource(hoveringCard.getStats())).getImage();
-        gamePanel.getGraphics().drawImage(cardImg, e.getX(), e.getY(), 100, 100, gamePanel);
-        gamePanel.getGraphics().drawImage(statsImg, e.getX() + 100, e.getY() + 100, 100, 100, gamePanel);
+        gamePanel.getGraphics().drawImage(cardImg, gamePanel.getWidth() / 3, gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2, gamePanel.getWidth() / 4), gamePanel);
+        gamePanel.getGraphics().drawImage(statsImg, gamePanel.getWidth() / 3 + Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2, gamePanel.getWidth() / 4), gamePanel);
     }
 
     @Override
