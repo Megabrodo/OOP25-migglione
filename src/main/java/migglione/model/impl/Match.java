@@ -1,7 +1,7 @@
 package migglione.model.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +17,7 @@ public class Match {
 
     public static final int HAND_SIZE = 3;
     private static final int MAX_CONSEC_WINS = 3;
-    private final Map<Player, Integer> scoring = new HashMap<>();
+    private final Map<Player, Integer> scoring = new LinkedHashMap<>();
     private final CardDraw deck;
     private int turn = 1;
     private int consecWins;
