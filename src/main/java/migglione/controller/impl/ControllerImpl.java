@@ -43,4 +43,9 @@ public final class ControllerImpl implements Controller {
         throw new UnsupportedOperationException("Unimplemented method 'endMatch'");
     }
 
+    @Override
+    public String getPlayerName() {
+        return this.playerName;
+    }
+
 }
