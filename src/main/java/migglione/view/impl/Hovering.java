@@ -17,8 +17,8 @@ import migglione.model.impl.Card;
 public final class Hovering implements MouseListener {
     private final HoveringCard hoveringCard;
     private final JPanel gamePanel;
-    private static final String CARDS_IMAGE_PATH = "/images/cards/";
-    private static final String STATS_IMAGE_PATH = "/images/statistics/";
+    private static final String CARDS_IMAGE_PATH = "/images/Cards/";
+    private static final String STATS_IMAGE_PATH = "/images/Statistics/";
 
     /**
      * Constructor for the Hovering class.
@@ -29,7 +29,7 @@ public final class Hovering implements MouseListener {
      * @param gamePanel the panel on which the card will be hovered
      */
     public Hovering(final Card hoveringCard, final JPanel gamePanel) {
-        this.hoveringCard = new HoveringCard(hoveringCard, hoveringCard.getName());
+        this.hoveringCard = new HoveringCard(hoveringCard);
         this.gamePanel = gamePanel;
     }
 
@@ -61,21 +61,8 @@ public final class Hovering implements MouseListener {
 
     @Override
     public void mouseEntered(final MouseEvent e) {
-        final String imagePath = hoveringCard.getImage();
-    final String statsPath = hoveringCard.getStats();
-    
-    final java.net.URL cardUrl = getClass().getResource(imagePath);
-    final java.net.URL statsUrl = getClass().getResource(statsPath);
-    
-    // Skip if resources not found
-    if (cardUrl == null || statsUrl == null) {
-        System.err.println("Resource not found - Card: " + hoveringCard.getName() + 
-                          ", Card path: " + imagePath + ", Stats path: " + statsPath);
-        return;
-    }
-    
-    final Image cardImg = new ImageIcon(cardUrl).getImage();
-    final Image statsImg = new ImageIcon(statsUrl).getImage();
+        final Image cardImg = new ImageIcon(getClass().getResource(hoveringCard.getImage())).getImage();
+        final Image statsImg = new ImageIcon(getClass().getResource(hoveringCard.getStats())).getImage();
         gamePanel.getGraphics().drawImage(cardImg, gamePanel.getWidth() / 3, gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2, gamePanel.getWidth() / 4), gamePanel);
         gamePanel.getGraphics().drawImage(statsImg, gamePanel.getWidth() / 3 + Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2, gamePanel.getWidth() / 4), gamePanel);
     }
@@ -90,25 +77,24 @@ public final class Hovering implements MouseListener {
      * Like a card but with an image too, used to create the hovering effect on the buttons.
      */
 static class HoveringCard extends Card {
-        private String path;
+        private Card actualCard;
 
-        HoveringCard(final Card actualCard, final String path) {
+        HoveringCard(final Card actualCard) {
             super(actualCard.getName(), actualCard.getAttk(), actualCard.getDeff(), actualCard.getStrength(),
                   actualCard.getIntelligence(), actualCard.getStealth());
-            this.path = path;
+            this.actualCard = actualCard;
         }
         
         public String getImage() {
-            return CARDS_IMAGE_PATH + path + ".png";
+            return CARDS_IMAGE_PATH + actualCard.getName() + ".png";
         }
 
         public String getStats() {
-            return STATS_IMAGE_PATH + path + ".png";
+            return STATS_IMAGE_PATH + actualCard.getName() + ".png";
         }
 
-        public Card getHoveredCard() {
-            return new Card(this.getName(), this.getAttk(), this.getDeff(), this.getStrength(),
-                            this.getIntelligence(), this.getStealth());
+        public void setHoveredCard(final Card newCard) {
+            actualCard = newCard;
         }
     }
 }
