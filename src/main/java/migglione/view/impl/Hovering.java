@@ -61,8 +61,21 @@ public final class Hovering implements MouseListener {
 
     @Override
     public void mouseEntered(final MouseEvent e) {
-        final Image cardImg = new ImageIcon(getClass().getResource(hoveringCard.getImage())).getImage();
-        final Image statsImg = new ImageIcon(getClass().getResource(hoveringCard.getStats())).getImage();
+        final String imagePath = hoveringCard.getImage();
+    final String statsPath = hoveringCard.getStats();
+    
+    final java.net.URL cardUrl = getClass().getResource(imagePath);
+    final java.net.URL statsUrl = getClass().getResource(statsPath);
+    
+    // Skip if resources not found
+    if (cardUrl == null || statsUrl == null) {
+        System.err.println("Resource not found - Card: " + hoveringCard.getName() + 
+                          ", Card path: " + imagePath + ", Stats path: " + statsPath);
+        return;
+    }
+    
+    final Image cardImg = new ImageIcon(cardUrl).getImage();
+    final Image statsImg = new ImageIcon(statsUrl).getImage();
         gamePanel.getGraphics().drawImage(cardImg, gamePanel.getWidth() / 3, gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2, gamePanel.getWidth() / 4), gamePanel);
         gamePanel.getGraphics().drawImage(statsImg, gamePanel.getWidth() / 3 + Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2, gamePanel.getWidth() / 4), gamePanel);
     }
