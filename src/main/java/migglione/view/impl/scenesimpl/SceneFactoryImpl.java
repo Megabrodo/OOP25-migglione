@@ -24,7 +24,7 @@ public final class SceneFactoryImpl implements SceneFactory {
         return switch (scenes) {
             case MENU -> new Menu(view);
             case START_GAME -> new StartGame(view, controller);
-            case FIELD -> new Field();
+            case FIELD -> new Field(controller);
             case GALLERY -> new Gallery(view);
             case CREDITS -> new Credits(view);
             default -> throw new IllegalArgumentException("No such scene exist");
