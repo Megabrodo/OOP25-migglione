@@ -15,6 +15,7 @@ import migglione.view.api.scenes.SceneFactory;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.scenesimpl.Gallery;
 import migglione.view.impl.scenesimpl.SceneFactoryImpl;
+import migglione.view.impl.scenesimpl.StartGame;
 
 /**
  * Implementation of the SwingView interface.
@@ -82,6 +83,9 @@ public final class SwingViewImpl implements SwingView {
             if (c.isVisible()) {
                 if (c instanceof Gallery gallery) {
                     gallery.resetScrollBar();
+                }
+                if (c instanceof StartGame startGame) {
+                    startGame.reset();
                 }
                 if (c instanceof MusicProvider musicGetter) {
                     final MusicPlayer newMusic = musicGetter.getMusic();
