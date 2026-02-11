@@ -92,5 +92,10 @@ static class HoveringCard extends Card {
         public String getStats() {
             return STATS_IMAGE_PATH + path + ".png";
         }
+
+        public Card getHoveredCard() {
+            return new Card(this.getName(), this.getAttk(), this.getDeff(), this.getStrength(),
+                            this.getIntelligence(), this.getStealth());
+        }
     }
 }
