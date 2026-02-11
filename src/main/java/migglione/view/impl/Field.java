@@ -48,8 +48,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private final JPanel mainField = new JPanel();
     private final JPanel scoreCol = new JPanel();
     private final JPanel plays = new JPanel();
-    private final JButton pScore = new JButton("0");
-    private final JButton oScore = new JButton("0");
+    private final JButton pScore = new JButton("00");
+    private final JButton oScore = new JButton("00");
     private final JButton pPlay = new JButton();
     private final JButton oPlay = new JButton(); 
 
@@ -59,8 +59,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
      * opponent's hand, menu and scores.
      */
     public Field(final Controller controller) {
-
-        this.game = new Game();
+        
+        this.game = new Game(controller.getPlayerName());
         this.playField = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
         this.setLayout(new BorderLayout());
 
@@ -89,23 +89,16 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                     @Override
                     public void actionPerformed(ActionEvent dispose) {
                         final JButton pB = (p instanceof Mosquito) ? oPlay : pPlay;
+                        pB.setVisible(true);
                         pB.setIcon(bg);
-                        //to implement in the logic
-                        /*
-                        idea for logic - GUI level:
-                            REQUIRES: 2 buttons in the mainfield, one top one bottom
-
-                        - add selected card into bottom button (OK)
-                        - await mosquito response
-                        - do same for top side
-                        - once draw ends, check for new hand and update icon
-                          */
-
                         final Card cc = (Card) card.getClientProperty("card");
                         game.playUserTurn(game.getCurrAttr(), cc);
-
                         updateScores();
-                        resetHandIcons();
+                        if (game.matchEnded()) {
+                            controller.endMatch();
+                        } else {
+                            resetHandIcons();
+                        }
                         
                     }
                 });
@@ -124,6 +117,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         oScore.setBackground(Color.RED);
         pScore.setEnabled(false);
         oScore.setEnabled(false);
+        pScore.setBorderPainted(false);
+        oScore.setBorderPainted(false);
 
         mainField.setOpaque(false);
         mainField.setLayout(new BorderLayout());
@@ -152,9 +147,10 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     }
 
     private void resetHandIcons() {
-        updateScores();
         for (final Player p : game.getPlayers()) {
             final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
+            final JButton pCenter = (p instanceof Mosquito) ? oPlay : pPlay;
+            pCenter.setVisible(false);
             int handUnderSize = Game.HAND_SIZE - p.getHand().size();
             final Card newCard = p.getHand().getLast();
             for (final Component c : pHand.getComponents()) {
@@ -169,6 +165,13 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                             bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
                         );
                         cc.setIcon(bg);
+                        for (final var l : cc.getMouseListeners()) {
+                            if (l instanceof Hovering) {
+                                final Hovering hv = (Hovering) l;
+                                hv.setHoveredCard(newCard);
+                                break;
+                            }
+                        }
                         break;
                     } else if (handUnderSize > 0) {
                         cc.setVisible(false);

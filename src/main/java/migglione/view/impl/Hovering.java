@@ -72,6 +72,9 @@ public final class Hovering implements MouseListener {
         gamePanel.repaint();
     }
 
+    public void setHoveredCard(final Card newCard) {
+        hoveringCard.actualCard = newCard;
+    }
     /**
      * Nested class used to create a card with the same stats as the one in the hand but with an image path.
      * Like a card but with an image too, used to create the hovering effect on the buttons.
@@ -93,8 +96,5 @@ static class HoveringCard extends Card {
             return STATS_IMAGE_PATH + actualCard.getName() + ".png";
         }
 
-        public void setHoveredCard(final Card newCard) {
-            actualCard = newCard;
-        }
     }
 }
