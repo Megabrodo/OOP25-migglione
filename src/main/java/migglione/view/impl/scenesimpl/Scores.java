@@ -1,5 +1,6 @@
 package migglione.view.impl.scenesimpl;
 
+import java.awt.BorderLayout;
 import java.awt.Image;
 
 import javax.swing.JFrame;
@@ -12,10 +13,10 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
 public final class Scores extends AbstractGamePanel implements MusicProvider {
 private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
-private static final String BACKGROUND_IMAGE_PATH;
+//private static final String BACKGROUND_IMAGE_PATH;
 
     Scores(final SwingViewImpl view) {
-
+        this.setLayout(new BorderLayout());
         
 
     }
