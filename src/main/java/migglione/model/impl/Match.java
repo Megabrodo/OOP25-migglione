@@ -150,4 +150,25 @@ public class Match {
     public List<Player> getPlayers() {
         return scoring.keySet().stream().toList();
     }
+
+    /**
+     * Method to return the name of the winner.
+     * If match hasn't finished, returns null.
+     * 
+     * @return the String of the winner's name, or null if match is not finished.
+     */
+    public String getWinner() {
+        if (matchEnded()) {
+            int maxScore = 0;
+            Player win = null;
+            for (final Player p : scoring.keySet()) {
+                if (scoring.get(p) == maxScore) {
+                    maxScore = scoring.get(p);
+                    win = p;
+                }
+            }
+            return win.getName();
+        }
+        return null;
+    }
 }
