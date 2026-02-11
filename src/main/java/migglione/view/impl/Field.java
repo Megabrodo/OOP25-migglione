@@ -106,7 +106,19 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         pB.setVisible(true);
                         pB.setIcon(bg);
                         final Card cc = (Card) card.getClientProperty("card");
-                        game.playUserTurn(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
+                        final Card sub = game.playUserTurn(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
+                        if (sub != null) {
+                            System.out.println(sub.getCard());
+                            final ImageIcon subb = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + sub.getName() + ".png"));
+                            final ImageIcon subbg = new ImageIcon(
+                                subb.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+                            );
+                            oPlay.setIcon(subbg);
+                            oPlay.setVisible(true);
+                            attrChoice.setEnabled(false);
+                        } else {
+                            attrChoice.setEnabled(true);
+                        }
                         attrChoice.setSelectedItem(game.getCurrAttr());
                         updateScores();
                         if (game.matchEnded()) {
@@ -161,11 +173,10 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     }
 
     private void resetHandIcons() {
-        System.out.println("RESET");
         for (final Player p : game.getPlayers()) {
-            final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
-            final JButton pCenter = (p instanceof Mosquito) ? oPlay : pPlay;
-            pCenter.setVisible(false);
+            final JPanel pHand = (p.equals(game.getPlayers().getLast())) ? oCards : pCards;
+            final JButton pCenter = (p.equals(game.getPlayers().getLast())) ? oPlay : pPlay;
+            //pCenter.setVisible(false);
             int handUnderSize = Game.HAND_SIZE - p.getHand().size();
             for (final Component c : pHand.getComponents()) {
                 if (c instanceof JButton) {

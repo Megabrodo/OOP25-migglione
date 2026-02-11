@@ -32,10 +32,12 @@ public class Game extends Match {
      * @param attr the attribute to play on
      * @param played the card chosen to be played
      * 
+     * @return null if it's the user's turn, the card played by the CPU it it's their turn.
+     * 
      * If the user isn't starting the next turn, the CPU's choice is already registered.
      */
-    public void playUserTurn(final String attr, final Card played) {
-        final Mosquito msq = (Mosquito) getPlayers().getLast();
+    public Card playUserTurn(final String attr, final Card played) {
+        final Player msq = getPlayers().getLast();
         final Player plr = getPlayers().getFirst();
         plr.chooseAttr(attr);
         if (getPlayers().get(turnLead).equals(plr)) {
@@ -55,7 +57,9 @@ public class Game extends Match {
             cpuStoredVal = msq.playCard(attr, played);
             currAttr = msq.getAttr();
             plr.chooseAttr(currAttr);
+            return msq.getPlayedCard();
         }
+        return null;
 
     }
 

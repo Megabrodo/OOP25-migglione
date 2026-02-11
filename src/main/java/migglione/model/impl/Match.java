@@ -19,7 +19,6 @@ public class Match {
     private static final int MAX_CONSEC_WINS = 3;
     private final Map<Player, Integer> scoring = new LinkedHashMap<>();
     private final CardDraw deck;
-    private int turn = 1;
     private int consecWins;
     protected Player latestWin;
     protected int turnLead;
@@ -74,7 +73,6 @@ public class Match {
         }
         final boolean isEnd = matchEnded();
         if (!isEnd) {
-            turn++;
             this.allDraw(1);
         }
         return isEnd;
@@ -109,12 +107,12 @@ public class Match {
     }
 
     /**
-     * Method to get the turn the match is on.
+     * Method to get who started the current turn.
      * 
-     * @return the current turn.
+     * @return the player that starts the current turn.
      */
-    public int getTurn() {
-        return this.turn;
+    public Player getTurnLeader() {
+        return getPlayers().get(this.turnLead);
     }
 
     /** 
@@ -165,7 +163,7 @@ public class Match {
             int maxScore = 0;
             Player win = null;
             for (final Player p : scoring.keySet()) {
-                if (scoring.get(p) == maxScore) {
+                if (scoring.get(p) > maxScore) {
                     maxScore = scoring.get(p);
                     win = p;
                 }
