@@ -17,12 +17,10 @@ public class Game extends Match {
      * Due to being a "more functional" version of Match,
      * it inherits its characteristics.
      * 
-     * @param starter the player that starts the first turn
-     * @param second the player that goes second
-     * @param deck the deck the players will draw from
+     * @param name the name of the player
      */
-    public Game() {
-        super(new User(new ArrayList<>()), new Mosquito(new ArrayList<>(), false), new StandardCardDrawImpl(new DeckImpl())); 
+    public Game(final String name) {
+        super(new User(new ArrayList<>(), name), new Mosquito(new ArrayList<>(), false), new StandardCardDrawImpl(new DeckImpl())); 
     }
 
     /**
