@@ -54,18 +54,13 @@ public class Match {
      * 
      * @return if this was the last turn of the match.
      */
-    public boolean playTurn() {
-        final String attrChoice = scoring.keySet().stream().toList().get(turnLead).getAttr(); 
-        int compSign = 1;
-        int comparison = 0;
+    public boolean playTurn(final int plrStat, final int cpuStat) {
+        final int comparison = plrStat - cpuStat;
         for (final Player p : scoring.keySet()) {
-            p.chooseAttr(attrChoice);
-            comparison += p.playCard(attrChoice, p.getPlayedCard()) * compSign;
-            compSign *= -1;
             cardsStakes.add(p.getPlayedCard());
         }
         if (comparison != 0) {
-            final Player winner = scoring.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
+            final Player winner = scoring.keySet().stream().toList().get(comparison > 0 ? 0 : 1);
             scoring.replace(winner, scoring.get(winner) + cardsStakes.size());
             for (final Player p : scoring.keySet()) {
                 if (p.equals(winner)) {
