@@ -60,7 +60,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
      */
     public Field(final Controller controller) {
         
-        this.game = new Game(controller.getPlayerName());
+        this.game = controller.getModel();
         this.playField = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
         this.setLayout(new BorderLayout());
 

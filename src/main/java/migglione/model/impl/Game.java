@@ -45,7 +45,7 @@ public class Game extends Match {
         final int pTurn = plr.playCard(attr, played);
         final boolean end = playTurn(pTurn, cpuStoredVal);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
@@ -67,5 +67,16 @@ public class Game extends Match {
      */
     public String getCurrAttr() {
         return this.currAttr;
+    }
+
+    /**
+     * Method to write the username in scores.txt.
+     * 
+     * @param playerName is the name of the player,
+     *                   it will be written only if they won
+     */
+    public void writeWinner(String playerName) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'writeWinner'");
     }
 }

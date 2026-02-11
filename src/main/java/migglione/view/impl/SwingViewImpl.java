@@ -43,7 +43,9 @@ public final class SwingViewImpl implements SwingView {
     private final CardLayout cards = new CardLayout();
     private final JPanel firstPanel = new JPanel(cards);
     private final SceneFactory sceneCreator;
+    private final Controller controller;
     private String currentSceneName;
+    private boolean modelInitialized = false;
     private MusicPlayer music;
 
     /**
@@ -55,6 +57,8 @@ public final class SwingViewImpl implements SwingView {
      * @param controller is the controller of the application
      */
     public SwingViewImpl(final Controller controller) {
+        this.controller = controller;
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(INITIAL_WIDTH, INITIAL_HEIGHT));
         frame.setMinimumSize(new Dimension(MIN_WIDTH, MIN_HEIGHT));
@@ -63,7 +67,6 @@ public final class SwingViewImpl implements SwingView {
         sceneCreator = new SceneFactoryImpl();
         firstPanel.add(sceneCreator.createScene(this, Scenes.MENU, controller), Scenes.MENU.getScene());
         firstPanel.add(sceneCreator.createScene(this, Scenes.START_GAME, controller), Scenes.START_GAME.getScene());
-        firstPanel.add(sceneCreator.createScene(this, Scenes.FIELD, controller), Scenes.FIELD.getScene());
         firstPanel.add(sceneCreator.createScene(this, Scenes.GALLERY, controller), Scenes.GALLERY.getScene());
         firstPanel.add(sceneCreator.createScene(this, Scenes.CREDITS, controller), Scenes.CREDITS.getScene());
 
@@ -75,6 +78,11 @@ public final class SwingViewImpl implements SwingView {
 
     @Override
     public void setScene(final String sceneName) {
+
+        if (sceneName.equals(Scenes.FIELD.getScene()) && !modelInitialized) {
+            firstPanel.add(sceneCreator.createScene(this, Scenes.FIELD, controller), Scenes.FIELD.getScene());
+            modelInitialized = true;
+        }
 
         this.cards.show(firstPanel, sceneName);
         currentSceneName = sceneName;
