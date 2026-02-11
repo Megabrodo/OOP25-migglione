@@ -38,6 +38,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private static final int CARDS_WIDTH = 100;
     private static final int CARDS_HEIGHT = 125;
+    private static final int SPACE_BETWEEN_CARDS = 500;
     private final transient Image playField;
     private final Game game;
 
@@ -64,7 +65,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
 
         pCards.setOpaque(false);
         oCards.setOpaque(pCards.isOpaque());
-        pCards.setLayout(new FlowLayout(FlowLayout.CENTER)); //maybe grid is better?
+        pCards.setLayout(new FlowLayout(FlowLayout.CENTER, SPACE_BETWEEN_CARDS, SPACE_BETWEEN_CARDS)); //maybe grid is better?
         oCards.setLayout(pCards.getLayout());
 
         for (final Player p : game.getPlayers()) {
@@ -77,7 +78,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 );
                 card.setIcon(bg);
                 card.setContentAreaFilled(false);
-                card.setBorderPainted(false);
+                //card.setBorderPainted(false);
                 card.setFocusPainted(false);
                 card.addMouseListener(new Hovering(c, mainField));
                 card.putClientProperty("card", c);
@@ -88,7 +89,6 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                     public void actionPerformed(ActionEvent dispose) {
                         final JButton pB = (p instanceof Mosquito) ? oPlay : pPlay;
                         pB.setIcon(bg);
-                        card.setVisible(false);
                         //to implement in the logic
                         /*
                         idea for logic - GUI level:
@@ -101,7 +101,6 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                           */
 
                         final Card cc = (Card) card.getClientProperty("card");
-                        System.out.println(cc.getCard() + "  is the card in le button");
                         game.playUserTurn(game.getCurrAttr(), cc);
 
                         updateScores();
@@ -155,13 +154,14 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         updateScores();
         for (final Player p : game.getPlayers()) {
             final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
+            int handUnderSize = Game.HAND_SIZE - p.getHand().size();
             final Card newCard = p.getHand().getLast();
             for (final Component c : pHand.getComponents()) {
                 if (c instanceof JButton) {
                     final JButton cc = (JButton) c;
                     final Card card = (Card) cc.getClientProperty("card");
-                    if (!p.getHand().contains(card)) {
-                        c.setVisible(true);
+                    cc.setVisible(true);
+                    if (!p.getHand().contains(card) && handUnderSize == 0) {
                         cc.putClientProperty("card", newCard);
                         final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + newCard.getName() + ".png"));
                         final ImageIcon bg = new ImageIcon(
@@ -169,6 +169,9 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         );
                         cc.setIcon(bg);
                         break;
+                    } else if (handUnderSize > 0) {
+                        cc.setVisible(false);
+                        handUnderSize--;
                     }
                     
                 }
