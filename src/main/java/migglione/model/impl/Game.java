@@ -46,7 +46,11 @@ public class Game extends Match {
         }
         final int pTurn = plr.playCard(attr, played);
         final boolean end = playTurn(pTurn, cpuStoredVal);
-
+        try {
+            wait(2000);
+        } catch (InterruptedException ex) {
+            throw new IllegalStateException("not waiting", ex);
+        }
         if (end) {
             //post-game stuff
         } else if (getPlayers().get(turnLead).equals(getPlayers().getLast())) {
