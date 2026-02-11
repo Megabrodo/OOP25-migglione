@@ -18,14 +18,23 @@ public final class Hovering implements MouseListener {
     private final HoveringCard hoveringCard;
     private final JPanel gamePanel;
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
+    private static final String STATS_IMAGE_PATH = "/images/statistics/";
 
+    /**
+     * Constructor for the Hovering class.
+     * It takes a card and a panel as parameters and creates a hovering card.
+     * The card has the image and stats specified by itself.
+     * 
+     * @param hoveringCard the card to be hovered
+     * @param gamePanel the panel on which the card will be hovered
+     */
     public Hovering(final Card hoveringCard, final JPanel gamePanel) {
-        this.hoveringCard = new HoveringCard(hoveringCard, CARDS_IMAGE_PATH + hoveringCard.getName() + ".png");
+        this.hoveringCard = new HoveringCard(hoveringCard, hoveringCard.getName());
         this.gamePanel = gamePanel;
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(final MouseEvent e) {
         //io farei qui la roba thomas, secondo me ti aiuta nel field e fai tutto in uno
         /*
         plan: 
@@ -43,23 +52,23 @@ public final class Hovering implements MouseListener {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(final MouseEvent e) {
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        //da implementare
+    public void mouseReleased(final MouseEvent e) {
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(final MouseEvent e) {
         final Image cardImg = new ImageIcon(getClass().getResource(hoveringCard.getImage())).getImage();
-        gamePanel.getGraphics().drawImage(cardImg, e.getX(), e.getY(), 100, 150, gamePanel);
-        //o faccio immagini per le stat(banale word) oppure cerco di fare un panel in cui si scrive
+        final Image statsImg = new ImageIcon(getClass().getResource(hoveringCard.getStats())).getImage();
+        gamePanel.getGraphics().drawImage(cardImg, e.getX(), e.getY(), 100, 100, gamePanel);
+        gamePanel.getGraphics().drawImage(statsImg, e.getX() + 100, e.getY() + 100, 100, 100, gamePanel);
     }
 
     @Override
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(final MouseEvent e) {
         gamePanel.repaint();
     }
 
@@ -67,16 +76,21 @@ public final class Hovering implements MouseListener {
      * Nested class used to create a card with the same stats as the one in the hand but with an image path.
      * Like a card but with an image too, used to create the hovering effect on the buttons.
      */
-    static class HoveringCard extends Card {
+static class HoveringCard extends Card {
         private String path;
 
-        public HoveringCard(final Card actualCard, final String path) {
-            super(actualCard.getName(), actualCard.getAttk(), actualCard.getDeff(), actualCard.getStrength(), actualCard.getIntelligence(), actualCard.getStealth());
+        HoveringCard(final Card actualCard, final String path) {
+            super(actualCard.getName(), actualCard.getAttk(), actualCard.getDeff(), actualCard.getStrength(),
+                  actualCard.getIntelligence(), actualCard.getStealth());
             this.path = path;
         }
         
         public String getImage() {
-            return path;
+            return CARDS_IMAGE_PATH + path + ".png";
+        }
+
+        public String getStats() {
+            return STATS_IMAGE_PATH + path + ".png";
         }
     }
 }
