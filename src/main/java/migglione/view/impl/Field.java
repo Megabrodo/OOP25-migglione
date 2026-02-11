@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import migglione.controller.api.Controller;
 import migglione.model.api.Player;
 import migglione.model.impl.Card;
 import migglione.model.impl.Game;
@@ -57,7 +58,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
      * Divides screen into play field, player's hand,
      * opponent's hand, menu and scores.
      */
-    public Field() {
+    public Field(final Controller controller) {
 
         this.game = new Game();
         this.playField = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
