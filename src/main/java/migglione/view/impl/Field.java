@@ -121,12 +121,10 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         }
                         attrChoice.setSelectedItem(game.getCurrAttr());
                         updateScores();
+                            resetHandIcons();
                         if (game.matchEnded()) {
                             controller.endMatch();
-                        } else {
-                            resetHandIcons();
                         }
-                        
                     }
                 });
                 pHand.add(card);
@@ -176,8 +174,9 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         for (final Player p : game.getPlayers()) {
             final JPanel pHand = (p.equals(game.getPlayers().getLast())) ? oCards : pCards;
             final JButton pCenter = (p.equals(game.getPlayers().getLast())) ? oPlay : pPlay;
-            //pCenter.setVisible(false);
-            int handUnderSize = Game.HAND_SIZE - p.getHand().size();
+            pCenter.setVisible(false);
+            //move CPU displaying into the center down here - change return of playUserTurn to bool for CPU turn lead
+            boolean handUnderSize = (Game.HAND_SIZE - p.getHand().size() - (p.equals(game.getTurnLeader()) && p.equals(game.getPlayers().getLast()) ? 1 : 0)) > 0;
             for (final Component c : pHand.getComponents()) {
                 if (c instanceof JButton) {
                     final JButton cc = (JButton) c;
@@ -185,24 +184,27 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         final Card newCard = p.getHand().getLast();
                         final Card card = (Card) cc.getClientProperty("card");
                     cc.setVisible(true);
-                    if (!p.getHand().contains(card) && handUnderSize == 0) {
-                        cc.putClientProperty("card", newCard);
-                        final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + newCard.getName() + ".png"));
-                        final ImageIcon bg = new ImageIcon(
-                            bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
-                        );
-                        cc.setIcon(bg);
-                        for (final var l : cc.getMouseListeners()) {
-                            if (l instanceof Hovering) {
-                                final Hovering hv = (Hovering) l;
-                                hv.setHoveredCard(newCard);
-                                break;
+                    if (!p.getHand().contains(card)) {
+                        System.out.println(handUnderSize);
+                        if (!handUnderSize){
+                            System.out.println("replacing..." + card.getName() + " to " + newCard.getName());
+                            cc.putClientProperty("card", newCard);
+                            final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + newCard.getName() + ".png"));
+                            final ImageIcon bg = new ImageIcon(
+                                bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+                            );
+                            cc.setIcon(bg);
+                            for (final var l : cc.getMouseListeners()) {
+                                if (l instanceof Hovering) {
+                                    final Hovering hv = (Hovering) l;
+                                    hv.setHoveredCard(newCard);
+                                    break;
+                                }
                             }
-                        }
-                        break;
-                    } else if (handUnderSize > 0) {
-                        cc.setVisible(false);
-                        handUnderSize--;
+                            break;
+                        } else {
+                            cc.setVisible(false);
+                        } 
                     }
                     } catch (final NoSuchElementException e) {
                         cc.setVisible(false);
