@@ -35,7 +35,7 @@ public class Game extends Match {
      * If the user isn't starting the next turn, the CPU's choice is already registered.
      */
     public void playUserTurn(final String attr, final Card played) {
-        final Player msq = getPlayers().getLast();
+        final Mosquito msq = (Mosquito) getPlayers().getLast();
         final Player plr = getPlayers().getFirst();
         plr.chooseAttr(attr);
         if (getPlayers().get(turnLead).equals(plr)) {
@@ -43,19 +43,18 @@ public class Game extends Match {
            cpuStoredVal = msq.playCard(attr, played);
         }
         final int pTurn = plr.playCard(attr, played);
-        final boolean end = playTurn(pTurn, cpuStoredVal);
         try {
             Thread.sleep(2000);
         } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
+        final boolean end = playTurn(pTurn, cpuStoredVal);
         if (end) {
             //post-game stuff
-        } else if (getPlayers().get(turnLead).equals(getPlayers().getLast())) {
+        } else if (getPlayers().get(turnLead).equals(msq)) {
             cpuStoredVal = msq.playCard(attr, played);
             currAttr = msq.getAttr();
-            getPlayers().getFirst().chooseAttr(currAttr);
-
+            plr.chooseAttr(currAttr);
         }
 
     }

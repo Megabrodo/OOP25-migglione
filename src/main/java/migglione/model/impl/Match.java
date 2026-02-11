@@ -98,11 +98,14 @@ public class Match {
             if (consecWins >= MAX_CONSEC_WINS) {
                 turnLead = 1 - turnLead;
                 consecWins = 1;
+                return;
             }
         } else {
+            turnLead = 1 - turnLead;
             latestWin = winner;
             consecWins = 1;
         }
+        turnLead = getPlayers().indexOf(latestWin);
     }
 
     /**
