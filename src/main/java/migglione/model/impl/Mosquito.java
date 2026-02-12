@@ -116,7 +116,7 @@ public final class Mosquito extends User {
         } else {
             return "Stealth";
         }
-        
+
     }
 
     /**

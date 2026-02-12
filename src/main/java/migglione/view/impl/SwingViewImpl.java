@@ -140,17 +140,24 @@ public final class SwingViewImpl implements SwingView {
     }
 
     @Override
-    public void endMessage(String winner, String player, Optional<Integer> pScore, Optional<Integer> cScore) {
-        String endMessage;
-        if (winner.equals(player)) {
-            endMessage = "You won with " + pScore.get() + " points!";
-        } else if (pScore.get().equals(cScore.get())) {
-            endMessage = "It's a tie!";
-        } else {
-            endMessage = "You lost...";
-        }
+    public void endMessage(
+        final String winner,
+        final String player,
+        final Optional<Integer> pScore,
+        final Optional<Integer> cScore) {
 
-        JOptionPane.showMessageDialog(frame, endMessage, "The game has ended", JOptionPane.INFORMATION_MESSAGE);
-        setScene(Scenes.MENU.getScene());
-    }
+            if (pScore.isPresent() && cScore.isPresent()) {
+                final String endMessage;
+                if (winner.equals(player)) {
+                    endMessage = "You won with " + pScore.get() + " points!";
+                } else if (pScore.get().equals(cScore.get())) {
+                    endMessage = "It's a tie!";
+                } else {
+                    endMessage = "You lost...";
+                }
+
+                JOptionPane.showMessageDialog(frame, endMessage, "The game has ended", JOptionPane.INFORMATION_MESSAGE);
+            }
+            setScene(Scenes.MENU.getScene());
+        }
 }
