@@ -88,11 +88,6 @@ private JTextArea score;
     }
 
     @Override
-    public MusicPlayer getMusic() {
-        return new LoopingMusicPlayerImpl(TRACK_PATH);
-    }
-
-    @Override
     protected Image getImage() {
         return scorImage;
     }
