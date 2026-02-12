@@ -55,8 +55,8 @@ public final class Menu extends AbstractGamePanel implements MusicProvider {
         final JPanel titleBox = new JPanel();
         final JLabel title = new JLabel(TITLE);
         final JButton startButton = new GenericButton(START_GAME, b -> view.setScene(Scenes.START_GAME.getScene()));
-        final JButton tutorial = new GenericButton(TUTORIAL, b -> view.quit());
-        final JButton scores = new GenericButton(SCORES, b -> view.quit());
+        final JButton tutorial = new GenericButton(TUTORIAL, b -> view.setScene(Scenes.TUTORIAL.getScene()));
+        final JButton scores = new GenericButton(SCORES, b -> view.setScene(Scenes.SCORES.getScene()));
         final JButton gallery = new GenericButton(GALLERY, b -> view.setScene(Scenes.GALLERY.getScene()));
         final JButton credits = new GenericButton(CREDITS, b -> view.setScene(Scenes.CREDITS.getScene()));
         final JButton quit = new GenericButton(QUIT, b -> view.quit());
