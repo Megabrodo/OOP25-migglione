@@ -53,13 +53,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public String getPlayerName() {
-        return this.playerName;
-    }
-
-    @Override
     public Game getModel() {
         return this.model;
     }
-
 }

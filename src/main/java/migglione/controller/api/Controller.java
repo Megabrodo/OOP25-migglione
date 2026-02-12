@@ -42,13 +42,6 @@ public interface Controller {
     void endSession();
 
     /**
-     * Method to obtain the stored player name.
-     * 
-     * @return the name of the player
-     */
-    String getPlayerName();
-
-    /**
      * Getter for the model of the game.
      * 
      * @return the model
