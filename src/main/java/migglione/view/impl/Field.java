@@ -39,7 +39,7 @@ import migglione.view.impl.scenesimpl.AbstractGamePanel;
  * */
 public final class Field extends AbstractGamePanel implements MusicProvider {
 
-    private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
+    private static final String TRACK_PATH = "/soundtracks/Air Waves.wav";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private static final String FONT_NAME = "Times New Roman";
