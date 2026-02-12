@@ -49,7 +49,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void endSession() {
         this.model.writeWinner();
-        this.view.setScene(Scenes.MENU.getScene());
+        this.view.endMessage(this.model.getWinner(), playerName, this.model.getPlayerScore(), this.model.getCPUScore());
     }
 
     @Override

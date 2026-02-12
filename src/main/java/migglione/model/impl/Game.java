@@ -99,6 +99,20 @@ public class Game extends Match {
     }
 
     /**
+     * Method used to get the score of the mosquito.
+     * 
+     * @return the optional of the score
+     */
+    public Optional<Integer> getCPUScore() {
+        for (var p : getPlayers()) {
+            if (!p.getName().equals(playerName)) {
+                return Optional.of(getScore(p));
+            }
+        }
+        return null;
+    }
+
+    /**
      * Method to write the username in a file.
      * 
      * <p>

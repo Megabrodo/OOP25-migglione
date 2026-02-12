@@ -3,8 +3,10 @@ package migglione.view.impl;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Optional;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import migglione.controller.api.Controller;
@@ -135,5 +137,20 @@ public final class SwingViewImpl implements SwingView {
     public void quit() {
         endMusic();
         frame.dispose();
+    }
+
+    @Override
+    public void endMessage(String winner, String player, Optional<Integer> pScore, Optional<Integer> cScore) {
+        String endMessage;
+        if (winner.equals(player)) {
+            endMessage = "You won with " + pScore.get() + " points!";
+        } else if (pScore.get().equals(cScore.get())) {
+            endMessage = "It's a tie!";
+        } else {
+            endMessage = "You lost...";
+        }
+
+        JOptionPane.showMessageDialog(frame, endMessage, "The game has ended", JOptionPane.INFORMATION_MESSAGE);
+        setScene(Scenes.MENU.getScene());
     }
 }
