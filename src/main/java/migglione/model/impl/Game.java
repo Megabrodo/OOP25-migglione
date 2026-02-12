@@ -90,7 +90,7 @@ public class Game extends Match {
      * @return the optional of the score
      */
     public Optional<Integer> getPlayerScore() {
-        for (var p : getPlayers()) {
+        for (final var p : getPlayers()) {
             if (p.getName().equals(playerName)) {
                 return Optional.of(getScore(p));
             }
@@ -104,7 +104,7 @@ public class Game extends Match {
      * @return the optional of the score
      */
     public Optional<Integer> getCPUScore() {
-        for (var p : getPlayers()) {
+        for (final var p : getPlayers()) {
             if (!p.getName().equals(playerName)) {
                 return Optional.of(getScore(p));
             }
@@ -131,10 +131,10 @@ public class Game extends Match {
             final int pScore = getPlayerScore().get();
             final Map<String, Integer> scores = new HashMap<>();
 
-            Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
+            final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
             try {
                 Files.createDirectories(path.getParent());
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
                 return;
             }
@@ -143,26 +143,26 @@ public class Game extends Match {
                 try (BufferedReader read = Files.newBufferedReader(path)) {
                     String s;
                     while ((s = read.readLine()) != null) {
-                        String[] split = s.split("->");
+                        final String[] split = s.split("->");
                         if (split.length == 2) {
                             scores.put(split[0].trim(), Integer.parseInt(split[1].trim()));
                         }
                     }
-                } catch (IOException e) {
+                } catch (final IOException e) {
                     e.printStackTrace();
                 }
             }
             scores.merge(playerName, pScore, Math::max);
 
-            List<Map.Entry<String, Integer>> orderedScores = new ArrayList<>(scores.entrySet());
+            final List<Map.Entry<String, Integer>> orderedScores = new ArrayList<>(scores.entrySet());
             orderedScores.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));
 
             try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-                for (Map.Entry<String, Integer> entry : orderedScores) {
+                for (final Map.Entry<String, Integer> entry : orderedScores) {
                     writer.write(entry.getKey() + "->" + entry.getValue());
                     writer.newLine();
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         }
