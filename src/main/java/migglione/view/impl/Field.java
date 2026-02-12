@@ -40,8 +40,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
-    private static final int CARDS_WIDTH = 100;
-    private static final int CARDS_HEIGHT = 125;
+    private static final int CARDS_WIDTH = 180;
+    private static final int CARDS_HEIGHT = 230;
     private static final int SPACE_BETWEEN_CARDS = 500;
     private final transient Image playField;
     private final Game game;
@@ -52,8 +52,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private final JPanel mainField = new JPanel();
     private final JPanel scoreCol = new JPanel();
     private final JPanel plays = new JPanel();
-    private final JButton pScore = new JButton("00");
-    private final JButton oScore = new JButton("00");
+    private final JButton pScore = new JButton("0");
+    private final JButton oScore = new JButton("0");
     private final JButton pPlay = new JButton();
     private final JButton oPlay = new JButton(); 
     private final JComboBox<String> attrChoice = new JComboBox<>(attrs);
