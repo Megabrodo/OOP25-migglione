@@ -128,14 +128,13 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                     }
                 });
                 pHand.add(card);
-                
             }
         }
-        
+
         this.add(oCards, BorderLayout.NORTH);
         this.add(mainField, BorderLayout.CENTER);
         this.add(pCards, BorderLayout.SOUTH);
-       
+
         pScore.setBackground(Color.BLUE);
         oScore.setBackground(Color.RED);
         pScore.setEnabled(false);
@@ -209,7 +208,6 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                     } catch (final NoSuchElementException e) {
                         cc.setVisible(false);
                     }
-                    
                 }
             }
         }
