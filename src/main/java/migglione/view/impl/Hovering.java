@@ -30,7 +30,7 @@ public final class Hovering implements MouseListener {
      */
     public Hovering(final Card hoveringCard, final JPanel gamePanel) {
         this.hoveringCard = new HoveringCard(hoveringCard);
-        this.gamePanel = gamePanel;
+        this.gamePanel = gamePanel.getClass().cast(gamePanel);
     }
 
     @Override
