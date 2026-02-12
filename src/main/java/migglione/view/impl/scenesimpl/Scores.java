@@ -26,7 +26,7 @@ private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
 private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
 private final transient Image scorImage;
 private static final String BACK = "Back";
-private static final String FILE_TXT_PATH = "/resources/file/ScoreTable.txt";
+private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
 private final JTextArea score;
 
     public Scores(final SwingViewImpl view) {
@@ -58,11 +58,11 @@ private final JTextArea score;
 
     }
 
-    private final void addFile(String FILE_TXT_PATH) {
+    private final void addFile(String FILE_TXT_PATH) { //
 
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_TXT_PATH))) {
             String line;
-            
+
             while((line = reader.readLine()) != null) {
                 score.append(line + "\n");
             }
