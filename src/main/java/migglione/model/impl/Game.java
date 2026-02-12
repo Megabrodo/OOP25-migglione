@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import migglione.model.api.Player;
 
 /**
@@ -20,6 +23,7 @@ import migglione.model.api.Player;
  */
 public class Game extends Match {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
     private final String playerName;
     private String currAttr = "Attk";
     private int cpuStoredVal;
@@ -135,21 +139,22 @@ public class Game extends Match {
             try {
                 Files.createDirectories(path.getParent());
             } catch (final IOException e) {
-                e.printStackTrace();
+                LOGGER.error("Error during creation of folder", e);
                 return;
             }
 
             if (Files.exists(path)) {
                 try (BufferedReader read = Files.newBufferedReader(path)) {
-                    String s;
-                    while ((s = read.readLine()) != null) {
+                    String s = read.readLine();
+                    while (s != null) {
                         final String[] split = s.split("->");
                         if (split.length == 2) {
                             scores.put(split[0].trim(), Integer.parseInt(split[1].trim()));
                         }
+                        s = read.readLine();
                     }
                 } catch (final IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error("Error during reading of file", e);
                 }
             }
             scores.merge(playerName, pScore, Math::max);
@@ -163,7 +168,7 @@ public class Game extends Match {
                     writer.newLine();
                 }
             } catch (final IOException e) {
-                e.printStackTrace();
+                LOGGER.error("Error during writing of file", e);
             }
         }
     }

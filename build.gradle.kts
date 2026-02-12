@@ -29,6 +29,10 @@ dependencies {
     implementation("com.omertron:API-OMDB:1.5")
     implementation("org.jooq:jool:0.9.15")
 
+    // To use logs and the SLF4J library (for PMD)
+    implementation("org.slf4j:slf4j-api:2.0.9")
+    implementation("ch.qos.logback:logback-classic:1.4.11")
+
     /*
      * Simple Logging Facade for Java (SLF4J)
      * See: http://www.slf4j.org/
