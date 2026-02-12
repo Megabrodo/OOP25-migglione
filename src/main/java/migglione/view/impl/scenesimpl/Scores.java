@@ -22,7 +22,7 @@ import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
-public final class Scores extends AbstractGamePanel {
+public final class Scores extends AbstractGamePanel implements MusicProvider {
 
 private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
 private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
@@ -85,6 +85,10 @@ private JTextArea score;
                 JOptionPane.showMessageDialog(this, "error file reader", "error", 
                 JOptionPane.ERROR_MESSAGE);
             }
+    }
+    @Override
+    public MusicPlayer getMusic() {
+        return new LoopingMusicPlayerImpl(TRACK_PATH);
     }
 
     @Override
