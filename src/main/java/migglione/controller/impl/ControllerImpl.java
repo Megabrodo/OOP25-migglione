@@ -33,14 +33,21 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void startMatch(final String name) {
+    public void startSession(final String name) {
         this.playerName = name;
         this.model = new Game(playerName);
         view.setScene(Scenes.FIELD.getScene());
     }
 
     @Override
-    public void endMatch() {
+    public void checkSession() {
+        if (this.model.matchEnded()) {
+            endSession();
+        }
+    }
+
+    @Override
+    public void endSession() {
         if (this.model.getWinner().equals(playerName)) {
             this.model.writeWinner(playerName);
         }

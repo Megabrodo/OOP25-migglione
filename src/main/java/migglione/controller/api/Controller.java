@@ -19,7 +19,16 @@ public interface Controller {
      *             it will be used later if they
      *             won the game
      */
-    void startMatch(String name);
+    void startSession(String name);
+
+    /**
+     * Used to check if its time to end the match.
+     * 
+     * <p>
+     * This method decides if endSession should be
+     * called, by asking directly the model
+     */
+    void checkSession();
 
     /**
      * Determines the end of the match.
@@ -30,7 +39,7 @@ public interface Controller {
      * will be put in the scores file, so that it can be
      * displayed in the Scores scene
      */
-    void endMatch();
+    void endSession();
 
     /**
      * Method to obtain the stored player name.

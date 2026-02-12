@@ -101,7 +101,7 @@ public final class StartGame extends AbstractGamePanel implements MusicProvider 
         });
 
         this.start = new GenericButton("Start!", a -> {
-            controller.startMatch(textField.getText());
+            controller.startSession(textField.getText());
         });
         start.setEnabled(false);
 

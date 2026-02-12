@@ -121,10 +121,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         }
                         attrChoice.setSelectedItem(game.getCurrAttr());
                         updateScores();
-                            resetHandIcons();
-                        if (game.matchEnded()) {
-                            controller.endMatch();
-                        }
+                        resetHandIcons();
+                        controller.checkSession();
                     }
                 });
                 pHand.add(card);

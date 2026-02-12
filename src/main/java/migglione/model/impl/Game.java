@@ -1,6 +1,7 @@
 package migglione.model.impl;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import migglione.model.api.Player;
 
@@ -70,6 +71,15 @@ public class Game extends Match {
      */
     public String getCurrAttr() {
         return this.currAttr;
+    }
+
+    public Optional<Integer> getPlayerScore() {
+        for (var p : getPlayers()) {
+            if (p.getName().equals("Player")) {
+                return Optional.of(getScore(p));
+            }
+        }
+        return null;
     }
 
     /**
