@@ -43,7 +43,6 @@ public final class SwingViewImpl implements SwingView {
     private final SceneFactory sceneCreator;
     private final Controller controller;
     private String currentSceneName;
-    private boolean modelInitialized = false;
     private MusicPlayer music;
 
     /**
@@ -79,9 +78,14 @@ public final class SwingViewImpl implements SwingView {
     @Override
     public void setScene(final String sceneName) {
 
-        if (sceneName.equals(Scenes.FIELD.getScene()) && !modelInitialized) {
+        if (sceneName.equals(Scenes.FIELD.getScene())) {
+            for (final var c : firstPanel.getComponents()) {
+                if (c instanceof Field) {
+                    firstPanel.remove(c);
+                    break;
+                }
+            }
             firstPanel.add(sceneCreator.createScene(this, Scenes.FIELD, controller), Scenes.FIELD.getScene());
-            modelInitialized = true;
         }
 
         this.cards.show(firstPanel, sceneName);

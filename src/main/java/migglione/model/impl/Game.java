@@ -102,9 +102,15 @@ public class Game extends Match {
      * Method to write the username in a file.
      * 
      * <p>
-     * It will used the stored name to make sure
+     * It will use the stored name to make sure
      * that it's the same as the winner's, so that
      * it can be written in the file of scores
+     * 
+     * <p>
+     * Since the jar can't write, i decided to
+     * use an external folder named .migglione
+     * to store the txt file, now it should work
+     * even with the jar
      */
     public void writeWinner() {
         if (this.playerName.equals(getWinner())) {
