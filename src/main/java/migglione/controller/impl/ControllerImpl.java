@@ -1,6 +1,7 @@
 package migglione.controller.impl;
 
 import migglione.controller.api.Controller;
+import migglione.model.impl.Game;
 import migglione.view.api.SwingView;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
@@ -17,6 +18,7 @@ import migglione.view.impl.SwingViewImpl;
 public final class ControllerImpl implements Controller {
 
     private final SwingView view;
+    private Game model;
     private String playerName;
 
     /**
@@ -33,14 +35,26 @@ public final class ControllerImpl implements Controller {
     @Override
     public void startMatch(final String name) {
         this.playerName = name;
-        //Qui inizializzo la classe del model che gestisce la partita
+        this.model = new Game(playerName);
         view.setScene(Scenes.FIELD.getScene());
     }
 
     @Override
     public void endMatch() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'endMatch'");
+        if (this.model.getWinner().equals(playerName)) {
+            this.model.writeWinner(playerName);
+        }
+        this.view.setScene(Scenes.MENU.getScene());
+    }
+
+    @Override
+    public String getPlayerName() {
+        return this.playerName;
+    }
+
+    @Override
+    public Game getModel() {
+        return this.model;
     }
 
 }

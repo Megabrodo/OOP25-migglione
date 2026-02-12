@@ -8,14 +8,18 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
+import migglione.controller.api.Controller;
 import migglione.model.api.Player;
 import migglione.model.impl.Card;
 import migglione.model.impl.Game;
@@ -38,34 +42,46 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private static final int CARDS_WIDTH = 100;
     private static final int CARDS_HEIGHT = 125;
+    private static final int SPACE_BETWEEN_CARDS = 500;
     private final transient Image playField;
     private final Game game;
+    private final String attrs[] = {"Attk", "Deff", "Strength", "Intelligence", "Stealth"};
 
     private final JPanel pCards = new JPanel();
     private final JPanel oCards = new JPanel();
     private final JPanel mainField = new JPanel();
     private final JPanel scoreCol = new JPanel();
     private final JPanel plays = new JPanel();
-    private final JButton pScore = new JButton("0");
-    private final JButton oScore = new JButton("0");
+    private final JButton pScore = new JButton("00");
+    private final JButton oScore = new JButton("00");
     private final JButton pPlay = new JButton();
     private final JButton oPlay = new JButton(); 
+    private final JComboBox<String> attrChoice = new JComboBox<>(attrs);
 
     /**
      * Constructor of this class. 
      * Divides screen into play field, player's hand,
      * opponent's hand, menu and scores.
      */
-    public Field() {
-
-        this.game = new Game();
+    public Field(final Controller controller) {
+        
+        this.game = controller.getModel();
         this.playField = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
         this.setLayout(new BorderLayout());
 
         pCards.setOpaque(false);
         oCards.setOpaque(pCards.isOpaque());
-        pCards.setLayout(new FlowLayout(FlowLayout.CENTER)); //maybe grid is better?
+        pCards.setLayout(new FlowLayout(FlowLayout.CENTER, SPACE_BETWEEN_CARDS, SPACE_BETWEEN_CARDS)); //maybe grid is better?
         oCards.setLayout(pCards.getLayout());
+
+        final JPanel attrHold = new JPanel();
+        final JTextArea title = new JTextArea("CURRENT ATTRIBUTE:");
+        attrHold.setLayout(new BoxLayout(attrHold, BoxLayout.Y_AXIS));
+        attrHold.add(Box.createVerticalGlue());
+        attrHold.add(title);
+        attrHold.add(attrChoice);
+        attrHold.add(Box.createVerticalGlue());
+        
 
         for (final Player p : game.getPlayers()) {
             final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
@@ -87,33 +103,33 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                     @Override
                     public void actionPerformed(ActionEvent dispose) {
                         final JButton pB = (p instanceof Mosquito) ? oPlay : pPlay;
+                        pB.setVisible(true);
                         pB.setIcon(bg);
-                        card.setVisible(false);
-                        //to implement in the logic
-                        /*
-                        idea for logic - GUI level:
-                            REQUIRES: 2 buttons in the mainfield, one top one bottom
-
-                        - add selected card into bottom button (OK)
-                        - await mosquito response
-                        - do same for top side
-                        - once draw ends, check for new hand and update icon
-                          */
-
                         final Card cc = (Card) card.getClientProperty("card");
-                        System.out.println(cc.getCard() + "  is the card in le button");
-                        game.playUserTurn(game.getCurrAttr(), cc);
-
+                        final Card sub = game.playUserTurn(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
+                        if (sub != null) {
+                            System.out.println(sub.getCard());
+                            final ImageIcon subb = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + sub.getName() + ".png"));
+                            final ImageIcon subbg = new ImageIcon(
+                                subb.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+                            );
+                            oPlay.setIcon(subbg);
+                            oPlay.setVisible(true);
+                            attrChoice.setEnabled(false);
+                        } else {
+                            attrChoice.setEnabled(true);
+                        }
+                        attrChoice.setSelectedItem(game.getCurrAttr());
                         updateScores();
-                        resetHandIcons();
-                        
+                            resetHandIcons();
+                        if (game.matchEnded()) {
+                            controller.endMatch();
+                        }
                     }
                 });
                 pHand.add(card);
                 
             }
-            pHand.add(pScore, BorderLayout.WEST);
-            pHand.add(pScore, BorderLayout.EAST);
         }
         
         this.add(oCards, BorderLayout.NORTH);
@@ -124,10 +140,13 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         oScore.setBackground(Color.RED);
         pScore.setEnabled(false);
         oScore.setEnabled(false);
+        pScore.setBorderPainted(false);
+        oScore.setBorderPainted(false);
 
         mainField.setOpaque(false);
         mainField.setLayout(new BorderLayout());
         mainField.add(scoreCol, BorderLayout.EAST);
+        mainField.add(attrHold, BorderLayout.WEST);
         mainField.add(plays);
         plays.add(pPlay, BorderLayout.WEST);
         setTransparentWithIcon(oPlay);
@@ -152,23 +171,43 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     }
 
     private void resetHandIcons() {
-        updateScores();
         for (final Player p : game.getPlayers()) {
-            final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
-            final Card newCard = p.getHand().getLast();
+            final JPanel pHand = (p.equals(game.getPlayers().getLast())) ? oCards : pCards;
+            final JButton pCenter = (p.equals(game.getPlayers().getLast())) ? oPlay : pPlay;
+            pCenter.setVisible(false);
+            //move CPU displaying into the center down here - change return of playUserTurn to bool for CPU turn lead
+            boolean handUnderSize = (Game.HAND_SIZE - p.getHand().size() - (p.equals(game.getTurnLeader()) && p.equals(game.getPlayers().getLast()) ? 1 : 0)) > 0;
             for (final Component c : pHand.getComponents()) {
                 if (c instanceof JButton) {
                     final JButton cc = (JButton) c;
-                    final Card card = (Card) cc.getClientProperty("card");
+                    try {
+                        final Card newCard = p.getHand().getLast();
+                        final Card card = (Card) cc.getClientProperty("card");
+                    cc.setVisible(true);
                     if (!p.getHand().contains(card)) {
-                        c.setVisible(true);
-                        cc.putClientProperty("card", newCard);
-                        final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + newCard.getName() + ".png"));
-                        final ImageIcon bg = new ImageIcon(
-                            bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
-                        );
-                        cc.setIcon(bg);
-                        break;
+                        System.out.println(handUnderSize);
+                        if (!handUnderSize){
+                            System.out.println("replacing..." + card.getName() + " to " + newCard.getName());
+                            cc.putClientProperty("card", newCard);
+                            final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + newCard.getName() + ".png"));
+                            final ImageIcon bg = new ImageIcon(
+                                bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+                            );
+                            cc.setIcon(bg);
+                            for (final var l : cc.getMouseListeners()) {
+                                if (l instanceof Hovering) {
+                                    final Hovering hv = (Hovering) l;
+                                    hv.setHoveredCard(newCard);
+                                    break;
+                                }
+                            }
+                            break;
+                        } else {
+                            cc.setVisible(false);
+                        } 
+                    }
+                    } catch (final NoSuchElementException e) {
+                        cc.setVisible(false);
                     }
                     
                 }

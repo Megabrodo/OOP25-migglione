@@ -1,7 +1,7 @@
 package migglione.model.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +17,8 @@ public class Match {
 
     public static final int HAND_SIZE = 3;
     private static final int MAX_CONSEC_WINS = 3;
-    private final Map<Player, Integer> scoring = new HashMap<>();
+    private final Map<Player, Integer> scoring = new LinkedHashMap<>();
     private final CardDraw deck;
-    private int turn = 1;
     private int consecWins;
     protected Player latestWin;
     protected int turnLead;
@@ -54,18 +53,13 @@ public class Match {
      * 
      * @return if this was the last turn of the match.
      */
-    public boolean playTurn() {
-        final String attrChoice = scoring.keySet().stream().toList().get(turnLead).getAttr(); 
-        int compSign = 1;
-        int comparison = 0;
+    public boolean playTurn(final int plrStat, final int cpuStat) {
+        final int comparison = plrStat - cpuStat;
         for (final Player p : scoring.keySet()) {
-            p.chooseAttr(attrChoice);
-            comparison += p.playCard(attrChoice, p.getPlayedCard()) * compSign;
-            compSign *= -1;
             cardsStakes.add(p.getPlayedCard());
         }
         if (comparison != 0) {
-            final Player winner = scoring.keySet().stream().toList().get(comparison <= 0 ? 0 : 1);
+            final Player winner = scoring.keySet().stream().toList().get(comparison > 0 ? 0 : 1);
             scoring.replace(winner, scoring.get(winner) + cardsStakes.size());
             for (final Player p : scoring.keySet()) {
                 if (p.equals(winner)) {
@@ -79,7 +73,6 @@ public class Match {
         }
         final boolean isEnd = matchEnded();
         if (!isEnd) {
-            turn++;
             this.allDraw(1);
         }
         return isEnd;
@@ -103,20 +96,23 @@ public class Match {
             if (consecWins >= MAX_CONSEC_WINS) {
                 turnLead = 1 - turnLead;
                 consecWins = 1;
+                return;
             }
         } else {
+            turnLead = 1 - turnLead;
             latestWin = winner;
             consecWins = 1;
         }
+        turnLead = getPlayers().indexOf(latestWin);
     }
 
     /**
-     * Method to get the turn the match is on.
+     * Method to get who started the current turn.
      * 
-     * @return the current turn.
+     * @return the player that starts the current turn.
      */
-    public int getTurn() {
-        return this.turn;
+    public Player getTurnLeader() {
+        return getPlayers().get(this.turnLead);
     }
 
     /** 
@@ -154,5 +150,26 @@ public class Match {
      */
     public List<Player> getPlayers() {
         return scoring.keySet().stream().toList();
+    }
+
+    /**
+     * Method to return the name of the winner.
+     * If match hasn't finished, returns null.
+     * 
+     * @return the String of the winner's name, or null if match is not finished.
+     */
+    public String getWinner() {
+        if (matchEnded()) {
+            int maxScore = 0;
+            Player win = null;
+            for (final Player p : scoring.keySet()) {
+                if (scoring.get(p) > maxScore) {
+                    maxScore = scoring.get(p);
+                    win = p;
+                }
+            }
+            return win.getName();
+        }
+        return null;
     }
 }

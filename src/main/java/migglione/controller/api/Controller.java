@@ -1,5 +1,7 @@
 package migglione.controller.api;
 
+import migglione.model.impl.Game;
+
 /**
  * Interface for the Controller of the application.
  * 
@@ -29,4 +31,18 @@ public interface Controller {
      * displayed in the Scores scene
      */
     void endMatch();
+
+    /**
+     * Method to obtain the stored player name.
+     * 
+     * @return the name of the player
+     */
+    String getPlayerName();
+
+    /**
+     * Getter for the model of the game.
+     * 
+     * @return the model
+     */
+    Game getModel();
 }
