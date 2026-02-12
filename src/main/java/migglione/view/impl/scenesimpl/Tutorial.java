@@ -14,43 +14,62 @@ import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
-public class Tutorial extends AbstractGamePanel implements MusicProvider {
+/**
+ * The class Tutorial is used to show the tutorial of the game.
+ * 
+ * <p>
+ * It shows a series of images that explain how to play the game,
+ * with a back and forward button to navigate through the images.
+ * The images are taken from the folder in resources and are named 1.png, 2.png, etc.
+ * The music is a looping track that plays while the tutorial is shown.
+ */
+public final class Tutorial extends AbstractGamePanel implements MusicProvider {
     private static final long serialVersionUID = 9879879879L;
     private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private static final String TUTORIAL_IMAGES_PATH = "/images/Tutorial/";
     private static final String BACK = "Back";
     private static final String FORWARD = "Forward";
+    private static final int MAX_IMAGE_INDEX = 7;
     private transient Image tutorialImage;
     private int currentImageIndex = 1;
 
+    /**
+     * Constructor for the Tutorial class.
+     * 
+     * @param view is used to return to Menu
+     */
     public Tutorial(final SwingViewImpl view) {
         this.setLayout(new BorderLayout());
-        tutorialImage = new ImageIcon(getClass().getResource(TUTORIAL_IMAGES_PATH + String.valueOf(currentImageIndex) + ".png")).getImage();
+        tutorialImage = new ImageIcon(getClass().getResource(TUTORIAL_IMAGES_PATH + currentImageIndex + ".png")).getImage();
 
         final JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        final JPanel tutorialPanel = new JPanel(new BorderLayout());
         final JButton back = new GenericButton(BACK, b -> updateTutorialImage(-1, view));
         final JButton forward = new GenericButton(FORWARD, b -> updateTutorialImage(1, view));
 
         buttonsPanel.setOpaque(false);
         buttonsPanel.add(back);
         buttonsPanel.add(forward);
-        tutorialPanel.setOpaque(false);
-        tutorialPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
-        this.add(tutorialPanel, BorderLayout.CENTER);
+        this.add(buttonsPanel, BorderLayout.SOUTH);
     }
 
-    private void updateTutorialImage(int index, final SwingViewImpl view) {
+    /**
+     * Method used to update the tutorial image when the back or forward button is pressed.
+     * 
+     * @param index used to determine if back or forward was pressed
+     * @param view used to return to Menu if the index is "out of bounds"
+     */
+    private void updateTutorialImage(final int index, final SwingViewImpl view) {
         currentImageIndex += index;
         if (currentImageIndex == 0) {
             currentImageIndex = 1;
             view.setScene(Scenes.MENU.getScene());
-        } else if (currentImageIndex > 6) {
+        } else if (currentImageIndex == MAX_IMAGE_INDEX) {
             currentImageIndex = 1;
             view.setScene(Scenes.MENU.getScene());
         }
-        tutorialImage = new ImageIcon(getClass().getResource(TUTORIAL_IMAGES_PATH + String.valueOf(currentImageIndex) + ".png")).getImage();
+        tutorialImage = new ImageIcon(
+            getClass().getResource(TUTORIAL_IMAGES_PATH + currentImageIndex + ".png")).getImage();
         repaint();
     }
 
@@ -63,5 +82,4 @@ public class Tutorial extends AbstractGamePanel implements MusicProvider {
     protected Image getImage() {
         return tutorialImage;
     }
-    
 }
