@@ -15,10 +15,10 @@ import migglione.model.impl.Card;
  * because it has no real fucntion in the game.
  */
 public final class Hovering implements MouseListener {
-    private final HoveringCard hoveringCard;
-    private final JPanel gamePanel;
     private static final String CARDS_IMAGE_PATH = "/images/Cards/";
     private static final String STATS_IMAGE_PATH = "/images/Statistics/";
+    private final HoveringCard hoveringCard;
+    private final JPanel gamePanel;
 
     /**
      * Constructor for the Hovering class.
@@ -63,8 +63,15 @@ public final class Hovering implements MouseListener {
     public void mouseEntered(final MouseEvent e) {
         final Image cardImg = new ImageIcon(getClass().getResource(hoveringCard.getImage())).getImage();
         final Image statsImg = new ImageIcon(getClass().getResource(hoveringCard.getStats())).getImage();
-        gamePanel.getGraphics().drawImage(cardImg, gamePanel.getWidth() / 3, gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2, gamePanel.getWidth() / 4), gamePanel);
-        gamePanel.getGraphics().drawImage(statsImg, gamePanel.getWidth() / 3 + Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2, gamePanel.getWidth() / 4), gamePanel);
+        gamePanel.getGraphics().drawImage(cardImg, gamePanel.getWidth() / 3,
+            gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4,
+            gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2,
+            gamePanel.getWidth() / 4), gamePanel);
+        gamePanel.getGraphics().drawImage(statsImg, gamePanel.getWidth() / 3
+            + Integer.min(gamePanel.getWidth() / 4, gamePanel.getHeight() / 2),
+            gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4,
+            gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2,
+            gamePanel.getWidth() / 4), gamePanel);
     }
 
     @Override
@@ -72,13 +79,21 @@ public final class Hovering implements MouseListener {
         gamePanel.repaint();
     }
 
+    /**
+     * Method to update the card to be hovered.
+     * Used when the user clicks on a card to play it,
+     *  so that the hovering card is updated to the new one in hand.
+     * 
+     * @param newCard the new card to be hovered
+     */
     public void setHoveredCard(final Card newCard) {
         hoveringCard.actualCard = newCard;
     }
-    /**
-     * Nested class used to create a card with the same stats as the one in the hand but with an image path.
-     * Like a card but with an image too, used to create the hovering effect on the buttons.
-     */
+
+/**
+ * Nested class used to create a card with the same stats as the one in the hand but with an image path.
+ * Like a card but with an image too, used to create the hovering effect on the buttons.
+ */
 static class HoveringCard extends Card {
         private Card actualCard;
 
@@ -87,7 +102,7 @@ static class HoveringCard extends Card {
                   actualCard.getIntelligence(), actualCard.getStealth());
             this.actualCard = actualCard;
         }
-        
+
         public String getImage() {
             return CARDS_IMAGE_PATH + actualCard.getName() + ".png";
         }
