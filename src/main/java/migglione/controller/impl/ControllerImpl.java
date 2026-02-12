@@ -48,9 +48,7 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void endSession() {
-        if (this.model.getWinner().equals(playerName)) {
-            this.model.writeWinner(playerName);
-        }
+        this.model.writeWinner();
         this.view.setScene(Scenes.MENU.getScene());
     }
 

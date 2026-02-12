@@ -1,6 +1,15 @@
 package migglione.model.impl;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import migglione.model.api.Player;
@@ -11,6 +20,7 @@ import migglione.model.api.Player;
  */
 public class Game extends Match {
 
+    private final String playerName;
     private String currAttr = "Attk";
     private int cpuStoredVal;
     /**
@@ -21,7 +31,8 @@ public class Game extends Match {
      * @param name the name of the player
      */
     public Game(final String name) {
-        super(new User(new ArrayList<>(), name), new Mosquito(new ArrayList<>(), false), new StandardCardDrawImpl(new DeckImpl())); 
+        super(new User(new ArrayList<>(), name), new Mosquito(new ArrayList<>(), false), new StandardCardDrawImpl(new DeckImpl()));
+        this.playerName = name;
     }
 
     /**
@@ -73,9 +84,14 @@ public class Game extends Match {
         return this.currAttr;
     }
 
+    /**
+     * Method used to get the score of the player.
+     * 
+     * @return the optional of the score
+     */
     public Optional<Integer> getPlayerScore() {
         for (var p : getPlayers()) {
-            if (p.getName().equals("Player")) {
+            if (p.getName().equals(playerName)) {
                 return Optional.of(getScore(p));
             }
         }
@@ -83,13 +99,52 @@ public class Game extends Match {
     }
 
     /**
-     * Method to write the username in scores.txt.
+     * Method to write the username in a file.
      * 
-     * @param playerName is the name of the player,
-     *                   it will be written only if they won
+     * <p>
+     * It will used the stored name to make sure
+     * that it's the same as the winner's, so that
+     * it can be written in the file of scores
      */
-    public void writeWinner(String playerName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'writeWinner'");
+    public void writeWinner() {
+        if (this.playerName.equals(getWinner())) {
+            final int pScore = getPlayerScore().get();
+            final Map<String, Integer> scores = new HashMap<>();
+
+            Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
+            try {
+                Files.createDirectories(path.getParent());
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+
+            if (Files.exists(path)) {
+                try (BufferedReader read = Files.newBufferedReader(path)) {
+                    String s;
+                    while ((s = read.readLine()) != null) {
+                        String[] split = s.split("->");
+                        if (split.length == 2) {
+                            scores.put(split[0].trim(), Integer.parseInt(split[1].trim()));
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            scores.merge(playerName, pScore, Math::max);
+
+            List<Map.Entry<String, Integer>> orderedScores = new ArrayList<>(scores.entrySet());
+            orderedScores.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));
+
+            try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+                for (Map.Entry<String, Integer> entry : orderedScores) {
+                    writer.write(entry.getKey() + "->" + entry.getValue());
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
