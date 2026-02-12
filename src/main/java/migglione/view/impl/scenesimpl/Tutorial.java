@@ -27,7 +27,7 @@ public class Tutorial extends AbstractGamePanel implements MusicProvider {
         this.setLayout(new BorderLayout());
         tutorialImage = new ImageIcon(getClass().getResource(TUTORIAL_IMAGES_PATH + String.valueOf(currentImageIndex) + ".png")).getImage();
 
-        final JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        final JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         final JPanel tutorialPanel = new JPanel(new BorderLayout());
         final JButton back = new GenericButton(BACK, b -> updateTutorialImage(-1, view));
         final JButton forward = new GenericButton(FORWARD, b -> updateTutorialImage(1, view));
