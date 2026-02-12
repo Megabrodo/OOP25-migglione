@@ -9,6 +9,10 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import migglione.model.impl.Game;
 import migglione.view.api.music.MusicPlayer;
 
 /**
@@ -22,6 +26,7 @@ import migglione.view.api.music.MusicPlayer;
  */
 public final class LoopingMusicPlayerImpl implements MusicPlayer {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
     private final String trackPath;
     private Clip audioClip;
 
@@ -47,7 +52,7 @@ public final class LoopingMusicPlayerImpl implements MusicPlayer {
             audioClip.loop(Clip.LOOP_CONTINUOUSLY);
             audioClip.start();
         } catch (final IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            e.printStackTrace(); //NOPMD Intentional design since we don't use logs
+            LOGGER.error("Error while loading track", e);
         }
     }
 
