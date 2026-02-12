@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Optional;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,6 +39,7 @@ public final class SwingViewImpl implements SwingView {
     private static final int INITIAL_WIDTH = (int) (MONITOR_DIMENSION.getWidth() * 0.8);
     private static final int INITIAL_HEIGHT = (int) (MONITOR_DIMENSION.getHeight() * 0.8);
     private static final String FRAME_NAME = "Migglione: the game";
+    private static final String ICON_IMAGE_PATH = "/images/utilities/backside.png";
 
     private final JFrame frame = new JFrame(FRAME_NAME);
     private final CardLayout cards = new CardLayout();
@@ -62,6 +64,7 @@ public final class SwingViewImpl implements SwingView {
         frame.setResizable(true);
         frame.setMinimumSize(new Dimension(INITIAL_WIDTH, INITIAL_HEIGHT));
         frame.setPreferredSize(new Dimension(INITIAL_WIDTH, INITIAL_HEIGHT));
+        frame.setIconImage(new ImageIcon(getClass().getResource(ICON_IMAGE_PATH)).getImage());
 
         sceneCreator = new SceneFactoryImpl();
         firstPanel.add(sceneCreator.createScene(this, Scenes.MENU, controller), Scenes.MENU.getScene());
@@ -70,7 +73,6 @@ public final class SwingViewImpl implements SwingView {
         firstPanel.add(sceneCreator.createScene(this, Scenes.CREDITS, controller), Scenes.CREDITS.getScene());
 
         frame.add(firstPanel);
-        frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
