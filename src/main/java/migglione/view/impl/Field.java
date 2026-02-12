@@ -3,7 +3,9 @@ package migglione.view.impl;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,20 +13,20 @@ import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 import migglione.controller.api.Controller;
 import migglione.model.api.Player;
 import migglione.model.impl.Card;
 import migglione.model.impl.Game;
 import migglione.model.impl.Mosquito;
-//import migglione.model.impl.User;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -40,9 +42,16 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
+    private static final String FONT_NAME = "Times New Roman";
     private static final int CARDS_WIDTH = 180;
     private static final int CARDS_HEIGHT = 230;
     private static final int SPACE_BETWEEN_CARDS = 500;
+    private static final int ATTR_BOX_WIDTH = 200;
+    private static final int ATTR_BOX_HEIGHT = 150;
+
+    private final Font titleFont = new Font(FONT_NAME, Font.BOLD, 17);
+    private final Font boxFont = new Font(FONT_NAME, Font.BOLD, 23);
+
     private final transient Image playField;
     private final Game game;
     private final String attrs[] = {"Attk", "Deff", "Strength", "Intelligence", "Stealth"};
@@ -64,7 +73,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
      * opponent's hand, menu and scores.
      */
     public Field(final Controller controller) {
-        
+
         this.game = controller.getModel();
         this.playField = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
         this.setLayout(new BorderLayout());
@@ -74,14 +83,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         pCards.setLayout(new FlowLayout(FlowLayout.CENTER, SPACE_BETWEEN_CARDS, SPACE_BETWEEN_CARDS)); //maybe grid is better?
         oCards.setLayout(pCards.getLayout());
 
-        final JPanel attrHold = new JPanel();
-        final JTextArea title = new JTextArea("CURRENT ATTRIBUTE:");
-        attrHold.setLayout(new BoxLayout(attrHold, BoxLayout.Y_AXIS));
-        attrHold.add(Box.createVerticalGlue());
-        attrHold.add(title);
-        attrHold.add(attrChoice);
-        attrHold.add(Box.createVerticalGlue());
-        
+        final JPanel attrHold = createAttributeBox();
 
         for (final Player p : game.getPlayers()) {
             final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
@@ -225,6 +227,35 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         b.setContentAreaFilled(false);
         b.setBorderPainted(false);
         b.setFocusPainted(false);
+    }
+
+    private JPanel createAttributeBox() {
+        final JPanel attrBox = new JPanel();
+        final JLabel title = new JLabel("CURRENT ATTRIBUTE:");
+
+        title.setFont(titleFont);
+        title.setAlignmentX(CENTER_ALIGNMENT);
+        title.setBackground(Color.BLACK);
+        title.setOpaque(true);
+        title.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+        title.setForeground(Color.YELLOW);
+
+        attrBox.setLayout(new BoxLayout(attrBox, BoxLayout.Y_AXIS));
+        attrBox.add(Box.createVerticalGlue());
+        attrBox.add(title);
+
+        attrChoice.setFont(boxFont);
+        attrChoice.setBackground(Color.BLACK);
+        attrChoice.setForeground(Color.YELLOW);
+        attrChoice.setBorder(BorderFactory.createLineBorder(Color.YELLOW, 2));
+        attrChoice.setAlignmentX(CENTER_ALIGNMENT);
+        attrChoice.setMaximumSize(new Dimension(ATTR_BOX_WIDTH, ATTR_BOX_HEIGHT));
+
+        attrBox.add(attrChoice);
+        attrBox.add(Box.createVerticalGlue());
+        attrBox.setOpaque(false);
+
+        return attrBox;
     }
 
     @Override
