@@ -29,7 +29,6 @@ public final class SceneFactoryImpl implements SceneFactory {
             case SCORES -> new Scores(view);
             case GALLERY -> new Gallery(view);
             case CREDITS -> new Credits(view);
-            default -> throw new IllegalArgumentException("No such scene exist");
         };
     }
 }
