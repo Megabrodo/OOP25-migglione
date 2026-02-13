@@ -4,7 +4,6 @@
 .vscode/
 
 # output folders
-app/
 bin/
 build/
 
