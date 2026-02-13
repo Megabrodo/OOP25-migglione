@@ -56,7 +56,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public Card playUserTurn(String attr, Card played) {
+    public Card playUserTurn(final String attr, final Card played) {
         return this.model.playUserTurn(attr, played);
     }
 
@@ -71,7 +71,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public int getScore(Player player) {
+    public int getScore(final Player player) {
         return this.model.getScore(player);
     }
 

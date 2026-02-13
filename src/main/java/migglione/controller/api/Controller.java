@@ -33,14 +33,45 @@ public interface Controller {
      */
     void checkSession();
 
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @return the list of players, its implementation
+     *         can be fully seen in the class chosen as Model
+     */
     List<Player> getPlayers();
 
-    Card playUserTurn (String attr, Card played);
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @param attr is the attribute chosen to play the card in
+     * @param played is the chosen card to be played
+     * @return the card played
+     */
+    Card playUserTurn(String attr, Card played);
 
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @return the current attribute to which
+     *         the cards will be compared
+     */
     String getCurrAttr();
 
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @return current the player whose turn
+     *         the current one is
+     */
     Player getTurnLeader();
 
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @param player is the one we want the current score of
+     * @return the current score of the player
+     */
     int getScore(Player player);
 
     /**
