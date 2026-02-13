@@ -149,13 +149,12 @@ public final class Mosquito extends User {
     }
 
     /**
-     * Not good implementation, just for test purposes.
-     * for now
+     * To make Mosquito know if it's his turn or not.
+     * public for test purposes
      * 
      * @param turn whose turn it is, true for mosquito, false for user
      */
     public void setMyTurn(final boolean turn) {
-        //da mettere private
         this.myTurn = turn;
     }
 
