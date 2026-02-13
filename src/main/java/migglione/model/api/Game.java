@@ -41,9 +41,15 @@ public interface Game {
      * @param attr the attribute to play on
      * @param played the card chosen to be played
      * 
-     * @return null if it's the user's turn, the card played by the CPU it it's their turn.
+     * @return a boolean indicating whether it's the CPU's turn to start.
      */
-    Card playUserTurn(String attr, Card played);
+    boolean playUserTurn(String attr, Card played);
+
+    public void playTurnLead(final String attr, final Card card);
+
+    public void playTurnTail(final Card card);
+
+    public boolean playTurn();
 
     /**
      * Method to obtain the attribute this turn is being played on.
