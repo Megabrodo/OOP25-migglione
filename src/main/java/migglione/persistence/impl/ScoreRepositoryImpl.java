@@ -20,7 +20,7 @@ import migglione.persistence.api.ScoreRepository;
 /**
  * Implements and handles the persistence of the scores.
  */
-public class ScoreRepositoryImpl implements ScoreRepository {
+public final class ScoreRepositoryImpl implements ScoreRepository {
 
     private static final Logger LOGGER = Logger.getLogger(ScoreRepositoryImpl.class.getName());
 
@@ -68,5 +68,4 @@ public class ScoreRepositoryImpl implements ScoreRepository {
             LOGGER.log(Level.SEVERE, "Error in writing in file", e);
         }
     }
-    
 }

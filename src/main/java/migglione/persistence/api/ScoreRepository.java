@@ -3,6 +3,7 @@ package migglione.persistence.api;
 /**
  * Interface used to handle the scores of the players.
  */
+@FunctionalInterface
 public interface ScoreRepository {
 
     /**
