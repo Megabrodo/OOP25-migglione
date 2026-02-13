@@ -11,7 +11,6 @@ import migglione.model.impl.GameImpl;
 import migglione.persistence.api.ScoreRepository;
 import migglione.persistence.impl.ScoreRepositoryImpl;
 import migglione.view.api.SwingView;
-import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 
 /**
@@ -46,7 +45,6 @@ public final class ControllerImpl implements Controller {
     public void startSession(final String name) {
         this.playerName = name;
         this.model = new GameImpl(playerName);
-        view.setScene(Scenes.FIELD.getScene());
     }
 
     @Override
@@ -85,13 +83,13 @@ public final class ControllerImpl implements Controller {
     public void endSession() {
         final Optional<String> winner = this.model.getWinner();
         final Optional<Integer> pScoreOpt = this.model.getPlayerScore();
-        final Optional<Integer> cScoreOpt = this.model.getPlayerScore();
+        final Optional<Integer> cScoreOpt = this.model.getCPUScore();
         if (winner.isEmpty() || pScoreOpt.isEmpty() || cScoreOpt.isEmpty()) {
             return;
         }
 
         if (winner.get().equals(playerName)) {
-            this.rep.writeWinner(playerName, this.model.getPlayerScore());
+            this.rep.writeWinner(playerName, pScoreOpt.get());
         }
 
         this.view.endMessage(winner.get(), playerName, pScoreOpt.get(), cScoreOpt.get());

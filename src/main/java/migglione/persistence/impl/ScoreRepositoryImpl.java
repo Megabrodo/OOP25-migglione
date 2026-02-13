@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import java.util.logging.Logger;
 
@@ -26,14 +25,9 @@ public class ScoreRepositoryImpl implements ScoreRepository {
     private static final Logger LOGGER = Logger.getLogger(ScoreRepositoryImpl.class.getName());
 
     @Override
-    public void writeWinner(final String playerName, final Optional<Integer> pScoreOptional) {
+    public void writeWinner(final String playerName, final Integer pScore) {
 
         final Map<String, Integer> scores = new HashMap<>();
-
-        if (pScoreOptional.isEmpty()) {
-            return;
-        }
-        final int pScore = pScoreOptional.get();
 
         final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
         try {

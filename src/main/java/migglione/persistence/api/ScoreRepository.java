@@ -1,7 +1,5 @@
 package migglione.persistence.api;
 
-import java.util.Optional;
-
 /**
  * Interface used to handle the scores of the players.
  */
@@ -22,7 +20,7 @@ public interface ScoreRepository {
      * in the home of the user
      * 
      * @param playerName is the name of the winner player
-     * @param pScoreOptional is the score of the winner player
+     * @param pScore is the score of the winner player
      */
-    void writeWinner(String playerName, Optional<Integer> pScoreOptional);
+    void writeWinner(String playerName, Integer pScore);
 }
