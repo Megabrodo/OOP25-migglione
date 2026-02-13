@@ -78,6 +78,11 @@ private final JTextArea score;
         }
     }
 
+    public void refresh() {
+        score.setText("");
+        addFile(FILE_TXT_PATH);
+    }
+
     @Override
     public MusicPlayer getMusic() {
         return new LoopingMusicPlayerImpl(TRACK_PATH);

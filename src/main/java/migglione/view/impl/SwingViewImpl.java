@@ -18,6 +18,7 @@ import migglione.view.api.scenes.SceneFactory;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.scenesimpl.Gallery;
 import migglione.view.impl.scenesimpl.SceneFactoryImpl;
+import migglione.view.impl.scenesimpl.Scores;
 import migglione.view.impl.scenesimpl.StartGame;
 
 /**
@@ -104,6 +105,9 @@ public final class SwingViewImpl implements SwingView {
                 }
                 if (c instanceof StartGame startGame) {
                     startGame.reset();
+                }
+                if (c instanceof Scores scores) {
+                    scores.refresh();
                 }
                 if (c instanceof MusicProvider musicGetter) {
                     final MusicPlayer newMusic = musicGetter.getMusic();
