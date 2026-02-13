@@ -7,6 +7,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -58,21 +61,29 @@ private final JTextArea score;
 
     public void addFile(final String FILE_TXT_PATH) {
 
-        //try (BufferedReader reader = new BufferedReader(new FileReader(FILE_TXT_PATH))) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+        final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
+        if (Files.exists(path)) {
+            //try (BufferedReader reader = Files.newBufferedReader(path)) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
         getClass().getResourceAsStream(FILE_TXT_PATH)))) {
 
             String line;
 
-            while((line = reader.readLine()) != null) {
-                score.append(line + "\n"); //
+                while((line = reader.readLine()) != null) {
+                    score.append(line + "\n"); //
+                }
             }
-        }
         catch (final IOException error) {
-            JOptionPane.showMessageDialog(null, "error file reader", "error", 
-            JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "error file reader", "error", 
+                JOptionPane.ERROR_MESSAGE);
             error.printStackTrace();
         }
+        }
+    }
+
+    public void refresh() {
+        score.setText("");
+        addFile(FILE_TXT_PATH);
     }
 
     @Override

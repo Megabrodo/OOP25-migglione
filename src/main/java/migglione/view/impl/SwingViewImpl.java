@@ -3,7 +3,6 @@ package migglione.view.impl;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Optional;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -18,6 +17,7 @@ import migglione.view.api.scenes.SceneFactory;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.scenesimpl.Gallery;
 import migglione.view.impl.scenesimpl.SceneFactoryImpl;
+import migglione.view.impl.scenesimpl.Scores;
 import migglione.view.impl.scenesimpl.StartGame;
 
 /**
@@ -105,6 +105,9 @@ public final class SwingViewImpl implements SwingView {
                 if (c instanceof StartGame startGame) {
                     startGame.reset();
                 }
+                if (c instanceof Scores scores) {
+                    scores.refresh();
+                }
                 if (c instanceof MusicProvider musicGetter) {
                     final MusicPlayer newMusic = musicGetter.getMusic();
                     if (music != null) {
@@ -144,24 +147,37 @@ public final class SwingViewImpl implements SwingView {
     }
 
     @Override
-    public void endMessage(
-        final String winner,
-        final String player,
-        final Optional<Integer> pScore,
-        final Optional<Integer> cScore) {
+    public void endMessage(final String winner, final String player, final Integer pScore, final Integer cScore) {
 
-            if (pScore.isPresent() && cScore.isPresent()) {
-                final String endMessage;
-                if (winner.equals(player)) {
-                    endMessage = "You won with " + pScore.get() + " points!";
-                } else if (pScore.get().equals(cScore.get())) {
-                    endMessage = "It's a tie!";
-                } else {
-                    endMessage = "You lost...";
-                }
-
-                JOptionPane.showMessageDialog(frame, endMessage, "The game has ended", JOptionPane.INFORMATION_MESSAGE);
-            }
-            setScene(Scenes.MENU.getScene());
+        final String endMessage;
+        if (winner.equals(player)) {
+            endMessage = "You won with " + pScore + " points!";
+        } else if (pScore.equals(cScore)) {
+            endMessage = "It's a tie!";
+        } else {
+            endMessage = "You lost...";
         }
+
+        JOptionPane.showMessageDialog(frame, endMessage, "The game has ended", JOptionPane.INFORMATION_MESSAGE);
+
+        setScene(Scenes.MENU.getScene());
+    }
+
+    @Override
+    public void showTutorialPrompt() {
+        if (yesTutorial()) {
+            setScene(Scenes.TUTORIAL.getScene());
+        }
+    }
+
+    private boolean yesTutorial() {
+        final int preference = JOptionPane.showConfirmDialog(
+        frame,
+        "Ciao! Questa sembra essere la prima volta che avvii l'applicazione, vorresti visitare il tutorial?",
+        "Tutorial",
+        JOptionPane.YES_NO_OPTION
+    );
+
+        return preference == JOptionPane.YES_OPTION;
+    }
 }

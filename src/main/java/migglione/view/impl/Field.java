@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import migglione.controller.api.Controller;
 import migglione.model.api.Player;
 import migglione.model.impl.Card;
-import migglione.model.impl.Game;
+import migglione.model.impl.GameImpl;
 import migglione.model.impl.Mosquito;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
@@ -53,7 +53,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private final Font boxFont = new Font(FONT_NAME, Font.BOLD, 23);
 
     private final transient Image playField;
-    private final Game game;
+    private final Controller controller;
     private final String attrs[] = {"Attk", "Deff", "Strength", "Intelligence", "Stealth"};
 
     private final JPanel pCards = new JPanel();
@@ -74,18 +74,18 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
      */
     public Field(final Controller controller) {
 
-        this.game = controller.getModel();
+        this.controller = controller;
         this.playField = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
         this.setLayout(new BorderLayout());
 
         pCards.setOpaque(false);
         oCards.setOpaque(pCards.isOpaque());
-        pCards.setLayout(new FlowLayout(FlowLayout.CENTER, SPACE_BETWEEN_CARDS, SPACE_BETWEEN_CARDS)); //maybe grid is better?
+        pCards.setLayout(new FlowLayout(FlowLayout.CENTER, SPACE_BETWEEN_CARDS, SPACE_BETWEEN_CARDS));
         oCards.setLayout(pCards.getLayout());
 
         final JPanel attrHold = createAttributeBox();
 
-        for (final Player p : game.getPlayers()) {
+        for (final Player p : controller.getPlayers()) {
             final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
             for (final Card c : p.getHand()) {
                 final JButton card = new JButton();
@@ -108,7 +108,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         pB.setVisible(true);
                         pB.setIcon(bg);
                         final Card cc = (Card) card.getClientProperty("card");
-                        final Card sub = game.playUserTurn(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
+                        final Card sub = controller.playUserTurn(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
                         if (sub != null) {
                             System.out.println(sub.getCard());
                             final ImageIcon subb = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + sub.getName() + ".png"));
@@ -121,7 +121,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         } else {
                             attrChoice.setEnabled(true);
                         }
-                        attrChoice.setSelectedItem(game.getCurrAttr());
+                        attrChoice.setSelectedItem(controller.getCurrAttr());
                         updateScores();
                         resetHandIcons();
                         controller.checkSession();
@@ -170,12 +170,12 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     }
 
     private void resetHandIcons() {
-        for (final Player p : game.getPlayers()) {
-            final JPanel pHand = (p.equals(game.getPlayers().getLast())) ? oCards : pCards;
-            final JButton pCenter = (p.equals(game.getPlayers().getLast())) ? oPlay : pPlay;
+        for (final Player p : controller.getPlayers()) {
+            final JPanel pHand = (p.equals(controller.getPlayers().getLast())) ? oCards : pCards;
+            final JButton pCenter = (p.equals(controller.getPlayers().getLast())) ? oPlay : pPlay;
             pCenter.setVisible(false);
             //move CPU displaying into the center down here - change return of playUserTurn to bool for CPU turn lead
-            boolean handUnderSize = (Game.HAND_SIZE - p.getHand().size() - (p.equals(game.getTurnLeader()) && p.equals(game.getPlayers().getLast()) ? 1 : 0)) > 0;
+            boolean handUnderSize = (GameImpl.HAND_SIZE - p.getHand().size() - (p.equals(controller.getTurnLeader()) && p.equals(controller.getPlayers().getLast()) ? 1 : 0)) > 0;
             for (final Component c : pHand.getComponents()) {
                 if (c instanceof JButton) {
                     final JButton cc = (JButton) c;
@@ -214,9 +214,9 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     }
 
     private void updateScores() {
-        for (final Player p : game.getPlayers()) {
+        for (final Player p : controller.getPlayers()) {
             final JButton b = (p instanceof Mosquito) ? oScore : pScore;
-            b.setText("" + game.getScore(p));
+            b.setText("" + controller.getScore(p));
         }
     }
 

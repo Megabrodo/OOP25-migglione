@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import migglione.model.api.CardDraw;
 import migglione.model.api.Player;
@@ -158,18 +159,27 @@ public class Match {
      * 
      * @return the String of the winner's name, or null if match is not finished.
      */
-    public String getWinner() {
+    public Optional<String> getWinner() {
         if (matchEnded()) {
             int maxScore = 0;
             Player win = null;
-            for (final Player p : scoring.keySet()) {
-                if (scoring.get(p) > maxScore) {
-                    maxScore = scoring.get(p);
-                    win = p;
+            int winners = 0;
+
+            for (final var p : scoring.entrySet()) {
+                if (scoring.get(p.getKey()) > maxScore) {
+                    maxScore = scoring.get(p.getKey());
+                    win = p.getKey();
+                    winners = 1;
+                } else if (maxScore > 0 && scoring.get(p.getKey()) == maxScore) {
+                    winners++;
                 }
             }
-            return win.getName();
+
+            if (winners > 1) {
+                return Optional.of("Tie");
+            }
+            return win == null ? Optional.empty() : Optional.of(win.getName());
         }
-        return null;
+        return Optional.empty();
     }
 }

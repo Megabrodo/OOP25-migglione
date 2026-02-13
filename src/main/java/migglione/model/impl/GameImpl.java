@@ -1,29 +1,17 @@
 package migglione.model.impl;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import migglione.model.api.Game;
 import migglione.model.api.Player;
 
 /**
  * Class designed to overlook a match.
  * Takes care of managing when the turns happen and more
  */
-public class Game extends Match {
+public class GameImpl extends Match implements Game {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Game.class);
     private final String playerName;
     private String currAttr = "Attk";
     private int cpuStoredVal;
@@ -34,7 +22,7 @@ public class Game extends Match {
      * 
      * @param name the name of the player
      */
-    public Game(final String name) {
+    public GameImpl(final String name) {
         super(new User(new ArrayList<>(), name), new Mosquito(new ArrayList<>(), false), new StandardCardDrawImpl(new DeckImpl()));
         this.playerName = name;
     }
@@ -52,6 +40,7 @@ public class Game extends Match {
      * 
      * If the user isn't starting the next turn, the CPU's choice is already registered.
      */
+    @Override
     public Card playUserTurn(final String attr, final Card played) {
         final Player msq = getPlayers().getLast();
         final Player plr = getPlayers().getFirst();
@@ -84,6 +73,7 @@ public class Game extends Match {
      * 
      * @return the current active attribute.
      */
+    @Override
     public String getCurrAttr() {
         return this.currAttr;
     }
@@ -93,13 +83,14 @@ public class Game extends Match {
      * 
      * @return the optional of the score
      */
+    @Override
     public Optional<Integer> getPlayerScore() {
         for (final var p : getPlayers()) {
             if (p.getName().equals(playerName)) {
                 return Optional.of(getScore(p));
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     /**
@@ -107,69 +98,13 @@ public class Game extends Match {
      * 
      * @return the optional of the score
      */
+    @Override
     public Optional<Integer> getCPUScore() {
         for (final var p : getPlayers()) {
             if (!p.getName().equals(playerName)) {
                 return Optional.of(getScore(p));
             }
         }
-        return null;
-    }
-
-    /**
-     * Method to write the username in a file.
-     * 
-     * <p>
-     * It will use the stored name to make sure
-     * that it's the same as the winner's, so that
-     * it can be written in the file of scores
-     * 
-     * <p>
-     * Since the jar can't write, i decided to
-     * use an external folder named .migglione
-     * to store the txt file, now it should work
-     * even with the jar
-     */
-    public void writeWinner() {
-        if (this.playerName.equals(getWinner())) {
-            final int pScore = getPlayerScore().get();
-            final Map<String, Integer> scores = new HashMap<>();
-
-            final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
-            try {
-                Files.createDirectories(path.getParent());
-            } catch (final IOException e) {
-                LOGGER.error("Error during creation of folder", e);
-                return;
-            }
-
-            if (Files.exists(path)) {
-                try (BufferedReader read = Files.newBufferedReader(path)) {
-                    String s = read.readLine();
-                    while (s != null) {
-                        final String[] split = s.split("->");
-                        if (split.length == 2) {
-                            scores.put(split[0].trim(), Integer.parseInt(split[1].trim()));
-                        }
-                        s = read.readLine();
-                    }
-                } catch (final IOException e) {
-                    LOGGER.error("Error during reading of file", e);
-                }
-            }
-            scores.merge(playerName, pScore, Math::max);
-
-            final List<Map.Entry<String, Integer>> orderedScores = new ArrayList<>(scores.entrySet());
-            orderedScores.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));
-
-            try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-                for (final Map.Entry<String, Integer> entry : orderedScores) {
-                    writer.write(entry.getKey() + "->" + entry.getValue());
-                    writer.newLine();
-                }
-            } catch (final IOException e) {
-                LOGGER.error("Error during writing of file", e);
-            }
-        }
+        return Optional.empty();
     }
 }
