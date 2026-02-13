@@ -162,13 +162,22 @@ public class Match {
         if (matchEnded()) {
             int maxScore = 0;
             Player win = null;
-            for (final Player p : scoring.keySet()) {
-                if (scoring.get(p) > maxScore) {
-                    maxScore = scoring.get(p);
-                    win = p;
+            int winners = 0;
+
+            for (final var p : scoring.entrySet()) {
+                if (scoring.get(p.getKey()) > maxScore) {
+                    maxScore = scoring.get(p.getKey());
+                    win = p.getKey();
+                    winners = 1;
+                } else if (maxScore > 0 && scoring.get(p.getKey()) == maxScore) {
+                    winners++;
                 }
             }
-            return win.getName();
+
+            if (winners > 1) {
+                return "Tie";
+            }
+            return win == null ? null : win.getName();
         }
         return null;
     }
