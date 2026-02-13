@@ -9,7 +9,9 @@ import migglione.model.api.Player;
 import migglione.model.impl.Card;
 import migglione.model.impl.GameImpl;
 import migglione.persistence.api.ScoreRepository;
+import migglione.persistence.api.TutorialRepository;
 import migglione.persistence.impl.ScoreRepositoryImpl;
+import migglione.persistence.impl.TutorialRepositoryImpl;
 import migglione.view.api.SwingView;
 import migglione.view.impl.SwingViewImpl;
 
@@ -25,7 +27,8 @@ import migglione.view.impl.SwingViewImpl;
 public final class ControllerImpl implements Controller {
 
     private final SwingView view;
-    private final ScoreRepository rep;
+    private final ScoreRepository sRep;
+    private final TutorialRepository tRep;
     private Game model;
     private String playerName;
 
@@ -38,7 +41,17 @@ public final class ControllerImpl implements Controller {
      */
     public ControllerImpl() {
         this.view = new SwingViewImpl(this);
-        this.rep = new ScoreRepositoryImpl();
+        this.sRep = new ScoreRepositoryImpl();
+        this.tRep = new TutorialRepositoryImpl();
+
+        checkFirstTime();
+    }
+
+    private void checkFirstTime() {
+        if (!this.tRep.haveTutorialBennSeen()) {
+            this.tRep.writeOnTutorial();
+            this.view.showTutorialPrompt();
+        }
     }
 
     @Override
@@ -89,7 +102,7 @@ public final class ControllerImpl implements Controller {
         }
 
         if (winner.get().equals(playerName)) {
-            this.rep.writeWinner(playerName, pScoreOpt.get());
+            this.sRep.writeWinner(playerName, pScoreOpt.get());
         }
 
         this.view.endMessage(winner.get(), playerName, pScoreOpt.get(), cScoreOpt.get());

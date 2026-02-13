@@ -32,4 +32,18 @@ public interface SwingView {
      * @param cScore is the score of the CPU
      */
     void endMessage(String winner, String player, Integer pScore, Integer cScore);
+
+    /**
+     * Method used on the first start of the application.
+     * 
+     * <p>
+     * If it's the very first time the user starts the
+     * application, a prompt suggesting them to visit
+     * the tutorial scene appears
+     * 
+     * <p>
+     * It will not appear again even if the user
+     * doesn't immediatly goes to the tutorial
+     */
+    void showTutorialPrompt();
 }

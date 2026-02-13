@@ -162,4 +162,22 @@ public final class SwingViewImpl implements SwingView {
             
         setScene(Scenes.MENU.getScene());
     }
+
+    @Override
+    public void showTutorialPrompt() {
+        if (yesTutorial()) {
+            setScene(Scenes.TUTORIAL.getScene());
+        }
+    }
+
+    private boolean yesTutorial() {
+        final int preference = JOptionPane.showConfirmDialog(
+        frame,
+        "Ciao! Questa sembra essere la prima volta che avvi l'applicazione, vorresti visitare il tutorial?",
+        "Tutorial",
+        JOptionPane.YES_NO_OPTION
+    );
+    
+        return preference == JOptionPane.YES_OPTION;
+    }
 }
