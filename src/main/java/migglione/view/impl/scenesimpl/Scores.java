@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,17 +28,10 @@ private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png
 private final transient Image scorImage;
 private static final String BACK = "Back";
 private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
+private static final String FILE_NAME = "ScoreTable.txt";
 private final JTextArea score;
 
     public Scores(final SwingViewImpl view) {
-
-        /*
-        scorImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
-        setTitle("PLAYERS SCORES");
-        setSize(400, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        */
 
         this.setLayout(new BorderLayout());
         scorImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
@@ -50,26 +44,35 @@ private final JTextArea score;
 
         score = new JTextArea();
         score.setEditable(false);
+        score.setOpaque(false);
 
         final JScrollPane pane = new JScrollPane(score);
         add(pane, BorderLayout.CENTER);
+        pane.setOpaque(false);
+        pane.getViewport().setOpaque(false);
+
 
         addFile(FILE_TXT_PATH);
 
     }
 
-    private final void addFile(String FILE_TXT_PATH) { //
+    public void addFile(final String FILE_TXT_PATH) {
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_TXT_PATH))) {
+        //try (BufferedReader reader = new BufferedReader(new FileReader(FILE_TXT_PATH))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+        getClass().getResourceAsStream(FILE_TXT_PATH)))) {
+
             String line;
 
             while((line = reader.readLine()) != null) {
-                score.append(line + "\n");
+                score.append(line + "\n"); //
             }
-        } catch (final IOException error) {
-                JOptionPane.showMessageDialog(this, "error file reader", "error", 
-                JOptionPane.ERROR_MESSAGE);
-            }
+        }
+        catch (final IOException error) {
+            JOptionPane.showMessageDialog(null, "error file reader", "error", 
+            JOptionPane.ERROR_MESSAGE);
+            error.printStackTrace();
+        }
     }
 
     @Override
