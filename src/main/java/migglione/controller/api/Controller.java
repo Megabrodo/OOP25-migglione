@@ -1,6 +1,9 @@
 package migglione.controller.api;
 
-import migglione.model.impl.Game;
+import java.util.List;
+
+import migglione.model.api.Player;
+import migglione.model.impl.Card;
 
 /**
  * Interface for the Controller of the application.
@@ -30,6 +33,16 @@ public interface Controller {
      */
     void checkSession();
 
+    List<Player> getPlayers();
+
+    Card playUserTurn (String attr, Card played);
+
+    String getCurrAttr();
+
+    Player getTurnLeader();
+
+    int getScore(Player player);
+
     /**
      * Determines the end of the match.
      * 
@@ -40,11 +53,4 @@ public interface Controller {
      * displayed in the Scores scene
      */
     void endSession();
-
-    /**
-     * Getter for the model of the game.
-     * 
-     * @return the model
-     */
-    Game getModel();
 }

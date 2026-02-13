@@ -1,6 +1,10 @@
 package migglione.controller.impl;
 
+import java.util.List;
+
 import migglione.controller.api.Controller;
+import migglione.model.api.Player;
+import migglione.model.impl.Card;
 import migglione.model.impl.Game;
 import migglione.view.api.SwingView;
 import migglione.view.api.scenes.Scenes;
@@ -47,13 +51,33 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public void endSession() {
-        this.model.writeWinner();
-        this.view.endMessage(this.model.getWinner(), playerName, this.model.getPlayerScore(), this.model.getCPUScore());
+    public List<Player> getPlayers() {
+        return this.model.getPlayers();
     }
 
     @Override
-    public Game getModel() {
-        return this.model;
+    public Card playUserTurn(String attr, Card played) {
+        return this.model.playUserTurn(attr, played);
+    }
+
+    @Override
+    public String getCurrAttr() {
+        return this.model.getCurrAttr();
+    }
+
+    @Override
+    public Player getTurnLeader() {
+        return this.model.getTurnLeader();
+    }
+
+    @Override
+    public int getScore(Player player) {
+        return this.model.getScore(player);
+    }
+
+    @Override
+    public void endSession() {
+        this.model.writeWinner();
+        this.view.endMessage(this.model.getWinner(), playerName, this.model.getPlayerScore(), this.model.getCPUScore());
     }
 }
