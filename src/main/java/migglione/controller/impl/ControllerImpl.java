@@ -78,6 +78,6 @@ public final class ControllerImpl implements Controller {
     @Override
     public void endSession() {
         this.model.writeWinner();
-        this.view.endMessage(this.model.getWinner(), playerName, this.model.getPlayerScore(), this.model.getCPUScore());
+        this.view.endMessage(this.model.getWinner().get(), playerName, this.model.getPlayerScore(), this.model.getCPUScore());
     }
 }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 import java.util.logging.Logger;
@@ -132,50 +133,56 @@ public class Game extends Match {
      * even with the jar
      */
     public void writeWinner() {
-        if (this.playerName.equals(getWinner())) {
-            final Optional<Integer> pScoreOptional = getPlayerScore();
-            final Map<String, Integer> scores = new HashMap<>();
+        final String gameWinner = getWinner().orElse(null);
+        if (!Objects.equals(playerName, gameWinner)) {
+            return;
+        }
 
-            if (pScoreOptional.isEmpty()) {
-                return;
+        final Optional<Integer> pScoreOptional = getPlayerScore();
+        final Map<String, Integer> scores = new HashMap<>();
+
+        if (pScoreOptional.isEmpty()) {
+            return;
+        }
+        final int pScore = pScoreOptional.get();
+
+        final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
+        try {
+            final Path parent = path.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
             }
-            final int pScore = pScoreOptional.get();
+        } catch (final IOException e) {
+            LOGGER.log(Level.SEVERE, "Error during creation of folder", e);
+            return;
+        }
 
-            final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
-            try {
-                Files.createDirectories(path.getParent());
-            } catch (final IOException e) {
-                LOGGER.log(Level.SEVERE, "Error during creation of folder", e);
-                return;
-            }
-
-            if (Files.exists(path)) {
-                try (BufferedReader read = Files.newBufferedReader(path)) {
-                    String s = read.readLine();
-                    while (s != null) {
-                        final String[] split = s.split("->");
-                        if (split.length == 2) {
-                            scores.put(split[0].trim(), Integer.parseInt(split[1].trim()));
-                        }
-                        s = read.readLine();
+        if (Files.exists(path)) {
+            try (BufferedReader read = Files.newBufferedReader(path)) {
+                String s = read.readLine();
+                while (s != null) {
+                    final String[] split = s.split("->");
+                    if (split.length == 2) {
+                        scores.put(split[0].trim(), Integer.parseInt(split[1].trim()));
                     }
-                } catch (final IOException e) {
-                    LOGGER.log(Level.SEVERE, "Error while reading file", e);
-                }
-            }
-            scores.merge(playerName, pScore, Math::max);
-
-            final List<Map.Entry<String, Integer>> orderedScores = new ArrayList<>(scores.entrySet());
-            orderedScores.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));
-
-            try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-                for (final Map.Entry<String, Integer> entry : orderedScores) {
-                    writer.write(entry.getKey() + "->" + entry.getValue());
-                    writer.newLine();
+                    s = read.readLine();
                 }
             } catch (final IOException e) {
-                LOGGER.log(Level.SEVERE, "Error in writing in file", e);
+                LOGGER.log(Level.SEVERE, "Error while reading file", e);
             }
+        }
+        scores.merge(playerName, pScore, Math::max);
+
+        final List<Map.Entry<String, Integer>> orderedScores = new ArrayList<>(scores.entrySet());
+        orderedScores.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));
+
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            for (final Map.Entry<String, Integer> entry : orderedScores) {
+                writer.write(entry.getKey() + "->" + entry.getValue());
+                writer.newLine();
+            }
+        } catch (final IOException e) {
+            LOGGER.log(Level.SEVERE, "Error in writing in file", e);
         }
     }
 }
