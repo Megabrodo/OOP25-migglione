@@ -32,6 +32,4 @@ public interface Game {
     List<Player> getPlayers();
 
     boolean matchEnded();
-
-    void writeWinner();
 }
