@@ -3,9 +3,10 @@ package migglione.controller.impl;
 import java.util.List;
 
 import migglione.controller.api.Controller;
+import migglione.model.api.Game;
 import migglione.model.api.Player;
 import migglione.model.impl.Card;
-import migglione.model.impl.Game;
+import migglione.model.impl.GameImpl;
 import migglione.view.api.SwingView;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
@@ -39,7 +40,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void startSession(final String name) {
         this.playerName = name;
-        this.model = new Game(playerName);
+        this.model = new GameImpl(playerName);
         view.setScene(Scenes.FIELD.getScene());
     }
 

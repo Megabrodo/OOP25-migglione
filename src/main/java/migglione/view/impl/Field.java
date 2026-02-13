@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import migglione.controller.api.Controller;
 import migglione.model.api.Player;
 import migglione.model.impl.Card;
-import migglione.model.impl.Game;
+import migglione.model.impl.GameImpl;
 import migglione.model.impl.Mosquito;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
@@ -80,7 +80,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
 
         pCards.setOpaque(false);
         oCards.setOpaque(pCards.isOpaque());
-        pCards.setLayout(new FlowLayout(FlowLayout.CENTER, SPACE_BETWEEN_CARDS, SPACE_BETWEEN_CARDS)); //maybe grid is better?
+        pCards.setLayout(new FlowLayout(FlowLayout.CENTER, SPACE_BETWEEN_CARDS, SPACE_BETWEEN_CARDS));
         oCards.setLayout(pCards.getLayout());
 
         final JPanel attrHold = createAttributeBox();
@@ -175,7 +175,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
             final JButton pCenter = (p.equals(controller.getPlayers().getLast())) ? oPlay : pPlay;
             pCenter.setVisible(false);
             //move CPU displaying into the center down here - change return of playUserTurn to bool for CPU turn lead
-            boolean handUnderSize = (Game.HAND_SIZE - p.getHand().size() - (p.equals(controller.getTurnLeader()) && p.equals(controller.getPlayers().getLast()) ? 1 : 0)) > 0;
+            boolean handUnderSize = (GameImpl.HAND_SIZE - p.getHand().size() - (p.equals(controller.getTurnLeader()) && p.equals(controller.getPlayers().getLast()) ? 1 : 0)) > 0;
             for (final Component c : pHand.getComponents()) {
                 if (c instanceof JButton) {
                     final JButton cc = (JButton) c;

@@ -17,15 +17,16 @@ import java.util.logging.Logger;
 
 import java.util.logging.Level;
 
+import migglione.model.api.Game;
 import migglione.model.api.Player;
 
 /**
  * Class designed to overlook a match.
  * Takes care of managing when the turns happen and more
  */
-public class Game extends Match {
+public class GameImpl extends Match implements Game {
 
-    private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GameImpl.class.getName());
     private final String playerName;
     private String currAttr = "Attk";
     private int cpuStoredVal;
@@ -36,7 +37,7 @@ public class Game extends Match {
      * 
      * @param name the name of the player
      */
-    public Game(final String name) {
+    public GameImpl(final String name) {
         super(new User(new ArrayList<>(), name), new Mosquito(new ArrayList<>(), false), new StandardCardDrawImpl(new DeckImpl()));
         this.playerName = name;
     }
@@ -86,6 +87,7 @@ public class Game extends Match {
      * 
      * @return the current active attribute.
      */
+    @Override
     public String getCurrAttr() {
         return this.currAttr;
     }
