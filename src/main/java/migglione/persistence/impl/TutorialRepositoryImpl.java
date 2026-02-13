@@ -24,7 +24,7 @@ public class TutorialRepositoryImpl implements TutorialRepository {
 
         try (BufferedReader read = Files.newBufferedReader(path)) {
             String s = read.readLine();
-            return !s.isBlank();
+            return s != null && !s.isEmpty();
         } catch (final IOException e) {
             LOGGER.log(Level.SEVERE, "Error while reading file", e);
             return false;
