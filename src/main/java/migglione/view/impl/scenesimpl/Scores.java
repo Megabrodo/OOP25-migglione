@@ -62,6 +62,7 @@ private final JTextArea score;
     public void addFile(final String FILE_TXT_PATH) {
 
         final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
+        
         if (Files.exists(path)) {
             //try (BufferedReader reader = Files.newBufferedReader(path)) {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(
