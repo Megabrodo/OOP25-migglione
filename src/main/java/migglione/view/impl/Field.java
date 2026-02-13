@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.swing.BorderFactory;
@@ -21,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import migglione.controller.api.Controller;
 import migglione.model.api.Player;
@@ -68,6 +70,9 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private final JButton oPlay = new JButton(); 
     private final JComboBox<String> attrChoice = new JComboBox<>(attrs);
 
+    private int cycleCount = 0;
+    private Optional<Timer> timer = Optional.empty();
+
     /**
      * Constructor of this class. 
      * Divides screen into play field, player's hand,
@@ -99,39 +104,71 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 );
                 card.setIcon(bg);
                 setTransparentWithIcon(card);
+                card.putClientProperty("card", c);
                 if(!isCPU) {
                     card.addMouseListener(new Hovering(c, mainField));
-                    card.putClientProperty("card", c);
                     //card.setPreferredSize(getPreferredSize());
                     card.addActionListener(new ActionListener() {
 
                         @Override
                         public void actionPerformed(ActionEvent dispose) {
-                            final JButton pB = (p instanceof Mosquito) ? oPlay : pPlay;
-                            pB.setVisible(true);
-                            pB.setIcon(bg);
-                            final Card cc = (Card) card.getClientProperty("card");
-                            final Card sub = controller.playUserTurn(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
-                            if (sub != null) {
-                                System.out.println(sub.getCard());
-                                final ImageIcon subb = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + sub.getName() + ".png"));
-                                final ImageIcon subbg = new ImageIcon(
-                                    subb.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
-                                );
-                                oPlay.setIcon(subbg);
-                                oPlay.setVisible(true);
-                                attrChoice.setEnabled(false);
-                            } else {
-                                attrChoice.setEnabled(true);
+                            if (!timer.isEmpty()) {
+                                return;
                             }
-                            attrChoice.setSelectedItem(controller.getCurrAttr());
-                            updateScores();
-                            resetHandIcons();
-                            controller.checkSession();
+                            cycleCount = 0;
+                            final Card cc = (Card) card.getClientProperty("card");
+                            Timer t = new Timer(1000, new ActionListener() {
+
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    switch (cycleCount) {
+                                        case 0: pPlay.setVisible(true);
+                                                pPlay.setIcon(bg);
+                                                card.setVisible(false);
+                                                putClientProperty("card",cc);
+                                                break;
+                                        case 1: if (controller.getTurnLeader().equals(p)) {
+                                                    controller.playTurnLead(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
+                                                    resetHandIcons();
+                                                };
+                                                break;
+                                        case 2: controller.playTurnTail(cc); //argument is useless if played by CPU, so works in both cases
+                                                resetHandIcons();
+                                                break;
+                                        case 3: controller.playTurn();
+                                                updateScores();
+                                                break;
+                                        case 4: Set.of(pPlay, oPlay).forEach(jb -> jb.setVisible(false));
+                                                if (!p.equals(controller.getTurnLeader())) {
+                                                    controller.playTurnLead(attrs[0],cc);
+                                                    final Card sub = controller.getTurnLeader().getPlayedCard();
+                                                    oPlay.putClientProperty("card", sub);
+                                                    final ImageIcon subb = new ImageIcon(getClass().getResource(CARD_BACKSIDE_PATH));
+                                                    final ImageIcon subbg = new ImageIcon(
+                                                        subb.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+                                                    );
+                                                    oPlay.setIcon(subbg);
+                                                    oPlay.setVisible(true);
+                                                    attrChoice.setEnabled(false);
+                                                } else {
+                                                    attrChoice.setEnabled(true);
+                                                }
+                                                attrChoice.setSelectedItem(controller.getCurrAttr());
+                                                resetHandIcons();
+                                                ((Timer)e.getSource()).stop();
+                                                controller.checkSession();
+                                                timer = Optional.empty();
+                                                break;
+                                    }
+                                    cycleCount++;
+                                }
+                                
+                            });
+                            timer = Optional.of(t);
+                            t.start();
+                            System.out.println("done");
                         }
                     });
-                } else {
-                    card.setEnabled(false);
                 }
                 pHand.add(card);
             }
@@ -179,8 +216,6 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         for (final Player p : controller.getPlayers()) {
             final boolean isCPU = p.equals(controller.getPlayers().getLast());
             final JPanel pHand = (isCPU) ? oCards : pCards;
-            final JButton pCenter = (isCPU) ? oPlay : pPlay;
-            pCenter.setVisible(false);
             //move CPU displaying into the center down here - change return of playUserTurn to bool for CPU turn lead
             boolean handUnderSize = (GameImpl.HAND_SIZE - p.getHand().size() - (p.equals(controller.getTurnLeader()) && p.equals(controller.getPlayers().getLast()) ? 1 : 0)) > 0;
             for (final Component c : pHand.getComponents()) {
@@ -188,15 +223,17 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                     final JButton cc = (JButton) c;
                     try {
                         final Card newCard = p.getHand().getLast();
-                        System.out.print(isCPU + " has ");
-                        p.getHand().stream().forEach(d -> System.out.println(d.getCard()));
+                        //System.out.println(isCPU + " has ");
+                        //p.getHand().stream().forEach(d -> System.out.println(d.getCard()));
                         final Card card = (Card) cc.getClientProperty("card");
                     cc.setVisible(true);
                     if (!p.getHand().contains(card)) {
                         if (!handUnderSize){
-                            System.out.println("replacing..." + card.getName() + " to " + newCard.getName());
+                            //System.out.println("replacing..." + card.getName() + " to " + newCard.getName());
                             cc.putClientProperty("card", newCard);
-                            final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + newCard.getName() + ".png"));
+                            final ImageIcon bc = new ImageIcon(
+                                getClass().getResource(isCPU ? CARD_BACKSIDE_PATH : CARDS_IMAGE_PATH + newCard.getName() + ".png")
+                            );
                             final ImageIcon bg = new ImageIcon(
                                 bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
                             );
