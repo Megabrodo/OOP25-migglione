@@ -73,10 +73,11 @@ public final class Mosquito extends User {
         int maxStat = 0;
         Card bestCard = new Card("placeholder", 0, 0, 0, 0, 0);
         for (final Card c : super.getHand()) {
-            chooseAttr(bestAttr(c));
-            if (getAttr(super.getAttr(), c) > maxStat) {
-                maxStat = getAttr(super.getAttr(), c);
+            final String best = bestAttr(c);
+            if (getAttr(best, c) > maxStat) {
+                maxStat = getAttr(best, c);
                 bestCard = c;
+                chooseAttr(best);
             }
             if (maxStat == 10) {
                 break;
@@ -112,8 +113,10 @@ public final class Mosquito extends User {
         }
         if (playedCard.getIntelligence() > playedCard.getStealth()) {
             return "Intelligence";
+        } else {
+            return "Stealth";
         }
-        return "Stealth";
+
     }
 
     /**

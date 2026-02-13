@@ -1,8 +1,18 @@
 package migglione.controller.impl;
 
+import java.util.List;
+import java.util.Optional;
+
 import migglione.controller.api.Controller;
+import migglione.model.api.Game;
+import migglione.model.api.Player;
+import migglione.model.impl.Card;
+import migglione.model.impl.GameImpl;
+import migglione.persistence.api.ScoreRepository;
+import migglione.persistence.api.TutorialRepository;
+import migglione.persistence.impl.ScoreRepositoryImpl;
+import migglione.persistence.impl.TutorialRepositoryImpl;
 import migglione.view.api.SwingView;
-import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 
 /**
@@ -17,6 +27,9 @@ import migglione.view.impl.SwingViewImpl;
 public final class ControllerImpl implements Controller {
 
     private final SwingView view;
+    private final ScoreRepository sRep;
+    private final TutorialRepository tRep;
+    private Game model;
     private String playerName;
 
     /**
@@ -28,19 +41,70 @@ public final class ControllerImpl implements Controller {
      */
     public ControllerImpl() {
         this.view = new SwingViewImpl(this);
+        this.sRep = new ScoreRepositoryImpl();
+        this.tRep = new TutorialRepositoryImpl();
+
+        checkFirstTime();
+    }
+
+    private void checkFirstTime() {
+        if (!this.tRep.haveTutorialBeenSeen()) {
+            this.tRep.writeOnTutorial();
+            this.view.showTutorialPrompt();
+        }
     }
 
     @Override
-    public void startMatch(final String name) {
+    public void startSession(final String name) {
         this.playerName = name;
-        //Qui inizializzo la classe del model che gestisce la partita
-        view.setScene(Scenes.FIELD.getScene());
+        this.model = new GameImpl(playerName);
     }
 
     @Override
-    public void endMatch() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'endMatch'");
+    public void checkSession() {
+        if (this.model.matchEnded()) {
+            endSession();
+        }
     }
 
+    @Override
+    public List<Player> getPlayers() {
+        return this.model.getPlayers();
+    }
+
+    @Override
+    public Card playUserTurn(final String attr, final Card played) {
+        return this.model.playUserTurn(attr, played);
+    }
+
+    @Override
+    public String getCurrAttr() {
+        return this.model.getCurrAttr();
+    }
+
+    @Override
+    public Player getTurnLeader() {
+        return this.model.getTurnLeader();
+    }
+
+    @Override
+    public int getScore(final Player player) {
+        return this.model.getScore(player);
+    }
+
+    @Override
+    public void endSession() {
+        final Optional<String> winner = this.model.getWinner();
+        final Optional<Integer> pScoreOpt = this.model.getPlayerScore();
+        final Optional<Integer> cScoreOpt = this.model.getCPUScore();
+        if (winner.isEmpty() || pScoreOpt.isEmpty() || cScoreOpt.isEmpty()) {
+            return;
+        }
+
+        if (winner.get().equals(playerName)) {
+            this.sRep.writeWinner(playerName, pScoreOpt.get());
+        }
+
+        this.view.endMessage(winner.get(), playerName, pScoreOpt.get(), cScoreOpt.get());
+    }
 }

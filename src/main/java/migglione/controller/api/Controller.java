@@ -1,5 +1,10 @@
 package migglione.controller.api;
 
+import java.util.List;
+
+import migglione.model.api.Player;
+import migglione.model.impl.Card;
+
 /**
  * Interface for the Controller of the application.
  * 
@@ -17,7 +22,57 @@ public interface Controller {
      *             it will be used later if they
      *             won the game
      */
-    void startMatch(String name);
+    void startSession(String name);
+
+    /**
+     * Used to check if its time to end the match.
+     * 
+     * <p>
+     * This method decides if endSession should be
+     * called, by asking directly the model
+     */
+    void checkSession();
+
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @return the list of players, its implementation
+     *         can be fully seen in the class chosen as Model
+     */
+    List<Player> getPlayers();
+
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @param attr is the attribute chosen to play the card in
+     * @param played is the chosen card to be played
+     * @return the card played
+     */
+    Card playUserTurn(String attr, Card played);
+
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @return the current attribute to which
+     *         the cards will be compared
+     */
+    String getCurrAttr();
+
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @return current the player whose turn
+     *         the current one is
+     */
+    Player getTurnLeader();
+
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @param player is the one we want the current score of
+     * @return the current score of the player
+     */
+    int getScore(Player player);
 
     /**
      * Determines the end of the match.
@@ -28,5 +83,5 @@ public interface Controller {
      * will be put in the scores file, so that it can be
      * displayed in the Scores scene
      */
-    void endMatch();
+    void endSession();
 }
