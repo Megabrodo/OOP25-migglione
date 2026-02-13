@@ -40,6 +40,7 @@ public class GameImpl extends Match implements Game {
      * 
      * If the user isn't starting the next turn, the CPU's choice is already registered.
      */
+    @Override
     public Card playUserTurn(final String attr, final Card played) {
         final Player msq = getPlayers().getLast();
         final Player plr = getPlayers().getFirst();
@@ -82,6 +83,7 @@ public class GameImpl extends Match implements Game {
      * 
      * @return the optional of the score
      */
+    @Override
     public Optional<Integer> getPlayerScore() {
         for (final var p : getPlayers()) {
             if (p.getName().equals(playerName)) {
@@ -96,6 +98,7 @@ public class GameImpl extends Match implements Game {
      * 
      * @return the optional of the score
      */
+    @Override
     public Optional<Integer> getCPUScore() {
         for (final var p : getPlayers()) {
             if (!p.getName().equals(playerName)) {
