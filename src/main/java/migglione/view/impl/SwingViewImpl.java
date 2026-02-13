@@ -3,7 +3,6 @@ package migglione.view.impl;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Optional;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -148,24 +147,19 @@ public final class SwingViewImpl implements SwingView {
     }
 
     @Override
-    public void endMessage(
-        final String winner,
-        final String player,
-        final Optional<Integer> pScore,
-        final Optional<Integer> cScore) {
+    public void endMessage(final String winner, final String player, final Integer pScore, final Integer cScore) {
 
-            if (pScore.isPresent() && cScore.isPresent()) {
-                final String endMessage;
-                if (winner.equals(player)) {
-                    endMessage = "You won with " + pScore.get() + " points!";
-                } else if (pScore.get().equals(cScore.get())) {
-                    endMessage = "It's a tie!";
-                } else {
-                    endMessage = "You lost...";
-                }
-
-                JOptionPane.showMessageDialog(frame, endMessage, "The game has ended", JOptionPane.INFORMATION_MESSAGE);
-            }
-            setScene(Scenes.MENU.getScene());
+        final String endMessage;
+        if (winner.equals(player)) {
+            endMessage = "You won with " + pScore + " points!";
+        } else if (pScore.equals(cScore)) {
+            endMessage = "It's a tie!";
+        } else {
+            endMessage = "You lost...";
         }
+
+        JOptionPane.showMessageDialog(frame, endMessage, "The game has ended", JOptionPane.INFORMATION_MESSAGE);
+            
+        setScene(Scenes.MENU.getScene());
+    }
 }

@@ -26,7 +26,7 @@ public class ScoreRepositoryImpl implements ScoreRepository {
     private static final Logger LOGGER = Logger.getLogger(ScoreRepositoryImpl.class.getName());
 
     @Override
-    public void writeWinner(String playerName, Optional<Integer> pScoreOptional) {
+    public void writeWinner(final String playerName, final Optional<Integer> pScoreOptional) {
 
         final Map<String, Integer> scores = new HashMap<>();
 

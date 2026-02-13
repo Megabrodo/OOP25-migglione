@@ -84,7 +84,9 @@ public final class ControllerImpl implements Controller {
     @Override
     public void endSession() {
         final Optional<String> winner = this.model.getWinner();
-        if (winner.isEmpty()) {
+        final Optional<Integer> pScoreOpt = this.model.getPlayerScore();
+        final Optional<Integer> cScoreOpt = this.model.getPlayerScore();
+        if (winner.isEmpty() || pScoreOpt.isEmpty() || cScoreOpt.isEmpty()) {
             return;
         }
 
@@ -92,6 +94,6 @@ public final class ControllerImpl implements Controller {
             this.rep.writeWinner(playerName, this.model.getPlayerScore());
         }
 
-        this.view.endMessage(winner.get(), playerName, this.model.getPlayerScore(), this.model.getCPUScore());
+        this.view.endMessage(winner.get(), playerName, pScoreOpt.get(), cScoreOpt.get());
     }
 }

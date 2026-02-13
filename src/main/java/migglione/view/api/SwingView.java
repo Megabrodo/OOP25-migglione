@@ -1,7 +1,5 @@
 package migglione.view.api;
 
-import java.util.Optional;
-
 /**
  * Interface used as a base to SwingViewImpl implementation.
  */
@@ -33,5 +31,5 @@ public interface SwingView {
      * @param pScore is the score of the player
      * @param cScore is the score of the CPU
      */
-    void endMessage(String winner, String player, Optional<Integer> pScore, Optional<Integer> cScore);
+    void endMessage(String winner, String player, Integer pScore, Integer cScore);
 }
