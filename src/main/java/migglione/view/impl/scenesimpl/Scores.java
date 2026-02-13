@@ -6,6 +6,9 @@ import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -60,16 +63,19 @@ private final JTextArea score;
 
     private final void addFile(String FILE_TXT_PATH) { //
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_TXT_PATH))) {
-            String line;
+        final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
+        if (Files.exists(path)) {
+            try (BufferedReader reader = Files.newBufferedReader(path)) {
+                String line;
 
-            while((line = reader.readLine()) != null) {
-                score.append(line + "\n");
+                while((line = reader.readLine()) != null) {
+                    score.append(line + "\n");
+                }
+            } catch (final IOException error) {
+                    JOptionPane.showMessageDialog(this, "error file reader", "error", 
+                    JOptionPane.ERROR_MESSAGE);
             }
-        } catch (final IOException error) {
-                JOptionPane.showMessageDialog(this, "error file reader", "error", 
-                JOptionPane.ERROR_MESSAGE);
-            }
+        }
     }
 
     @Override
