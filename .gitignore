@@ -4,9 +4,9 @@
 .vscode/
 
 # output folders
+app/
 bin/
 build/
-app/
 
 # files ignored by extension
 *.class
