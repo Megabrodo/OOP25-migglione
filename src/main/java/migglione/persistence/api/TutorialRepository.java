@@ -1,5 +1,8 @@
 package migglione.persistence.api;
 
+/**
+ * Interface used to handle the tutorial on start-up.
+ */
 public interface TutorialRepository {
     /**
      * Checks if it's the first time the app has been opened.

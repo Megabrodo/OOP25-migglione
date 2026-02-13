@@ -83,7 +83,7 @@ public enum CardId {
      */
     public static Map<Integer, Card> buildCardsMap() {
         final Map<Integer, Card> result = new HashMap<>();
-        for (final CardId cardId:CardId.values()) {
+        for (final CardId cardId : values()) {
             result.put(cardId.id, cardId.card);
         }
         return Collections.unmodifiableMap(result);
