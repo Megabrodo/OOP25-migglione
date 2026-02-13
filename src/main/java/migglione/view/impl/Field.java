@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 
 import migglione.controller.api.Controller;
 import migglione.model.api.Player;
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 import migglione.model.impl.GameImpl;
 import migglione.model.impl.Mosquito;
 import migglione.view.api.music.MusicPlayer;
@@ -87,7 +87,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
 
         for (final Player p : controller.getPlayers()) {
             final JPanel pHand = (p instanceof Mosquito) ? oCards : pCards;
-            for (final CardImpl c : p.getHand()) {
+            for (final Card c : p.getHand()) {
                 final JButton card = new JButton();
                 final ImageIcon bc = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + c.getName() + ".png"));
                 final ImageIcon bg = new ImageIcon(
@@ -107,8 +107,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         final JButton pB = (p instanceof Mosquito) ? oPlay : pPlay;
                         pB.setVisible(true);
                         pB.setIcon(bg);
-                        final CardImpl cc = (CardImpl) card.getClientProperty("card");
-                        final CardImpl sub = controller.playUserTurn(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
+                        final Card cc = (Card) card.getClientProperty("card");
+                        final Card sub = controller.playUserTurn(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
                         if (sub != null) {
                             System.out.println(sub.getCard());
                             final ImageIcon subb = new ImageIcon(getClass().getResource(CARDS_IMAGE_PATH + sub.getName() + ".png"));
@@ -180,8 +180,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 if (c instanceof JButton) {
                     final JButton cc = (JButton) c;
                     try {
-                        final CardImpl newCard = p.getHand().getLast();
-                        final CardImpl card = (CardImpl) cc.getClientProperty("card");
+                        final Card newCard = p.getHand().getLast();
+                        final Card card = (Card) cc.getClientProperty("card");
                     cc.setVisible(true);
                     if (!p.getHand().contains(card)) {
                         System.out.println(handUnderSize);

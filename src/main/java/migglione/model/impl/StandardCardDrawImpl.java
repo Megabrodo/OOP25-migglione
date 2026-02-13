@@ -20,7 +20,7 @@ import migglione.model.api.Deck;
  */
 public final class StandardCardDrawImpl implements CardDraw {
 
-    private final List<CardImpl> cards;
+    private final List<Card> cards;
 
     /**
      * Constructor of the class.
@@ -40,7 +40,7 @@ public final class StandardCardDrawImpl implements CardDraw {
     }
 
     @Override
-    public CardImpl getCard() {
+    public Card getCard() {
         return this.cards.removeFirst();
     }
 

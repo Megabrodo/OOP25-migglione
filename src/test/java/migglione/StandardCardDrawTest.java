@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import migglione.model.api.Deck;
 import migglione.model.api.CardDraw;
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 import migglione.model.impl.Cards;
 import migglione.model.impl.DeckImpl;
 import migglione.model.impl.StandardCardDrawImpl;
@@ -35,16 +35,16 @@ class StandardCardDrawTest {
 
     @Test
     void drawSameCardsInDeck() {
-        final List<CardImpl> cardsInDeck = new ArrayList<>(deck.getDeck()); 
-        final List<CardImpl> cardsWithDraw = createDeckList();
+        final List<Card> cardsInDeck = new ArrayList<>(deck.getDeck()); 
+        final List<Card> cardsWithDraw = createDeckList();
 
         assertEquals(
-            cardsInDeck.stream().map(CardImpl::getName).sorted().toList(),
-            cardsWithDraw.stream().map(CardImpl::getName).sorted().toList());
+            cardsInDeck.stream().map(Card::getName).sorted().toList(),
+            cardsWithDraw.stream().map(Card::getName).sorted().toList());
     }
 
-    private List<CardImpl> createDeckList() {
-        final List<CardImpl> deckList = new ArrayList<>();
+    private List<Card> createDeckList() {
+        final List<Card> deckList = new ArrayList<>();
         final int fullDeckSize = standardDraw.getSizeDeck();
     
         for (int i = 0; i < fullDeckSize; i++) {
@@ -64,10 +64,10 @@ class StandardCardDrawTest {
 
     @Test
     void removedObjectIsCard() {
-        final CardImpl removedCard = standardDraw.getCard();
+        final Card removedCard = standardDraw.getCard();
         final Set<String> cardsNames = database.getCards().values()
             .stream()
-            .map(CardImpl::getName)
+            .map(Card::getName)
             .collect(Collectors.toSet());
 
         assertTrue(cardsNames.contains(removedCard.getName()));

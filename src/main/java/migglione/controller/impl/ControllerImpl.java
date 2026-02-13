@@ -6,7 +6,7 @@ import java.util.Optional;
 import migglione.controller.api.Controller;
 import migglione.model.api.Game;
 import migglione.model.api.Player;
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 import migglione.model.impl.GameImpl;
 import migglione.persistence.api.ScoreRepository;
 import migglione.persistence.impl.ScoreRepositoryImpl;
@@ -60,7 +60,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public CardImpl playUserTurn(final String attr, final CardImpl played) {
+    public Card playUserTurn(final String attr, final Card played) {
         return this.model.playUserTurn(attr, played);
     }
 

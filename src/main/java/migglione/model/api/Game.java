@@ -3,7 +3,7 @@ package migglione.model.api;
 import java.util.List;
 import java.util.Optional;
 
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 
 /**
  * Interface of the model of the application.
@@ -15,7 +15,7 @@ import migglione.model.impl.CardImpl;
  */
 public interface Game {
 
-    CardImpl playUserTurn(String attr, CardImpl played);
+    Card playUserTurn(String attr, Card played);
 
     String getCurrAttr();
 

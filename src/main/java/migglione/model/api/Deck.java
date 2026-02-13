@@ -1,7 +1,7 @@
 package migglione.model.api;
 
 import java.util.List;
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 
 /**
  * Simple interface in order to design the deck.
@@ -29,5 +29,5 @@ public interface Deck {
      * @return the list of cards, since the indexes
      *         are the keys used in Cards.java
      */
-    List<CardImpl> getDeck();
+    List<Card> getDeck();
 }

@@ -6,7 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 
 /**
  * This class is used to implement the hovering effect on the buttons.
@@ -28,7 +28,7 @@ public final class Hovering implements MouseListener {
      * @param hoveringCard the card to be hovered
      * @param gamePanel the panel on which the card will be hovered
      */
-    public Hovering(final CardImpl hoveringCard, final JPanel gamePanel) {
+    public Hovering(final Card hoveringCard, final JPanel gamePanel) {
         this.hoveringCard = new HoveringCard(hoveringCard);
         this.gamePanel = gamePanel.getClass().cast(gamePanel);
     }
@@ -86,7 +86,7 @@ public final class Hovering implements MouseListener {
      * 
      * @param newCard the new card to be hovered
      */
-    public void setHoveredCard(final CardImpl newCard) {
+    public void setHoveredCard(final Card newCard) {
         hoveringCard.actualCard = newCard;
     }
 
@@ -94,10 +94,10 @@ public final class Hovering implements MouseListener {
  * Nested class used to create a card with the same stats as the one in the hand but with an image path.
  * Like a card but with an image too, used to create the hovering effect on the buttons.
  */
-static class HoveringCard extends CardImpl {
-        private CardImpl actualCard;
+static class HoveringCard extends Card {
+        private Card actualCard;
 
-        HoveringCard(final CardImpl actualCard) {
+        HoveringCard(final Card actualCard) {
             super(actualCard.getName(), actualCard.getAttk(), actualCard.getDeff(), actualCard.getStrength(),
                   actualCard.getIntelligence(), actualCard.getStealth());
             this.actualCard = actualCard;

@@ -21,7 +21,7 @@ import migglione.model.api.Deck;
 public final class DeckImpl implements Deck {
 
     private final Cards cards = new Cards();
-    private final List<CardImpl> deck = new ArrayList<>();
+    private final List<Card> deck = new ArrayList<>();
     private final Random random;
 
     /**
@@ -41,7 +41,7 @@ public final class DeckImpl implements Deck {
 
     @Override
     public void shuffle() {
-        final List<CardImpl> temp = new ArrayList<>();
+        final List<Card> temp = new ArrayList<>();
 
         for (int i = deck.size(); i > 0; i--) {
             final int n = random.nextInt(deck.size());
@@ -52,7 +52,7 @@ public final class DeckImpl implements Deck {
     }
 
     @Override
-    public List<CardImpl> getDeck() {
+    public List<Card> getDeck() {
         return Collections.unmodifiableList(this.deck);
     }
 }

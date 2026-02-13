@@ -1,11 +1,9 @@
 package migglione.model.impl;
 
-import migglione.model.api.Card;
-
 /**
  * cards used in this game have a name and five atributes to choose during the game.
  */
-public class CardImpl implements Card {
+public class Card {
     private final String name;
     private final int attk;
     private final int deff;
@@ -23,7 +21,7 @@ public class CardImpl implements Card {
      * @param intelligence the atribute rapresent intelligence of the card
      * @param stealth the atribute ho rapresent stealth
      */
-    public CardImpl(final String name, final int attk, final int deff,
+    public Card(final String name, final int attk, final int deff,
         final int strength, final int intelligence, final int stealth) {
         this.name = name;
         this.attk = attk;
@@ -33,37 +31,65 @@ public class CardImpl implements Card {
         this.stealth = stealth;
     }
 
-    @Override
+    /**
+     * Standard getter.
+     * 
+     * @return name of the card
+     */
     public String getName() {
         return this.name;
     }
 
-    @Override
+    /**
+     * Standard getter.
+     * 
+     * @return attak atribute of the card
+     */
     public int getAttk() {
         return this.attk;
     }
 
-    @Override
+    /**
+     * Standard getter.
+     * 
+     * @return atribute defence of the card
+     */
     public int getDeff() {
         return this.deff;
     }
 
-    @Override
+    /**
+     * Standard getter.
+     * 
+     * @return atribute strength of the card
+     */
     public int getStrength() {
         return this.strength;
     }
 
-    @Override
+    /**
+     * Standard getter.
+     * 
+     * @return atribute intelligence of the card
+     */
     public int getIntelligence() {
         return this.intelligence;
     }
 
-    @Override
+    /**
+     * Standard getter.
+     * 
+     * @return atribute sthealth of the card
+     */
     public int getStealth() {
         return this.stealth;
     }
 
-    @Override
+    /**
+     * Standard getter toString.
+     * 
+     * @return the card information, name and all atributes of the card
+     */
     public String getCard() {
         return "Card= " 
         + "name: " + this.name

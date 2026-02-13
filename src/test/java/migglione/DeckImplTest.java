@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import migglione.model.api.Deck;
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 import migglione.model.impl.DeckImpl;
 
 /**
@@ -41,12 +41,12 @@ class DeckImplTest {
 
     @Test
     void checkInitializedDecksWithSameCards() {
-        List<CardImpl> firstCardsList = new ArrayList<>(deck.getDeck());
-        List<CardImpl> secondCardsList = new ArrayList<>(deck2.getDeck());
+        List<Card> firstCardsList = new ArrayList<>(deck.getDeck());
+        List<Card> secondCardsList = new ArrayList<>(deck2.getDeck());
 
         assertEquals(
-            firstCardsList.stream().map(CardImpl::getName).collect(Collectors.toSet()),
-            secondCardsList.stream().map(CardImpl::getName).collect(Collectors.toSet())
+            firstCardsList.stream().map(Card::getName).collect(Collectors.toSet()),
+            secondCardsList.stream().map(Card::getName).collect(Collectors.toSet())
         );
 
         deck.shuffle();
@@ -55,17 +55,17 @@ class DeckImplTest {
         secondCardsList = new ArrayList<>(deck2.getDeck());
 
         assertEquals(
-            firstCardsList.stream().map(CardImpl::getName).collect(Collectors.toSet()),
-            secondCardsList.stream().map(CardImpl::getName).collect(Collectors.toSet())
+            firstCardsList.stream().map(Card::getName).collect(Collectors.toSet()),
+            secondCardsList.stream().map(Card::getName).collect(Collectors.toSet())
         );
         assertEquals(firstCardsList.size(), secondCardsList.size());
     }
 
     @Test
     void randomizedShuffle() {
-        final List<CardImpl> cards = new ArrayList<>(deck.getDeck());
+        final List<Card> cards = new ArrayList<>(deck.getDeck());
         deck.shuffle();
-        final List<CardImpl> cardsAfter = new ArrayList<>(deck.getDeck());
+        final List<Card> cardsAfter = new ArrayList<>(deck.getDeck());
 
         assertNotEquals(cards, cardsAfter);
     }

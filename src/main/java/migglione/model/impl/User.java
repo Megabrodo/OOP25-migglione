@@ -10,18 +10,18 @@ import migglione.model.api.Player;
  * The user gets to choose autonomously what card to play and what attribute to use.
  */
 public class User implements Player {
-    private final List<CardImpl> hand = new ArrayList<>();
+    private final List<Card> hand = new ArrayList<>();
     private String chosenAttr;
     private final String name;
     private final PointsPile pile = new PointsPile();
-    private CardImpl lastPlayed;
+    private Card lastPlayed;
 
     /**
      * Constructor for the Mosquito player(or anonymous).
      * 
      * @param startHand the hand of the player at the start of the match
      */
-    public User(final List<CardImpl> startHand) {
+    public User(final List<Card> startHand) {
         hand.addAll(startHand);
         this.name = "Player";
     }
@@ -32,7 +32,7 @@ public class User implements Player {
      * @param startHand the hand of the player at the start of the match
      * @param name the name of the player
      */
-    public User(final List<CardImpl> startHand, final String name) {
+    public User(final List<Card> startHand, final String name) {
         hand.addAll(startHand);
         this.name = name;
     }
@@ -49,19 +49,19 @@ public class User implements Player {
      * @return the value of card's attribute
      */
     @Override
-    public int playCard(final String attr, final CardImpl playedCard) {
+    public int playCard(final String attr, final Card playedCard) {
         lastPlayed = playedCard;
         hand.remove(playedCard);
         return getAttr(attr, playedCard);
     }
 
     @Override
-    public final List<CardImpl> getHand() {
+    public final List<Card> getHand() {
         return List.copyOf(hand);
     }
 
     @Override
-    public final void drawCard(final CardImpl drawnCard) {
+    public final void drawCard(final Card drawnCard) {
         if (hand.size() < 3) {
             hand.addLast(drawnCard);
         }
@@ -84,7 +84,7 @@ public class User implements Player {
      * @param playedCard the card we want to know the value of
      * @return the value of the specified card's attribute
      */
-    protected int getAttr(final String attr, final CardImpl playedCard) {
+    protected int getAttr(final String attr, final Card playedCard) {
         switch (attr) {
             case "Attk":
                 return playedCard.getAttk();
@@ -110,8 +110,8 @@ public class User implements Player {
      * @return the pile of points won
      */
     @Override
-    public List<CardImpl> getPile(final List<CardImpl> pointsWon) {
-        for (final CardImpl point : pointsWon) {
+    public List<Card> getPile(final List<Card> pointsWon) {
+        for (final Card point : pointsWon) {
             pile.addPile(point);
         }
         return pile.getPile();
@@ -123,7 +123,7 @@ public class User implements Player {
     }
 
     @Override
-    public final CardImpl getPlayedCard() {
+    public final Card getPlayedCard() {
         return lastPlayed;
     }
 }

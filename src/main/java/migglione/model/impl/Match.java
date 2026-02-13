@@ -23,7 +23,7 @@ public class Match {
     private int consecWins;
     protected Player latestWin;
     protected int turnLead;
-    private List<CardImpl> cardsStakes;
+    private List<Card> cardsStakes;
 
     /**
      * Constructor of the class.

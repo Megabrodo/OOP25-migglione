@@ -17,14 +17,14 @@ public final class Mosquito extends User {
      * @param hand the hand of the player
      * @param turn which turn is at the first round
      */
-    public Mosquito(final List<CardImpl> hand, final boolean turn) {
+    public Mosquito(final List<Card> hand, final boolean turn) {
         super(hand);
         myTurn = turn;
     }
 
     @Override
-    public int playCard(final String attr, final CardImpl playedCard) {
-        final CardImpl cardToPlay = playCard(attr);
+    public int playCard(final String attr, final Card playedCard) {
+        final Card cardToPlay = playCard(attr);
         if (myTurn) {
             return super.playCard(bestAttr(cardToPlay), cardToPlay);
         }
@@ -38,7 +38,7 @@ public final class Mosquito extends User {
      * @param attr the attribute used by the User, only used if it's not mosquito's turn
      * @return the value of the played card in the best attribute, 10 is the max value for a card
      */
-    private CardImpl playCard(final String attr) {
+    private Card playCard(final String attr) {
         if (myTurn) {
             return playCardFirst();
         } else {
@@ -47,7 +47,7 @@ public final class Mosquito extends User {
     }
 
     @Override
-    public List<CardImpl> getPile(final List<CardImpl> pointsWon) {
+    public List<Card> getPile(final List<Card> pointsWon) {
         if (pointsWon.isEmpty()) {
             setMyTurn(false);
             consecWins = 0;
@@ -69,10 +69,10 @@ public final class Mosquito extends User {
      * 
      * @return the value of the played card in the best attribute, 10 is the max value for a card
      */
-    private CardImpl playCardFirst() {
+    private Card playCardFirst() {
         int maxStat = 0;
-        CardImpl bestCard = new CardImpl("placeholder", 0, 0, 0, 0, 0);
-        for (final CardImpl c : super.getHand()) {
+        Card bestCard = new Card("placeholder", 0, 0, 0, 0, 0);
+        for (final Card c : super.getHand()) {
             final String best = bestAttr(c);
             if (getAttr(best, c) > maxStat) {
                 maxStat = getAttr(best, c);
@@ -92,7 +92,7 @@ public final class Mosquito extends User {
      * @param playedCard the card to analyze
      * @return the name of the best attribute for the card, in case of tie the last with the best is chosen
      */
-    private String bestAttr(final CardImpl playedCard) {
+    private String bestAttr(final Card playedCard) {
         if (playedCard.getAttk() > playedCard.getDeff()) {
             if (playedCard.getAttk() > playedCard.getStrength()) {
                 if (playedCard.getAttk() > playedCard.getIntelligence() && playedCard.getAttk() > playedCard.getStealth()) {
@@ -125,9 +125,9 @@ public final class Mosquito extends User {
      * @param attr the attribute used by the User
      * @return the value of the played card in the specified attribute
      */
-    private CardImpl playCardSecond(final String attr) {
+    private Card playCardSecond(final String attr) {
         chooseAttr(attr);
-        return maxStat(attr, new CardImpl("placeholder", 0, 0, 0, 0, 0));
+        return maxStat(attr, new Card("placeholder", 0, 0, 0, 0, 0));
     }
 
     /**
@@ -138,9 +138,9 @@ public final class Mosquito extends User {
      * @param emptyCard the card that will be played and removed from hand
      * @return the value of the played card in the specified attribute
      */
-    private CardImpl maxStat(final String attr, final CardImpl emptyCard) {
-        CardImpl bestCard = emptyCard;
-        for (final CardImpl c : super.getHand()) {
+    private Card maxStat(final String attr, final Card emptyCard) {
+        Card bestCard = emptyCard;
+        for (final Card c : super.getHand()) {
             if (getAttr(attr, c) >= getAttr(attr, bestCard)) {
                 bestCard = c;
             }

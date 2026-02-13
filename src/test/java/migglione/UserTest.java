@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import migglione.model.api.CardDraw;
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 import migglione.model.impl.DeckImpl;
 import migglione.model.impl.StandardCardDrawImpl;
 import migglione.model.impl.User;
@@ -29,14 +29,14 @@ class UserTest {
     void drawToFull() {
         final int moreThanEnoughCards = 10;
         for (int i = 0; i < moreThanEnoughCards; i++) {
-            userPlayer.drawCard(new CardImpl("EmptyCard", 0, 0, 0, 0, 0));
+            userPlayer.drawCard(new Card("EmptyCard", 0, 0, 0, 0, 0));
         }
         assertEquals(3, userPlayer.getHand().size());
     }
 
     @Test
     void saveRightCards() {
-        CardImpl testCard = standardDraw.getCard();
+        Card testCard = standardDraw.getCard();
         userPlayer.drawCard(testCard);
         assertEquals(userPlayer.getHand().get(0), testCard);
         testCard = standardDraw.getCard();
@@ -51,9 +51,9 @@ class UserTest {
 
     @Test
     void playCard() {
-        final CardImpl bestCard = new CardImpl("best", 9, 9, 9, 10, 10);
-        final CardImpl okCard = new CardImpl("ok", 4, 1, 5, 3, 2);
-        final CardImpl worstCard = new CardImpl("worst", 1, 0, 0, 0, 0);
+        final Card bestCard = new Card("best", 9, 9, 9, 10, 10);
+        final Card okCard = new Card("ok", 4, 1, 5, 3, 2);
+        final Card worstCard = new Card("worst", 1, 0, 0, 0, 0);
         userPlayer.drawCard(bestCard);
         userPlayer.drawCard(okCard);
         userPlayer.drawCard(worstCard);

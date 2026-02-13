@@ -3,7 +3,7 @@ package migglione.controller.api;
 import java.util.List;
 
 import migglione.model.api.Player;
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 
 /**
  * Interface for the Controller of the application.
@@ -48,7 +48,7 @@ public interface Controller {
      * @param played is the chosen card to be played
      * @return the card played
      */
-    CardImpl playUserTurn(String attr, CardImpl played);
+    Card playUserTurn(String attr, Card played);
 
     /**
      * Used to call the same method in the Model.

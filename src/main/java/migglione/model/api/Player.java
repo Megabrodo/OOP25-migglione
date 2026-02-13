@@ -2,7 +2,7 @@ package migglione.model.api;
 
 import java.util.List;
 
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 
 /**
  * interface where the methods in common with the user and the CPU are described.
@@ -17,7 +17,7 @@ public interface Player {
      * @param playedCard the played card who's going to be removed from the hand
      * @return the value of card's attribute
      */
-    int playCard(String attr, CardImpl playedCard);
+    int playCard(String attr, Card playedCard);
 
     /**
      * Used for knowing the cards in hand at the beginning for each round.
@@ -25,7 +25,7 @@ public interface Player {
      * @return the List of Integer values representing
      *         the cards in Player's hand
      */
-    List<CardImpl> getHand();
+    List<Card> getHand();
 
     /**
      * Method to draw a card at the start of each round.
@@ -33,7 +33,7 @@ public interface Player {
      * 
      * @param drawnCard the card to put in hand
      */
-    void drawCard(CardImpl drawnCard);
+    void drawCard(Card drawnCard);
 
     /**
      * The chosen attribute is stored internally to the player.
@@ -56,7 +56,7 @@ public interface Player {
      * @param pointsWon the cards to add to pile
      * @return the pile of points won
      */
-    List<CardImpl> getPile(List<CardImpl> pointsWon);
+    List<Card> getPile(List<Card> pointsWon);
 
     /**
      * A method to get the name of the player, used for the scoreboard.
@@ -71,5 +71,5 @@ public interface Player {
      * 
      * @return the played card
      */
-    CardImpl getPlayedCard();
+    Card getPlayedCard();
 }

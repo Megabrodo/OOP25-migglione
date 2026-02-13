@@ -1,6 +1,6 @@
 package migglione.model.api;
 
-import migglione.model.impl.CardImpl;
+import migglione.model.impl.Card;
 
 /**
  * Interface used as a reference for a Strategy method.
@@ -20,7 +20,7 @@ public interface CardDraw {
      *         the deck (standard) or it can change depending
      *         on what game mode is on.
      */
-    CardImpl getCard();
+    Card getCard();
 
     /**
      * Checks the current state of the deck.
