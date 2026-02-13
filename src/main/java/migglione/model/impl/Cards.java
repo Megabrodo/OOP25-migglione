@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  *             whit their atribute and name
  */
 public class Cards {
-    private final Map<Integer, Card> card;
+    private final Map<Integer, CardImpl> card;
 
     /**
      * Constructor of the cards.
@@ -26,7 +26,7 @@ public class Cards {
      * 
      * @return cards
      */
-    public Map<Integer, Card> getCards() {
+    public Map<Integer, CardImpl> getCards() {
         return Collections.unmodifiableMap(card);
     }
 

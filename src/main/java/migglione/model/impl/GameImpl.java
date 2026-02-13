@@ -40,7 +40,7 @@ public class GameImpl extends Match implements Game {
      * 
      * If the user isn't starting the next turn, the CPU's choice is already registered.
      */
-    public Card playUserTurn(final String attr, final Card played) {
+    public CardImpl playUserTurn(final String attr, final CardImpl played) {
         final Player msq = getPlayers().getLast();
         final Player plr = getPlayers().getFirst();
         plr.chooseAttr(attr);

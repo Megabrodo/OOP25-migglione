@@ -35,7 +35,7 @@ public enum CardId {
     GEPPETTO(24, "Geppetto", 7, 7, 7, 7, 7);
 
     private final int id;
-    private final Card card;
+    private final CardImpl card;
 
     /**
      * Constructor for define id, name and atribute of the card.
@@ -51,7 +51,7 @@ public enum CardId {
     CardId(final int id, final String name, final int attk, final int deff, final int strength,
         final int intelligence, final int stealth) {
         this.id = id;
-        this.card = new Card(name, attk, deff, strength, intelligence, stealth);
+        this.card = new CardImpl(name, attk, deff, strength, intelligence, stealth);
     }
 
     /**
@@ -59,7 +59,7 @@ public enum CardId {
      * 
      * @return card name and atribute
      */
-    public Card getCardId() {
+    public CardImpl getCardId() {
         return this.card;
     }
 
@@ -81,8 +81,8 @@ public enum CardId {
      * 
      * @return result, the map conteined all cards defined whit id as a key.
      */
-    public static Map<Integer, Card> buildCardsMap() {
-        final Map<Integer, Card> result = new HashMap<>();
+    public static Map<Integer, CardImpl> buildCardsMap() {
+        final Map<Integer, CardImpl> result = new HashMap<>();
         for (final CardId cardId:CardId.values()) {
             result.put(cardId.id, cardId.card);
         }

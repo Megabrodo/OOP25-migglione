@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class PointsPile {
 
-private final List<Card> pile;
+private final List<CardImpl> pile;
 
     /**
      * Constructor for create empty pile.
@@ -25,7 +25,7 @@ private final List<Card> pile;
      * 
      * @param card you want to go in the pile
      */
-    public void addPile(final Card card) {
+    public void addPile(final CardImpl card) {
         pile.add(card);
     }
 
@@ -43,7 +43,7 @@ private final List<Card> pile;
      * 
      * @return copy of the pile
      */
-    public List<Card> getPile() {
+    public List<CardImpl> getPile() {
         return List.copyOf(this.pile);
     }
 
@@ -52,7 +52,7 @@ private final List<Card> pile;
      * 
      * @return firs card in your pile/greviard 
      */
-    public Card scry() {
+    public CardImpl scry() {
         if (isPileEmpty()) {
             return null;
         }

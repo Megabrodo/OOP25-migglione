@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import migglione.model.impl.Card;
+import migglione.model.impl.CardImpl;
 import migglione.model.impl.Mosquito;
 
 /**
@@ -26,9 +26,9 @@ class MosquitoTest {
 
     @Test
     void playCardFirst() {
-        final Card bestCard = new Card("best1", 9, 9, 9, 10, 10);
-        final Card okCard = new Card("ok1", 4, 1, 5, 3, 2);
-        final Card worstCard = new Card("worst1", 1, 0, 0, 0, 0);
+        final CardImpl bestCard = new CardImpl("best1", 9, 9, 9, 10, 10);
+        final CardImpl okCard = new CardImpl("ok1", 4, 1, 5, 3, 2);
+        final CardImpl worstCard = new CardImpl("worst1", 1, 0, 0, 0, 0);
         mosquitoPlayer.drawCard(bestCard);
         mosquitoPlayer.drawCard(okCard);
         mosquitoPlayer.drawCard(worstCard);
@@ -44,9 +44,9 @@ class MosquitoTest {
 
     @Test
     void playCardSecond() {
-        final Card bestCard = new Card("best2", 9, 9, 9, 10, 10);
-        final Card okCard = new Card("ok2", 4, 1, 5, 3, 2);
-        final Card worstCard = new Card("worst2", 1, 0, 0, 0, 0);
+        final CardImpl bestCard = new CardImpl("best2", 9, 9, 9, 10, 10);
+        final CardImpl okCard = new CardImpl("ok2", 4, 1, 5, 3, 2);
+        final CardImpl worstCard = new CardImpl("worst2", 1, 0, 0, 0, 0);
         mosquitoPlayer.drawCard(bestCard);
         mosquitoPlayer.drawCard(okCard);
         mosquitoPlayer.drawCard(worstCard);
@@ -61,9 +61,9 @@ class MosquitoTest {
 
     @Test
     void playCardSynchronized() {
-        final Card bestCard = new Card("best3", 9, 9, 9, 10, 10);
-        final Card okCard = new Card("ok3", 4, 1, 5, 3, 2);
-        final Card worstCard = new Card("worst3", 1, 0, 0, 0, 0);
+        final CardImpl bestCard = new CardImpl("best3", 9, 9, 9, 10, 10);
+        final CardImpl okCard = new CardImpl("ok3", 4, 1, 5, 3, 2);
+        final CardImpl worstCard = new CardImpl("worst3", 1, 0, 0, 0, 0);
         mosquitoPlayer.drawCard(bestCard);
         mosquitoPlayer.drawCard(okCard);
         mosquitoPlayer.drawCard(worstCard);
