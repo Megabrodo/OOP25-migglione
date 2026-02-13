@@ -100,7 +100,7 @@ public class Game extends Match {
                 return Optional.of(getScore(p));
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     /**
@@ -114,7 +114,7 @@ public class Game extends Match {
                 return Optional.of(getScore(p));
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     /**
@@ -133,8 +133,13 @@ public class Game extends Match {
      */
     public void writeWinner() {
         if (this.playerName.equals(getWinner())) {
-            final int pScore = getPlayerScore().get();
+            final Optional<Integer> pScoreOptional = getPlayerScore();
             final Map<String, Integer> scores = new HashMap<>();
+
+            if (pScoreOptional.isEmpty()) {
+                return;
+            }
+            final int pScore = pScoreOptional.get();
 
             final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
             try {
