@@ -159,7 +159,7 @@ public final class SwingViewImpl implements SwingView {
         }
 
         JOptionPane.showMessageDialog(frame, endMessage, "The game has ended", JOptionPane.INFORMATION_MESSAGE);
-            
+   
         setScene(Scenes.MENU.getScene());
     }
 
@@ -177,7 +177,7 @@ public final class SwingViewImpl implements SwingView {
         "Tutorial",
         JOptionPane.YES_NO_OPTION
     );
-    
+
         return preference == JOptionPane.YES_OPTION;
     }
 }

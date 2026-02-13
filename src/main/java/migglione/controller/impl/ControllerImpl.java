@@ -48,7 +48,7 @@ public final class ControllerImpl implements Controller {
     }
 
     private void checkFirstTime() {
-        if (!this.tRep.haveTutorialBennSeen()) {
+        if (!this.tRep.haveTutorialBeenSeen()) {
             this.tRep.writeOnTutorial();
             this.view.showTutorialPrompt();
         }
