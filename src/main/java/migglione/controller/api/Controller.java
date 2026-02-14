@@ -45,14 +45,24 @@ public interface Controller {
      * Used to call the same method in the Model.
      * 
      * @param attr is the attribute chosen to play the card in
-     * @param played is the chosen card to be played
-     * @return the card played
+     * @param card the chosen card to be played
      */
-    boolean playUserTurn(String attr, Card played);
+    void playTurnLead(String attr, Card card);
 
-    public void playTurnLead(final String attr, final Card card);
-    public void playTurnTail(final Card card);
-    public boolean playTurn();
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @param card the chosen card to be played
+     */
+    void playTurnTail(Card card);
+
+    /**
+     * Used to call the same method in the Model.
+     * 
+     * @return whether the game has finished or not.
+     */
+    boolean playTurn();
+
     /**
      * Used to call the same method in the Model.
      * 

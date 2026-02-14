@@ -1,5 +1,8 @@
 package migglione.view.api.music;
 
+/**
+ * Enum used to store the names of the different tracks used.
+ */
 public enum MusicTracks {
     ENA("/soundtracks/ENA Dream BBQ.wav"),
     SMASH("/soundtracks/Trophy Gallery.wav"),

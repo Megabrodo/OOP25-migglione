@@ -32,24 +32,28 @@ public interface Game {
     boolean playTurn(int plrStat, int cpuStat);
 
     /**
-     * Upon user's choice, plays the rest of the turn. 
-     * The chosen card is "played", but only virtually as it is redrawn
-     * in order to set the played card for easier access during calculcations.
-     * Assumes the user is always inputted first when creating an instance.
-     * If the user isn't starting the next turn, the CPU's choice is already registered.
+     * Plays the turn, utilizing stored values of the players' choices.
+     * Requires the class to save both values to apply.
      * 
-     * @param attr the attribute to play on
-     * @param played the card chosen to be played
-     * 
-     * @return a boolean indicating whether it's the CPU's turn to start.
+     * @return if this was the last turn of the match.
      */
-    boolean playUserTurn(String attr, Card played);
+    boolean playTurn();
 
-    public void playTurnLead(final String attr, final Card card);
+    /**
+     * Plays the lead player's choice card and attribute.
+     * 
+     * @param attr the chosen attribute
+     * @param card the chosen card
+     */
+    void playTurnLead(String attr, Card card);
 
-    public void playTurnTail(final Card card);
-
-    public boolean playTurn();
+    /**
+     * Plays the "tail" (last to go) player's card choice.
+     * Attribute is not required as it is already chosen by the lead player.
+     * 
+     * @param card the chosen card
+     */
+    void playTurnTail(Card card);
 
     /**
      * Method to obtain the attribute this turn is being played on.

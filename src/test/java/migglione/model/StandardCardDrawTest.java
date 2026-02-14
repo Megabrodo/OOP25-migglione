@@ -1,4 +1,4 @@
-package migglione;
+package migglione.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -46,7 +46,7 @@ class StandardCardDrawTest {
     private List<Card> createDeckList() {
         final List<Card> deckList = new ArrayList<>();
         final int fullDeckSize = standardDraw.getSizeDeck();
-    
+
         for (int i = 0; i < fullDeckSize; i++) {
             deckList.add(standardDraw.getCard());
         }

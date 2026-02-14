@@ -6,7 +6,10 @@ import java.util.List;
 
 import migglione.model.api.Deck;
 
-public class SimpleDeckImpl implements Deck {
+/**
+ * Class designed to implement a deck without real shuffling.
+ */
+public final class SimpleDeckImpl implements Deck {
 
     private final Cards cards = new Cards();
     private final List<Card> deck = new ArrayList<>();

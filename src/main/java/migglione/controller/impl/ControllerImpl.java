@@ -36,8 +36,10 @@ public final class ControllerImpl implements Controller {
      * Simple constructor of the Controller.
      * 
      * <p>
-     * For now, it simply initializes the main class
-     * of the GUI, so that the menu is seen by the player
+     * It initializes the main class of the GUI,
+     * so that the menu is seen by the player but also
+     * the Repositories useful for writing and reading
+     * from files
      */
     public ControllerImpl() {
         this.view = new SwingViewImpl(this);
@@ -45,6 +47,44 @@ public final class ControllerImpl implements Controller {
         this.tRep = new TutorialRepositoryImpl();
 
         checkFirstTime();
+    }
+
+    /**
+     * Constructor used for tests.
+     *
+     * <p>
+     * The reason this other constructor exists is to make sure that
+     * the controller can be tested. I personally wasn't sure if
+     * this is good practice in a code, but after some research
+     * it seems that this is the only way to guarantee that a Controller
+     * using new can be tested.
+     *
+     * @param view is the view of the application
+     * @param sRep is the ScoreRepository to save scores in files
+     * @param tRep is the TutorialRepository to check if the tutorial has been viewed
+     * @param model is the model of the application
+     */
+    ControllerImpl(final SwingView view, final ScoreRepository sRep, final TutorialRepository tRep, final Game model) {
+        this.model = model;
+        this.view = view;
+        this.sRep = sRep;
+        this.tRep = tRep;
+        checkFirstTime();
+    }
+
+    /**
+     * Necessary method for the tests.
+     *
+     * <p>
+     * Since calling startSession would change the
+     * mock value with a real one, it will compromise
+     * the effectivness of the when methods, so
+     * this way we can test other parts of the Controller
+     *
+     * @param name is the name of the player
+     */
+    void setPlayerMockName(final String name) {
+        this.playerName = name;
     }
 
     private void checkFirstTime() {
@@ -73,18 +113,16 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public boolean playUserTurn(final String attr, final Card played) {
-        return this.model.playUserTurn(attr, played);
-    }
-
     public void playTurnLead(final String attr, final Card played) {
         this.model.playTurnLead(attr, played);
     }
 
+    @Override
     public void playTurnTail(final Card played) {
         this.model.playTurnTail(played);
     }
 
+    @Override
     public boolean playTurn() {
         return this.model.playTurn();
     }

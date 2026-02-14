@@ -17,6 +17,7 @@ public class GameImpl extends Match implements Game {
     private final String playerName;
     private String currAttr = "Attk";
     private final Map<Player, Integer> currVals = new LinkedHashMap<>();
+
     /**
      * Constructor of the class.
      * Due to being a "more functional" version of Match,
@@ -29,30 +30,13 @@ public class GameImpl extends Match implements Game {
         this.playerName = name;
     }
 
-    /**
-     * Upon user's choice, plays the rest of the turn. 
-     * The chosen card is "played", but only virtually as it is redrawn
-     * in order to set the played card for easier access during calculcations.
-     * Assumes the user is always inputted first when creating an instance.
-     * 
-     * @param attr the attribute to play on
-     * @param played the card chosen to be played
-     * 
-     * @return a boolean indicating whether the CPU has to start the next turn.
-     * 
-     * If the user isn't starting the next turn, the CPU's choice is already registered.
-     */
     @Override
-    public boolean playUserTurn(final String attr, final Card played) {
-        return false;
-
-    }
-
     public void playTurnLead(final String attr, final Card card) {
         play(getTurnLeader(), attr, card);
         currAttr = getTurnLeader().getAttr();
     }
 
+    @Override
     public void playTurnTail(final Card card) {
         play(getPlayers().get(1 - turnLead), currAttr, card);
     }
@@ -62,26 +46,18 @@ public class GameImpl extends Match implements Game {
         currVals.put(p, p.playCard(attr, card));
     }
 
+    @Override
     public boolean playTurn() {
         final Player msq = getPlayers().getLast();
         final Player plr = getPlayers().getFirst();
         return playTurn(currVals.get(plr), currVals.get(msq));
     }
-    /**
-     * Method to obtain the attribute this turn is being played on.
-     * 
-     * @return the current active attribute.
-     */
+
     @Override
     public String getCurrAttr() {
         return this.currAttr;
     }
 
-    /**
-     * Method used to get the score of the player.
-     * 
-     * @return the optional of the score
-     */
     @Override
     public Optional<Integer> getPlayerScore() {
         for (final var p : getPlayers()) {
@@ -92,11 +68,6 @@ public class GameImpl extends Match implements Game {
         return Optional.empty();
     }
 
-    /**
-     * Method used to get the score of the mosquito.
-     * 
-     * @return the optional of the score
-     */
     @Override
     public Optional<Integer> getCPUScore() {
         for (final var p : getPlayers()) {
