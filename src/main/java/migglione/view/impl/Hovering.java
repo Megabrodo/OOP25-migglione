@@ -15,8 +15,8 @@ import migglione.model.impl.Card;
  * because it has no real fucntion in the game.
  */
 public final class Hovering implements MouseListener {
-    private static final String CARDS_IMAGE_PATH = "/images/Cards/";
-    private static final String STATS_IMAGE_PATH = "/images/Statistics/";
+    private static final String CARDS_IMAGE_PATH = "/images/cards/";
+    private static final String STATS_IMAGE_PATH = "/images/statistics/";
     private final HoveringCard hoveringCard;
     private final JPanel gamePanel;
 

@@ -46,7 +46,10 @@ public final class TutorialRepositoryImpl implements TutorialRepository {
     @Override
     public void writeOnTutorial() {
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            Files.createDirectories(path.getParent());
+            final Path parent = path.getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
             writer.write("Ok");
         } catch (final IOException e) {
             LOGGER.log(Level.SEVERE, "Error in writing in file", e);
