@@ -21,10 +21,9 @@ public class Match {
     private final Map<Player, Integer> scoring = new LinkedHashMap<>();
     private final CardDraw deck;
     private final List<Card> cardsStakes;
+    private int turnLead;
     private int consecWins;
-    private List<Card> cardsStakes;
-    protected Player latestWin;
-    protected int turnLead;
+    private Player latestWin;
 
     /**
      * Constructor of the class.
@@ -53,12 +52,11 @@ public class Match {
      * <li> updates the score.
      * </ol>
      * 
-     * @param plrStat the value of the first player's card in the chosen attribute.
-     * @param cpuStat the value of the second player's card in the chosen attribute.
-     * 
-     * <p>
      * The parameters have to be given in the same player order
      * as the one used to initialize the instance of this class.
+     * 
+     * @param plrStat the value of the first player's card in the chosen attribute.
+     * @param cpuStat the value of the second player's card in the chosen attribute.
      * 
      * @return if this was the last turn of the match.
      */

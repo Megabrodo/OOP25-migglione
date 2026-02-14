@@ -42,7 +42,8 @@ public final class GameImpl extends Match implements Game {
 
     @Override
     public void playTurnTail(final Card card) {
-        play(getPlayers().get(1 - turnLead), currAttr, card);
+        final Player p = getPlayers().getFirst().equals(getTurnLeader()) ? getPlayers().getLast() : getPlayers().getFirst();
+        play(p, currAttr, card);
     }
 
     private void play(final Player p, final String attr, final Card card) {

@@ -34,11 +34,11 @@ class MatchTest {
     private static final String BASE_ATTR = "Attk";
     private static final int TIE_VAL = 5;
     private static final int TRIPLE_WIN_SCORE = 6;
+    private static final int INIT_DECK_SIZE = 24;
     private final User u = new User(new LinkedList<>(), "P1");
     private final User v = new User(new LinkedList<>(), "P2");
     private final CardDraw d = new StandardCardDrawImpl(new DeckImpl());
     private final Match match = new Match(u, v, d);
-    private final int initDeckSize = 24;
 
     @Test
     void testCreate() {
@@ -50,7 +50,7 @@ class MatchTest {
         assertFalse(match.matchEnded());
         assertEquals(match.getWinner(), Optional.empty());
         assertEquals(match.getTurnLeader(), u);
-        assertEquals(initDeckSize, d.getSizeDeck() + u.getHand().size() + v.getHand().size());
+        assertEquals(INIT_DECK_SIZE, d.getSizeDeck() + u.getHand().size() + v.getHand().size());
     }
 
     @Test
@@ -68,7 +68,7 @@ class MatchTest {
         final boolean end = d.isDeckEmpty() && u.getHand().isEmpty() && v.getHand().isEmpty();
         assertEquals(match.matchEnded(), end);
         assertEquals(
-            initDeckSize - d.getSizeDeck() - (match.getScore(u) + match.getScore(v)), 
+            INIT_DECK_SIZE - d.getSizeDeck() - (match.getScore(u) + match.getScore(v)), 
             u.getHand().size() + v.getHand().size()
         );
         assertEquals(u.getHand().size(), v.getHand().size());
@@ -124,7 +124,7 @@ class MatchTest {
         assertTrue(match.matchEnded());
         assertNotNull(match.getWinner().get());
         assertEquals(match.getWinner().get(), u.getName());
-        assertEquals(match.getScore(u) + match.getScore(v), initDeckSize);
+        assertEquals(match.getScore(u) + match.getScore(v), INIT_DECK_SIZE);
     }
 
 }
