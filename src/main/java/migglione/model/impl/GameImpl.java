@@ -17,6 +17,7 @@ public class GameImpl extends Match implements Game {
     private final String playerName;
     private String currAttr = "Attk";
     private final Map<Player, Integer> currVals = new LinkedHashMap<>();
+
     /**
      * Constructor of the class.
      * Due to being a "more functional" version of Match,
@@ -51,21 +52,12 @@ public class GameImpl extends Match implements Game {
         final Player plr = getPlayers().getFirst();
         return playTurn(currVals.get(plr), currVals.get(msq));
     }
-    /**
-     * Method to obtain the attribute this turn is being played on.
-     * 
-     * @return the current active attribute.
-     */
+
     @Override
     public String getCurrAttr() {
         return this.currAttr;
     }
 
-    /**
-     * Method used to get the score of the player.
-     * 
-     * @return the optional of the score
-     */
     @Override
     public Optional<Integer> getPlayerScore() {
         for (final var p : getPlayers()) {
@@ -76,11 +68,6 @@ public class GameImpl extends Match implements Game {
         return Optional.empty();
     }
 
-    /**
-     * Method used to get the score of the mosquito.
-     * 
-     * @return the optional of the score
-     */
     @Override
     public Optional<Integer> getCPUScore() {
         for (final var p : getPlayers()) {

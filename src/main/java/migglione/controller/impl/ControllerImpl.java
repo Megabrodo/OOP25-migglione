@@ -51,18 +51,18 @@ public final class ControllerImpl implements Controller {
 
     /**
      * Constructor used for tests.
-     * 
+     *
+     * <p>
+     * The reason this other constructor exists is to make sure that
+     * the controller can be tested. I personally wasn't sure if
+     * this is good practice in a code, but after some research
+     * it seems that this is the only way to guarantee that a Controller
+     * using new can be tested.
+     *
      * @param view is the view of the application
      * @param sRep is the ScoreRepository to save scores in files
      * @param tRep is the TutorialRepository to check if the tutorial has been viewed
      * @param model is the model of the application
-     * 
-     * <p>
-     * The reason this other constructor exists is to make sure that
-     * the controller can be tested. I personally wasn't sure if
-     * this is good practice in a code, but after some reaserch
-     * it seems that this is the only way to guarantee that a Controller
-     * using new can be tested.
      */
     ControllerImpl(final SwingView view, final ScoreRepository sRep, final TutorialRepository tRep, final Game model) {
         this.model = model;
@@ -74,16 +74,16 @@ public final class ControllerImpl implements Controller {
 
     /**
      * Necessary method for the tests.
-     * 
-     * @param name is the name of the player
-     * 
+     *
      * <p>
      * Since calling startSession would change the
      * mock value with a real one, it will compromise
      * the effectivness of the when methods, so
      * this way we can test other parts of the Controller
+     *
+     * @param name is the name of the player
      */
-    void setPlayerMockName(String name) {
+    void setPlayerMockName(final String name) {
         this.playerName = name;
     }
 
@@ -111,15 +111,18 @@ public final class ControllerImpl implements Controller {
     public List<Player> getPlayers() {
         return this.model.getPlayers();
     }
-    
+
+    @Override
     public void playTurnLead(final String attr, final Card played) {
         this.model.playTurnLead(attr, played);
     }
 
+    @Override
     public void playTurnTail(final Card played) {
         this.model.playTurnTail(played);
     }
 
+    @Override
     public boolean playTurn() {
         return this.model.playTurn();
     }
