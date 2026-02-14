@@ -7,9 +7,7 @@ import java.awt.Font;
 import java.awt.Image;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,32 +32,36 @@ private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png
 private final transient Image scorImage;
 private static final String BACK = "Back";
 private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
-private final JTextArea score;
+private JTextArea score;
+
 
     public Scores(final SwingViewImpl view) {
 
         this.setLayout(new BorderLayout());
         scorImage = new ImageIcon(getClass().getResource(BACKGROUND_IMAGE_PATH)).getImage();
+        this.score = new JTextArea();
 
-        final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.CENTER)); //
+        final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
         final JButton back = new GenericButton(BACK, b -> view.setScene(Scenes.MENU.getScene()));
         pSouth.setOpaque(false);
         pSouth.add(back);
         this.add(pSouth, BorderLayout.SOUTH);
 
+        //BorderedLine bord = new BorderedLine(FILE_TXT_PATH);
         score = new JTextArea();
         score.setEditable(false);
         score.setOpaque(false);
         score.setFont(new Font("Verdana", Font.PLAIN, 50));
         score.setForeground(new Color(252, 64, 167));
+        
+        this.add(score, BorderLayout.CENTER); //
 
         final JScrollPane pane = new JScrollPane(score);
-        add(pane, BorderLayout.CENTER);
+        this.add(pane, BorderLayout.CENTER); 
         pane.setOpaque(false);
         pane.getViewport().setOpaque(false);
 
         addFile(FILE_TXT_PATH);
-
     }
 
     public void addFile(final String FILE_TXT_PATH) {
@@ -68,8 +70,8 @@ private final JTextArea score;
 
         if (Files.exists(path)) {
             try (BufferedReader reader = Files.newBufferedReader(path)) {
-           //try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                //getClass().getResourceAsStream(FILE_TXT_PATH)))) {
+            //try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+            //getClass().getResourceAsStream(FILE_TXT_PATH)))) {
 
                 String line;
 
