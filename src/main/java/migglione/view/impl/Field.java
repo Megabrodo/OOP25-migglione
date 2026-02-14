@@ -6,6 +6,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,7 @@ import migglione.model.impl.Mosquito;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
 import migglione.view.api.music.MusicTracks;
+import migglione.view.impl.Hovering.HoveringCard;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 import migglione.view.impl.scenesimpl.AbstractGamePanel;
 
@@ -53,6 +55,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String FONT_NAME = "Times New Roman";
     private static final String PNG_EXT = ".png";
     private static final String CARD_CC_KEY = "card";
+    private static final int IMAGE_CENTERING = 100;
     private static final double CARDS_WIDTH_MULT = 0.25;
     private static final double CARDS_HEIGHT_MULT = 0.1;
     private static final int SPACE_BETWEEN_CARDS = 500;
@@ -80,6 +83,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
 
     private int cycleCount;
     private Optional<Timer> timer = Optional.empty();
+
+    private HoveringCard hoveredCard;
 
     /**
      * Constructor of this class. 
@@ -132,7 +137,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 setTransparentWithIcon(card);
                 card.putClientProperty(CARD_CC_KEY, c);
                 if (!isCPU) {
-                    card.addMouseListener(new Hovering(c, mainField));
+                    card.addMouseListener(new Hovering(c, this));
                     //card.setPreferredSize(getPreferredSize());
                     card.addActionListener(new ActionListener() {
 
@@ -158,7 +163,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                                                 pPlay.putClientProperty(CARD_CC_KEY, cc);
                                                 changeIcon(pPlay, CARDS_IMAGE_PATH + cc.getName() + PNG_EXT);
                                                 pPlay.setVisible(true); 
-                                                pPlay.addMouseListener(new Hovering(cc, plays));
+                                                pPlay.addMouseListener(new Hovering(cc, Field.this));
                                                 resetHandIcons();
                                                 break;
                                         case 1: if (controller.getTurnLeader().equals(p)) {
@@ -285,6 +290,35 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         }
     }
 
+    public void setHoveredCard(final HoveringCard card) {
+        this.hoveredCard = card;
+        repaint();
+    }
+
+    public void clearHoveredCard() {
+        this.hoveredCard = null;
+        repaint();
+    }
+
+    @Override
+    protected void paintComponent(final Graphics g) {
+        super.paintComponent(g);
+        if (hoveredCard == null) {
+            return;
+        }
+        final Image cardImg = new ImageIcon(getClass().getResource(hoveredCard.getImage())).getImage();
+        final Image statsImg = new ImageIcon(getClass().getResource(hoveredCard.getStats())).getImage();
+        g.drawImage(cardImg, plays.getWidth() / 3 - IMAGE_CENTERING,
+            plays.getHeight() / 2 + IMAGE_CENTERING, Integer.min(plays.getWidth() / 4,
+            plays.getHeight() / 2), Integer.min(plays.getHeight() / 2,
+            plays.getWidth() / 4), plays);
+        g.drawImage(statsImg, plays.getWidth() / 3 - IMAGE_CENTERING
+            + Integer.min(plays.getWidth() / 4, plays.getHeight() / 2),
+            plays.getHeight() / 2  + IMAGE_CENTERING, Integer.min(plays.getWidth() / 4,
+            plays.getHeight() / 2), Integer.min(plays.getHeight() / 2,
+            plays.getWidth() / 4), plays);
+    }
+
     private void changeIcon(final JButton jb, final String path) {
         final int cardsWidth = getCardResizableWidth();
         final int cardHeight = getCardResizableHeight();
@@ -311,7 +345,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private void flipCards() {
         for (final JButton jb : Set.of(oPlay, pPlay)) {
             changeIcon(jb, CARDS_IMAGE_PATH + ((Card) jb.getClientProperty(CARD_CC_KEY)).getName() + PNG_EXT);
-            jb.addMouseListener(new Hovering((Card) jb.getClientProperty(CARD_CC_KEY), plays));
+            jb.addMouseListener(new Hovering((Card) jb.getClientProperty(CARD_CC_KEY), this));
         }
     }
 
