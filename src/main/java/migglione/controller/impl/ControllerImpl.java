@@ -111,12 +111,7 @@ public final class ControllerImpl implements Controller {
     public List<Player> getPlayers() {
         return this.model.getPlayers();
     }
-
-    @Override
-    public boolean playUserTurn(final String attr, final Card played) {
-        return this.model.playUserTurn(attr, played);
-    }
-
+    
     public void playTurnLead(final String attr, final Card played) {
         this.model.playTurnLead(attr, played);
     }
