@@ -35,8 +35,10 @@ import migglione.view.api.SwingView;
  * to verify the methods of the library this link can be followed:
  * https://site.mockito.org/javadoc/current/org/mockito/Mockito.html#method_summary
  */
-public class ControllerImplTest {
+class ControllerImplTest {
     
+    private static final String NAME = "player";
+
     @Mock
     private SwingView view;
     @Mock
@@ -63,16 +65,16 @@ public class ControllerImplTest {
 
     @Test 
     void testEndSession() {
-        when(model.getWinner()).thenReturn(Optional.of("player"));
+        when(model.getWinner()).thenReturn(Optional.of(NAME));
         when(model.getPlayerScore()).thenReturn(Optional.of(20));
         when(model.getCPUScore()).thenReturn(Optional.of(4));
 
-        ControllerImpl controller = new ControllerImpl(view, sRep, tRep, model);
-        controller.setPlayerMockName("player");
+        final ControllerImpl controller = new ControllerImpl(view, sRep, tRep, model);
+        controller.setPlayerMockName(NAME);
         controller.endSession();
 
-        verify(sRep).writeWinner("player", 20);
-        verify(view).endMessage("player", "player", 20, 4);
+        verify(sRep).writeWinner(NAME, 20);
+        verify(view).endMessage(NAME, NAME, 20, 4);
     }
 
     @Test
@@ -81,7 +83,7 @@ public class ControllerImplTest {
         when(model.getPlayerScore()).thenReturn(Optional.empty());
         when(model.getCPUScore()).thenReturn(Optional.empty());
 
-        ControllerImpl controller = new ControllerImpl(view, sRep, tRep, model);
+        final ControllerImpl controller = new ControllerImpl(view, sRep, tRep, model);
         controller.endSession();
 
         verifyNoInteractions(sRep);
