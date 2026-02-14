@@ -1,4 +1,4 @@
-package migglione;
+package migglione.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -25,9 +25,10 @@ import migglione.model.impl.GameImpl;
  * make sure that various method could be tested separately, in case
  * a precise errror accurs.
  */
-class GameTest {
+class GameImplTest {
 
     private static final String BASE_ATTR = "Strength";
+
     private final Game game = new GameImpl("player");
 
     @Test
