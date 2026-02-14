@@ -20,6 +20,8 @@ public final class Hovering implements MouseListener {
     private static final int IMAGE_CENTERING = 200;
     private final HoveringCard hoveringCard;
     private final JPanel gamePanel;
+    private final Image cardImg;
+    private final Image statsImg;
 
     /**
      * Constructor for the Hovering class.
@@ -32,10 +34,13 @@ public final class Hovering implements MouseListener {
     public Hovering(final Card hoveringCard, final JPanel gamePanel) {
         this.hoveringCard = new HoveringCard(hoveringCard);
         this.gamePanel = gamePanel.getClass().cast(gamePanel);
+        cardImg = new ImageIcon(getClass().getResource(this.hoveringCard.getImage())).getImage();
+        statsImg = new ImageIcon(getClass().getResource(this.hoveringCard.getStats())).getImage();
     }
 
     @Override
     public void mouseClicked(final MouseEvent e) {
+        gamePanel.repaint();
     }
 
     @Override
@@ -48,8 +53,6 @@ public final class Hovering implements MouseListener {
 
     @Override
     public void mouseEntered(final MouseEvent e) {
-        final Image cardImg = new ImageIcon(getClass().getResource(hoveringCard.getImage())).getImage();
-        final Image statsImg = new ImageIcon(getClass().getResource(hoveringCard.getStats())).getImage();
         gamePanel.getGraphics().drawImage(cardImg, gamePanel.getWidth() / 3 - IMAGE_CENTERING,
             gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4,
             gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2,
@@ -59,11 +62,6 @@ public final class Hovering implements MouseListener {
             gamePanel.getHeight() / 2, Integer.min(gamePanel.getWidth() / 4,
             gamePanel.getHeight() / 2), Integer.min(gamePanel.getHeight() / 2,
             gamePanel.getWidth() / 4), gamePanel);
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     @Override
