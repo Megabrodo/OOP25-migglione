@@ -12,7 +12,7 @@ import migglione.model.api.Player;
  * Class designed to overlook a match.
  * Takes care of managing when the turns happen and more
  */
-public class GameImpl extends Match implements Game {
+public final class GameImpl extends Match implements Game {
 
     private final String playerName;
     private String currAttr = "Attk";
@@ -26,7 +26,11 @@ public class GameImpl extends Match implements Game {
      * @param name the name of the player
      */
     public GameImpl(final String name) {
-        super(new User(new ArrayList<>(), name), new Mosquito(new ArrayList<>(), false), new StandardCardDrawImpl(new DeckImpl()));
+        super(
+            new User(new ArrayList<>(), name), 
+            new Mosquito(new ArrayList<>(), false), 
+            new StandardCardDrawImpl(new DeckImpl())
+        );
         this.playerName = name;
     }
 
@@ -38,7 +42,8 @@ public class GameImpl extends Match implements Game {
 
     @Override
     public void playTurnTail(final Card card) {
-        play(getPlayers().get(1 - turnLead), currAttr, card);
+        final Player p = getPlayers().getFirst().equals(getTurnLeader()) ? getPlayers().getLast() : getPlayers().getFirst();
+        play(p, currAttr, card);
     }
 
     private void play(final Player p, final String attr, final Card card) {
