@@ -37,7 +37,7 @@ public interface Game {
      * 
      * @return if this was the last turn of the match.
      */
-    public boolean playTurn();
+    boolean playTurn();
 
     /**
      * Plays the lead player's choice card and attribute.
@@ -45,7 +45,7 @@ public interface Game {
      * @param attr the chosen attribute
      * @param card the chosen card
      */
-    public void playTurnLead(final String attr, final Card card);
+    void playTurnLead(String attr, Card card);
 
     /**
      * Plays the "tail" (last to go) player's card choice.
@@ -53,7 +53,7 @@ public interface Game {
      * 
      * @param card the chosen card
      */
-    public void playTurnTail(final Card card);
+    void playTurnTail(Card card);
 
     /**
      * Method to obtain the attribute this turn is being played on.
