@@ -1,4 +1,4 @@
-package migglione;
+package migglione.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -38,7 +38,7 @@ class MatchTest {
     private final User v = new User(new LinkedList<>(), "P2");
     private final CardDraw d = new StandardCardDrawImpl(new DeckImpl());
     private final Match match = new Match(u, v, d);
-    private final int initDeckSize = d.getSizeDeck();
+    private final int initDeckSize = 24;
 
     @Test
     void testCreate() {
@@ -50,6 +50,7 @@ class MatchTest {
         assertFalse(match.matchEnded());
         assertEquals(match.getWinner(), Optional.empty());
         assertEquals(match.getTurnLeader(), u);
+        assertEquals(initDeckSize, d.getSizeDeck() + u.getHand().size() + v.getHand().size());
     }
 
     @Test
@@ -66,12 +67,17 @@ class MatchTest {
         }
         final boolean end = d.isDeckEmpty() && u.getHand().isEmpty() && v.getHand().isEmpty();
         assertEquals(match.matchEnded(), end);
-        assertEquals(d.getSizeDeck(), initDeckSize - (match.getScore(u) + match.getScore(v)));
+        assertEquals(
+            initDeckSize - d.getSizeDeck() - (match.getScore(u) + match.getScore(v)), 
+            u.getHand().size() + v.getHand().size()
+        );
         assertEquals(u.getHand().size(), v.getHand().size());
     }
 
     @Test
     void testChangeTurn() {
+        u.playCard(BASE_ATTR, u.getHand().getFirst());
+        v.playCard(BASE_ATTR, u.getHand().getFirst());
         for (int i = 1; i < 3; i++) {
             match.playTurn(0, 10);
             assertEquals(match.getTurnLeader(), v);
@@ -87,6 +93,8 @@ class MatchTest {
     void testTie() {
         final int uScore = match.getScore(u);
         final int vScore = match.getScore(v);
+        u.playCard(BASE_ATTR, u.getHand().getFirst());
+        v.playCard(BASE_ATTR, u.getHand().getFirst());
         match.playTurn(TIE_VAL, TIE_VAL);
         for (final Player p : Set.of(u, v)) {
             assertEquals(match.getScore(p), p.equals(u) ? uScore : vScore);
@@ -99,21 +107,23 @@ class MatchTest {
     @Test
     void testEnd() {
         int prevU = match.getScore(u);
+        u.playCard(BASE_ATTR, u.getHand().getFirst());
+        v.playCard(BASE_ATTR, u.getHand().getFirst());
         while (!d.isDeckEmpty()) {
             match.playTurn(10, 0);
             assertEquals(match.getScore(u), prevU + 2);
             prevU += 2;
         }
-        while (u.getHand().isEmpty()) {
+        while (!u.getHand().isEmpty()) {
             u.playCard(BASE_ATTR, u.getHand().getFirst());
             v.playCard(BASE_ATTR, v.getHand().getFirst());
+            match.playTurn(10, 0);
         }
         assertTrue(u.getHand().isEmpty());
         assertTrue(v.getHand().isEmpty());
-        assertTrue(match.playTurn(10, 0));
         assertTrue(match.matchEnded());
         assertNotNull(match.getWinner().get());
-        assertEquals(match.getWinner(), u.getName());
+        assertEquals(match.getWinner().get(), u.getName());
         assertEquals(match.getScore(u) + match.getScore(v), initDeckSize);
     }
 
