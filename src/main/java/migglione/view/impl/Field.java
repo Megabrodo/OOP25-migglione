@@ -290,11 +290,19 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         }
     }
 
+    /**
+     * Method for hovering(used by mouseEntered).
+     * 
+     * @param card the hovering Card
+     */
     public void setHoveredCard(final HoveringCard card) {
         this.hoveredCard = card;
         repaint();
     }
 
+    /**
+     * Method for hovering(used by mouseExited).
+     */
     public void clearHoveredCard() {
         this.hoveredCard = null;
         repaint();

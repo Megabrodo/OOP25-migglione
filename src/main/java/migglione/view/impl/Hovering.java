@@ -19,15 +19,15 @@ public final class Hovering implements MouseListener {
 
     /**
      * Constructor for the Hovering class.
-     * It takes a card and a panel as parameters and creates a hovering card.
+     * It takes a card and a field as parameters and creates a hovering card.
      * The card has the image and stats specified by itself.
      * 
      * @param hoveringCard the card to be hovered
-     * @param gamePanel the panel on which the card will be hovered
+     * @param field the field on which the card will be hovered
      */
     public Hovering(final Card hoveringCard, final Field field) {
         this.hoveringCard = new HoveringCard(hoveringCard);
-        this.field = field;
+        this.field = field.getClass().cast(field);
     }
 
     @Override
