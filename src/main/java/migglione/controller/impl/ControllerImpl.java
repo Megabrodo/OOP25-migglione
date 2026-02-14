@@ -69,6 +69,22 @@ public final class ControllerImpl implements Controller {
         this.view = view;
         this.sRep = sRep;
         this.tRep = tRep;
+        checkFirstTime();
+    }
+
+    /**
+     * Necessary method for the tests.
+     * 
+     * @param name is the name of the player
+     * 
+     * <p>
+     * Since calling startSession would change the
+     * mock value with a real one, it will compromise
+     * the effectivness of the when methods, so
+     * this way we can test other parts of the Controller
+     */
+    void setPlayerMockName(String name) {
+        this.playerName = name;
     }
 
     private void checkFirstTime() {
