@@ -36,8 +36,10 @@ public final class ControllerImpl implements Controller {
      * Simple constructor of the Controller.
      * 
      * <p>
-     * For now, it simply initializes the main class
-     * of the GUI, so that the menu is seen by the player
+     * It initializes the main class of the GUI,
+     * so that the menu is seen by the player but also
+     * the Repositories useful for writing and reading
+     * from files
      */
     public ControllerImpl() {
         this.view = new SwingViewImpl(this);
@@ -45,6 +47,28 @@ public final class ControllerImpl implements Controller {
         this.tRep = new TutorialRepositoryImpl();
 
         checkFirstTime();
+    }
+
+    /**
+     * Constructor used for tests.
+     * 
+     * @param view is the view of the application
+     * @param sRep is the ScoreRepository to save scores in files
+     * @param tRep is the TutorialRepository to check if the tutorial has been viewed
+     * @param model is the model of the application
+     * 
+     * <p>
+     * The reason this other constructor exists is to make sure that
+     * the controller can be tested. I personally wasn't sure if
+     * this is good practice in a code, but after some reaserch
+     * it seems that this is the only way to guarantee that a Controller
+     * using new can be tested.
+     */
+    ControllerImpl(final SwingView view, final ScoreRepository sRep, final TutorialRepository tRep, final Game model) {
+        this.model = model;
+        this.view = view;
+        this.sRep = sRep;
+        this.tRep = tRep;
     }
 
     private void checkFirstTime() {
