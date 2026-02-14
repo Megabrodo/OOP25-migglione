@@ -30,7 +30,7 @@ public interface Game {
      * @return if this was the last turn of the match.
      */
     boolean playTurn(int plrStat, int cpuStat);
-    
+
     /**
      * Plays the turn, utilizing stored values of the players' choices.
      * Requires the class to save both values to apply.
