@@ -53,7 +53,7 @@ public final class Mosquito extends User {
             setMyTurn(false);
             consecWins = 0;
             consecLosses++;
-            if (!(consecLosses < 3)) {
+            if (consecLosses >= 3) {
                 setMyTurn(true);
                 consecLosses = 0;
             }

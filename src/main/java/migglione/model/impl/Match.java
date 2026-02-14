@@ -20,10 +20,10 @@ public class Match {
     private static final int MAX_CONSEC_WINS = 3;
     private final Map<Player, Integer> scoring = new LinkedHashMap<>();
     private final CardDraw deck;
+    private final List<Card> cardsStakes;
     private int consecWins;
     protected Player latestWin;
     protected int turnLead;
-    private List<Card> cardsStakes;
 
     /**
      * Constructor of the class.
