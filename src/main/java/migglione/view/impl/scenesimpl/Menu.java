@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
+import migglione.view.api.music.MusicTracks;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -37,7 +38,6 @@ public final class Menu extends AbstractGamePanel implements MusicProvider {
     private static final String FONT_NAME = "Times New Roman";
     private static final int FONT_SIZE = 70;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
-    private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private final transient Image titleImage;
 
     /**
@@ -98,7 +98,7 @@ public final class Menu extends AbstractGamePanel implements MusicProvider {
 
     @Override
     public MusicPlayer getMusic() {
-        return new LoopingMusicPlayerImpl(TRACK_PATH);
+        return new LoopingMusicPlayerImpl(MusicTracks.ENA.getTrackPath());
     }
 
     @Override

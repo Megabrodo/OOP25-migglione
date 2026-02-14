@@ -31,6 +31,7 @@ import migglione.model.impl.GameImpl;
 import migglione.model.impl.Mosquito;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
+import migglione.view.api.music.MusicTracks;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 import migglione.view.impl.scenesimpl.AbstractGamePanel;
 
@@ -41,7 +42,6 @@ import migglione.view.impl.scenesimpl.AbstractGamePanel;
  * */
 public final class Field extends AbstractGamePanel implements MusicProvider {
 
-    private static final String TRACK_PATH = "/soundtracks/Air Waves.wav";
     private static final String CARDS_IMAGE_PATH = "/images/cards/";
     private static final String CARD_BACKSIDE_PATH = "/images/utilities/backside.png";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
@@ -303,7 +303,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
 
     @Override
     public MusicPlayer getMusic() {
-        return new LoopingMusicPlayerImpl(TRACK_PATH);
+        return new LoopingMusicPlayerImpl(MusicTracks.DELTARUNE.getTrackPath());
     }
 
     @Override

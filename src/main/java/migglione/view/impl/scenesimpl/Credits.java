@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
+import migglione.view.api.music.MusicTracks;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -23,7 +24,6 @@ public final class Credits extends AbstractGamePanel implements MusicProvider {
 
     private static final long serialVersionUID = 9879879879L;
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/credits.png";
-    private static final String TRACK_PATH = "/soundtracks/ENA Dream BBQ.wav";
     private static final String BACK = "Back";
     private final transient Image creditsImage;
 
@@ -47,7 +47,7 @@ public final class Credits extends AbstractGamePanel implements MusicProvider {
 
     @Override
     public MusicPlayer getMusic() {
-        return new LoopingMusicPlayerImpl(TRACK_PATH);
+        return new LoopingMusicPlayerImpl(MusicTracks.ENA.getTrackPath());
     }
 
     @Override
