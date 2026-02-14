@@ -9,6 +9,7 @@ import java.util.List;
 public final class Mosquito extends User {
     private boolean myTurn;
     private int consecWins;
+    private int consecLosses;
 
     /**
      * Constructor for mosquito player.
@@ -51,8 +52,14 @@ public final class Mosquito extends User {
         if (pointsWon.isEmpty()) {
             setMyTurn(false);
             consecWins = 0;
+            consecLosses++;
+            if (!(consecLosses < 3)) {
+                setMyTurn(true);
+                consecLosses = 0;
+            }
             return super.getPile(pointsWon);
         }
+        consecLosses = 0;
         consecWins += pointsWon.size() / 2;
         if (consecWins < 3) {
             setMyTurn(true);
