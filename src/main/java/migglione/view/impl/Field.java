@@ -9,6 +9,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseListener;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
@@ -47,8 +49,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String CARD_BACKSIDE_PATH = "/images/utilities/backside.png";
     private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
     private static final String FONT_NAME = "Times New Roman";
-    private static final int CARDS_WIDTH = 180;
-    private static final int CARDS_HEIGHT = 230;
+    private static final double CARDS_WIDTH_MULT = 0.25;
+    private static final double CARDS_HEIGHT_MULT = 0.1;
     private static final int SPACE_BETWEEN_CARDS = 500;
     private static final int ATTR_BOX_WIDTH = 200;
     private static final int ATTR_BOX_HEIGHT = 150;
@@ -89,6 +91,28 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         oCards.setOpaque(pCards.isOpaque());
         pCards.setLayout(new FlowLayout(FlowLayout.CENTER, SPACE_BETWEEN_CARDS, SPACE_BETWEEN_CARDS));
         oCards.setLayout(pCards.getLayout());
+
+        this.addComponentListener(new ComponentListener() {
+
+            @Override
+            public void componentResized(ComponentEvent e) {
+                resizeCards();
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                resizeCards();
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+            }
+            
+        });
 
         final JPanel attrHold = createAttributeBox();
 
@@ -219,15 +243,62 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
 
     }
 
+    private void resizeCards() {
+        for (var c : pCards.getComponents()) {
+            if (c instanceof JButton) {
+                JButton button = (JButton) c;
+                Card card = (Card) button.getClientProperty("card");
+                if (card != null) {
+                    changeIcon(button, CARDS_IMAGE_PATH + card.getName() + ".png");
+                }
+            }
+        }
+
+        for (var c : oCards.getComponents()) {
+            if (c instanceof JButton) {
+                JButton button = (JButton) c;
+                changeIcon(button, CARD_BACKSIDE_PATH);
+            }
+        }
+
+        if (pPlay.getIcon() != null) {
+            Card card = (Card) pPlay.getClientProperty("card");
+            if (card != null) {
+                changeIcon(oPlay, CARDS_IMAGE_PATH + card.getName() + ".png");
+            }
+        }
+
+        if (oPlay.getIcon() != null && oPlay.isVisible()) {
+            Card card = (Card) oPlay.getClientProperty("card");
+            if (card != null) {
+                changeIcon(oPlay, CARDS_IMAGE_PATH + card.getName() + ".png");
+            }
+        }
+    }
+
     private void changeIcon(final JButton jb, final String path) {
+        int cardsWidth = getCardResizableWidth();
+        int cardHeight = getCardResizableHeight();
+
         final ImageIcon bc = new ImageIcon(
             getClass().getResource(path)
         );
         final ImageIcon bg = new ImageIcon(
-            bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+            bc.getImage().getScaledInstance(cardsWidth, cardHeight, Image.SCALE_SMOOTH)
         );
         jb.setIcon(bg);
     }
+
+    private int getCardResizableHeight() {
+        final int height = getHeight();
+        return height == 0 ? 200 : (int) (getHeight() * CARDS_WIDTH_MULT);
+    }
+
+    private int getCardResizableWidth() {
+        final int width = getWidth();
+        return width == 0 ? 100 : (int) (getWidth() * CARDS_HEIGHT_MULT);
+    }
+
     private void flipCards() {
         for (final JButton jb : Set.of(oPlay, pPlay)) {
             changeIcon(jb, CARDS_IMAGE_PATH + ((Card)jb.getClientProperty("card")).getName() + ".png");
