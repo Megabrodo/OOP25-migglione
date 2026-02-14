@@ -96,13 +96,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
             final JPanel pHand = (isCPU) ? oCards : pCards;
             for (final Card c : p.getHand()) {
                 final JButton card = new JButton();
-                final ImageIcon bc = new ImageIcon(
-                    getClass().getResource(isCPU ? CARD_BACKSIDE_PATH : CARDS_IMAGE_PATH + c.getName() + ".png")
-                );
-                final ImageIcon bg = new ImageIcon(
-                    bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
-                );
-                card.setIcon(bg);
+                changeIcon(card, isCPU ? CARD_BACKSIDE_PATH : CARDS_IMAGE_PATH + c.getName() + ".png");
                 setTransparentWithIcon(card);
                 card.putClientProperty("card", c);
                 if(!isCPU) {
@@ -122,32 +116,37 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     switch (cycleCount) {
-                                        case 0: pPlay.setVisible(true);
-                                                pPlay.setIcon(bg);
-                                                card.setVisible(false);
-                                                putClientProperty("card",cc);
-                                                break;
-                                        case 1: if (controller.getTurnLeader().equals(p)) {
+                                        case 0: if (controller.getTurnLeader().equals(p)) {
                                                     controller.playTurnLead(attrChoice.getItemAt(attrChoice.getSelectedIndex()), cc);
-                                                    resetHandIcons();
-                                                };
-                                                break;
-                                        case 2: controller.playTurnTail(cc); //argument is useless if played by CPU, so works in both cases
+                                                } else {
+                                                    controller.playTurnTail(cc);
+                                                }
+                                                pPlay.putClientProperty("card",cc);
+                                                changeIcon(pPlay, CARDS_IMAGE_PATH + cc.getName() + ".png");
+                                                pPlay.setVisible(true);
+                                                //card.setVisible(false);
                                                 resetHandIcons();
                                                 break;
-                                        case 3: controller.playTurn();
-                                                updateScores();
+                                        case 1:                                                                                                 
                                                 break;
-                                        case 4: Set.of(pPlay, oPlay).forEach(jb -> jb.setVisible(false));
+                                        case 2: if (controller.getTurnLeader().equals(p)) {
+                                                    controller.playTurnTail(cc);
+                                                    final Card sub = controller.getPlayers().getLast().getPlayedCard();
+                                                    oPlay.putClientProperty("card", sub);
+                                                    changeIcon(oPlay, CARD_BACKSIDE_PATH);
+                                                }
+                                                resetHandIcons();
+                                                break;
+                                        case 3: flipCards();
+                                                controller.playTurn();
+                                                break;
+                                        case 4: updateScores();
+                                                Set.of(pPlay, oPlay).forEach(jb -> jb.setIcon(null));
                                                 if (!p.equals(controller.getTurnLeader())) {
                                                     controller.playTurnLead(attrs[0],cc);
                                                     final Card sub = controller.getTurnLeader().getPlayedCard();
                                                     oPlay.putClientProperty("card", sub);
-                                                    final ImageIcon subb = new ImageIcon(getClass().getResource(CARD_BACKSIDE_PATH));
-                                                    final ImageIcon subbg = new ImageIcon(
-                                                        subb.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
-                                                    );
-                                                    oPlay.setIcon(subbg);
+                                                    changeIcon(oPlay, CARD_BACKSIDE_PATH);
                                                     oPlay.setVisible(true);
                                                     attrChoice.setEnabled(false);
                                                 } else {
@@ -166,7 +165,6 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                             });
                             timer = Optional.of(t);
                             t.start();
-                            System.out.println("done");
                         }
                     });
                 }
@@ -191,8 +189,9 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         mainField.add(attrHold, BorderLayout.WEST);
         mainField.add(plays);
         plays.add(pPlay, BorderLayout.WEST);
-        setTransparentWithIcon(oPlay);
-        setTransparentWithIcon(pPlay);
+        Set.of(oPlay, pPlay).forEach(b -> {
+            setTransparentWithIcon(b);
+        });
         plays.add(oPlay, BorderLayout.EAST);
         plays.setOpaque(false);
 
@@ -210,6 +209,22 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
             p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
         }
 
+    }
+
+    private void changeIcon(final JButton jb, final String path) {
+        final ImageIcon bc = new ImageIcon(
+                    getClass().getResource(path)
+                );
+                final ImageIcon bg = new ImageIcon(
+                    bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
+                );
+                jb.setIcon(bg);
+    }
+    private void flipCards() {
+        for (final JButton jb : Set.of(oPlay, pPlay)) {
+            changeIcon(jb, CARDS_IMAGE_PATH + ((Card)jb.getClientProperty("card")).getName() + ".png");
+            System.out.println(((Card)jb.getClientProperty("card")).getCard());
+        }
     }
 
     private void resetHandIcons() {
@@ -231,13 +246,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                         if (!handUnderSize){
                             //System.out.println("replacing..." + card.getName() + " to " + newCard.getName());
                             cc.putClientProperty("card", newCard);
-                            final ImageIcon bc = new ImageIcon(
-                                getClass().getResource(isCPU ? CARD_BACKSIDE_PATH : CARDS_IMAGE_PATH + newCard.getName() + ".png")
-                            );
-                            final ImageIcon bg = new ImageIcon(
-                                bc.getImage().getScaledInstance(CARDS_WIDTH, CARDS_HEIGHT, Image.SCALE_SMOOTH)
-                            );
-                            cc.setIcon(bg);
+                           changeIcon(cc, isCPU ? CARD_BACKSIDE_PATH : CARDS_IMAGE_PATH + newCard.getName() + ".png");
                             for (final var l : cc.getMouseListeners()) {
                                 if (l instanceof Hovering) {
                                     final Hovering hv = (Hovering) l;
