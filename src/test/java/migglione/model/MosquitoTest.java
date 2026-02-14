@@ -82,12 +82,14 @@ class MosquitoTest {
         assertEquals(worstCard.getAttk(), bestAttr);
         mosquitoPlayer.getPile(List.of(worstCard, worstCard));
         assertTrue(mosquitoPlayer.isMyTurn());
+        mosquitoPlayer.getPile(List.of(okCard, worstCard));
+        //should go second again after 3 wins
+        assertFalse(mosquitoPlayer.isMyTurn());
         mosquitoPlayer.getPile(Collections.emptyList());
         mosquitoPlayer.getPile(Collections.emptyList());
         mosquitoPlayer.getPile(Collections.emptyList());
-        //should go second
-        mosquitoPlayer.drawCard(bestCard);
-        bestAttr = mosquitoPlayer.playCard("Deff", okCard);
-        assertEquals(bestCard.getDeff(), bestAttr);
+        //should go first again after 3 losses
+        assertEquals(0, mosquitoPlayer.getConsecLosses());
+        assertTrue(mosquitoPlayer.isMyTurn());
     }
 }

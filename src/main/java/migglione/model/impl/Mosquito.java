@@ -49,10 +49,14 @@ public final class Mosquito extends User {
 
     @Override
     public List<Card> getPile(final List<Card> pointsWon) {
-        if (pointsWon.isEmpty() && consecLosses < 3) {
+        if (pointsWon.isEmpty()) {
             setMyTurn(false);
             consecWins = 0;
             consecLosses++;
+            if (!(consecLosses < 3)) {
+                setMyTurn(true);
+                consecLosses = 0;
+            }
             return super.getPile(pointsWon);
         }
         consecLosses = 0;
