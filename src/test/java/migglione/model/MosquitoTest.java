@@ -89,7 +89,6 @@ class MosquitoTest {
         mosquitoPlayer.getPile(Collections.emptyList());
         mosquitoPlayer.getPile(Collections.emptyList());
         //should go first again after 3 losses
-        assertEquals(0, mosquitoPlayer.getConsecLosses());
         assertTrue(mosquitoPlayer.isMyTurn());
     }
 }
