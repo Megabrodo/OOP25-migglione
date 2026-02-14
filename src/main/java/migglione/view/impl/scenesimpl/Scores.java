@@ -1,8 +1,11 @@
 package migglione.view.impl.scenesimpl;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,7 +34,6 @@ private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png
 private final transient Image scorImage;
 private static final String BACK = "Back";
 private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
-private static final String FILE_NAME = "ScoreTable.txt";
 private final JTextArea score;
 
     public Scores(final SwingViewImpl view) {
@@ -48,12 +50,13 @@ private final JTextArea score;
         score = new JTextArea();
         score.setEditable(false);
         score.setOpaque(false);
+        score.setFont(new Font("Verdana", Font.PLAIN, 50));
+        score.setForeground(new Color(252, 64, 167));
 
         final JScrollPane pane = new JScrollPane(score);
         add(pane, BorderLayout.CENTER);
         pane.setOpaque(false);
         pane.getViewport().setOpaque(false);
-
 
         addFile(FILE_TXT_PATH);
 
@@ -62,23 +65,23 @@ private final JTextArea score;
     public void addFile(final String FILE_TXT_PATH) {
 
         final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
-        
-        if (Files.exists(path)) {
-            //try (BufferedReader reader = Files.newBufferedReader(path)) {
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-        getClass().getResourceAsStream(FILE_TXT_PATH)))) {
 
-            String line;
+        if (Files.exists(path)) {
+            try (BufferedReader reader = Files.newBufferedReader(path)) {
+           //try (BufferedReader reader = new BufferedReader(new InputStreamReader(
+                //getClass().getResourceAsStream(FILE_TXT_PATH)))) {
+
+                String line;
 
                 while((line = reader.readLine()) != null) {
                     score.append(line + "\n"); //
                 }
             }
-        catch (final IOException error) {
+            catch (final IOException error) {
                 JOptionPane.showMessageDialog(null, "error file reader", "error", 
                 JOptionPane.ERROR_MESSAGE);
-            error.printStackTrace();
-        }
+                error.printStackTrace();
+            }
         }
     }
 
