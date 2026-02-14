@@ -82,5 +82,12 @@ class MosquitoTest {
         assertEquals(worstCard.getAttk(), bestAttr);
         mosquitoPlayer.getPile(List.of(worstCard, worstCard));
         assertTrue(mosquitoPlayer.isMyTurn());
+        mosquitoPlayer.getPile(Collections.emptyList());
+        mosquitoPlayer.getPile(Collections.emptyList());
+        mosquitoPlayer.getPile(Collections.emptyList());
+        //should go second
+        mosquitoPlayer.drawCard(bestCard);
+        bestAttr = mosquitoPlayer.playCard("Deff", okCard);
+        assertEquals(bestCard.getDeff(), bestAttr);
     }
 }
