@@ -29,7 +29,7 @@ public final class Tutorial extends AbstractGamePanel implements MusicProvider {
     private static final String TUTORIAL_IMAGES_PATH = "/images/tutorial/";
     private static final String BACK = "Back";
     private static final String FORWARD = "Forward";
-    private static final int MAX_IMAGE_INDEX = 7;
+    private static final int MAX_IMAGE_INDEX = 11;
     private transient Image tutorialImage;
     private int currentImageIndex = 1;
 
