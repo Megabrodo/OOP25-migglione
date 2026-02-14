@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import migglione.model.impl.Cards;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
+import migglione.view.api.music.MusicTracks;
 import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
@@ -44,7 +45,6 @@ public final class Gallery extends AbstractGamePanel implements MusicProvider {
     private static final int CARDS_WIDTH = 200;
     private static final int CARDS_HEIGHT = 250;
     private static final int BAR_INCREMENT = 20;
-    private static final String TRACK_PATH = "/soundtracks/Trophy Gallery.wav";
     private static final String BACK = "Back";
 
     private final transient Image galleryImage;
@@ -117,7 +117,7 @@ public final class Gallery extends AbstractGamePanel implements MusicProvider {
 
     @Override
     public MusicPlayer getMusic() {
-        return new LoopingMusicPlayerImpl(TRACK_PATH);
+        return new LoopingMusicPlayerImpl(MusicTracks.SMASH.getTrackPath());
     }
 
     @Override

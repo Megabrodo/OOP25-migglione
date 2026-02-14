@@ -92,14 +92,18 @@ public class Match {
     private void changeTurn(final Player winner) {
         if (consecWins == 0) {
             latestWin = winner;
+            consecWins = 1;
         } else if (latestWin.equals(winner)) {
+            System.out.println("player has " + consecWins + " wins, " + latestWin.equals(winner));
             consecWins++;
             if (consecWins >= MAX_CONSEC_WINS) {
                 turnLead = 1 - turnLead;
-                consecWins = 1;
+                latestWin = null;
+                consecWins = 0;
                 return;
             }
         } else {
+            System.out.println("player has " + consecWins + " wins, " + latestWin.equals(winner));
             turnLead = 1 - turnLead;
             latestWin = winner;
             consecWins = 1;

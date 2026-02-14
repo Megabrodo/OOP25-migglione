@@ -48,8 +48,11 @@ public interface Controller {
      * @param played is the chosen card to be played
      * @return the card played
      */
-    Card playUserTurn(String attr, Card played);
+    boolean playUserTurn(String attr, Card played);
 
+    public void playTurnLead(final String attr, final Card card);
+    public void playTurnTail(final Card card);
+    public boolean playTurn();
     /**
      * Used to call the same method in the Model.
      * 

@@ -73,8 +73,20 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public Card playUserTurn(final String attr, final Card played) {
+    public boolean playUserTurn(final String attr, final Card played) {
         return this.model.playUserTurn(attr, played);
+    }
+
+    public void playTurnLead(final String attr, final Card played) {
+        this.model.playTurnLead(attr, played);
+    }
+
+    public void playTurnTail(final Card played) {
+        this.model.playTurnTail(played);
+    }
+
+    public boolean playTurn() {
+        return this.model.playTurn();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package migglione.model.impl;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import migglione.model.api.Game;
@@ -14,7 +16,7 @@ public class GameImpl extends Match implements Game {
 
     private final String playerName;
     private String currAttr = "Attk";
-    private int cpuStoredVal;
+    private final Map<Player, Integer> currVals = new LinkedHashMap<>();
     /**
      * Constructor of the class.
      * Due to being a "more functional" version of Match,
@@ -36,38 +38,35 @@ public class GameImpl extends Match implements Game {
      * @param attr the attribute to play on
      * @param played the card chosen to be played
      * 
-     * @return null if it's the user's turn, the card played by the CPU it it's their turn.
+     * @return a boolean indicating whether the CPU has to start the next turn.
      * 
      * If the user isn't starting the next turn, the CPU's choice is already registered.
      */
     @Override
-    public Card playUserTurn(final String attr, final Card played) {
-        final Player msq = getPlayers().getLast();
-        final Player plr = getPlayers().getFirst();
-        plr.chooseAttr(attr);
-        if (getPlayers().get(turnLead).equals(plr)) {
-            msq.chooseAttr(attr);
-           cpuStoredVal = msq.playCard(attr, played);
-        }
-        final int pTurn = plr.playCard(attr, played);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-        final boolean end = playTurn(pTurn, cpuStoredVal);
-        if (end) {
-            //post-game stuff
-        } else if (getPlayers().get(turnLead).equals(msq)) {
-            cpuStoredVal = msq.playCard(attr, played);
-            currAttr = msq.getAttr();
-            plr.chooseAttr(currAttr);
-            return msq.getPlayedCard();
-        }
-        return null;
+    public boolean playUserTurn(final String attr, final Card played) {
+        return false;
 
     }
 
+    public void playTurnLead(final String attr, final Card card) {
+        play(getTurnLeader(), attr, card);
+        currAttr = getTurnLeader().getAttr();
+    }
+
+    public void playTurnTail(final Card card) {
+        play(getPlayers().get(1 - turnLead), currAttr, card);
+    }
+
+    private void play(final Player p, final String attr, final Card card) {
+        p.chooseAttr(attr);
+        currVals.put(p, p.playCard(attr, card));
+    }
+
+    public boolean playTurn() {
+        final Player msq = getPlayers().getLast();
+        final Player plr = getPlayers().getFirst();
+        return playTurn(currVals.get(plr), currVals.get(msq));
+    }
     /**
      * Method to obtain the attribute this turn is being played on.
      * 
