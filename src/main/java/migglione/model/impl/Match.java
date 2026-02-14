@@ -51,7 +51,8 @@ public class Match {
      * <li> sends the cards to the winner's winnings pile;
      * <li> updates the score.
      * </ol>
-     * 
+     *
+     * <p>
      * The parameters have to be given in the same player order
      * as the one used to initialize the instance of this class.
      * 

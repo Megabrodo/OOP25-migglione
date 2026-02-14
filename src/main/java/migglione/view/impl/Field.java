@@ -322,7 +322,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
             plays.getWidth() / 4), plays);
         g.drawImage(statsImg, plays.getWidth() / 3 - IMAGE_CENTERING
             + Integer.min(plays.getWidth() / 4, plays.getHeight() / 2),
-            plays.getHeight() / 2  + IMAGE_CENTERING, Integer.min(plays.getWidth() / 4,
+            plays.getHeight() / 2 + IMAGE_CENTERING, Integer.min(plays.getWidth() / 4,
             plays.getHeight() / 2), Integer.min(plays.getHeight() / 2,
             plays.getWidth() / 4), plays);
     }
