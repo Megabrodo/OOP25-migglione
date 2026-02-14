@@ -94,7 +94,6 @@ public class Match {
             latestWin = winner;
             consecWins++;
         } else if (latestWin.equals(winner)) {
-            System.out.println("player has " + consecWins + " wins, " + latestWin.equals(winner));
             consecWins++;
             if (consecWins >= MAX_CONSEC_WINS) {
                 turnLead = 1 - turnLead;
@@ -102,7 +101,6 @@ public class Match {
                 return;
             }
         } else {
-            System.out.println("player has " + consecWins + " wins, " + latestWin.equals(winner));
             turnLead = 1 - turnLead;
             latestWin = winner;
             consecWins = 1;
