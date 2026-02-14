@@ -11,4 +11,3 @@ plugins {
 }
 
 rootProject.name = "OOP25-migglione"
-include("app")
