@@ -1,4 +1,4 @@
-package migglione.view.impl;
+package migglione.view.impl.scenesimpl;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,9 +33,8 @@ import migglione.model.impl.Mosquito;
 import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
 import migglione.view.api.music.MusicTracks;
-import migglione.view.impl.Hovering.HoveringCard;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
-import migglione.view.impl.scenesimpl.AbstractGamePanel;
+import migglione.view.impl.scenesimpl.Hovering.HoveringCard;
 
 /** 
  * Class for managing the playing field's view, 

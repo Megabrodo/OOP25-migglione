@@ -15,6 +15,7 @@ import migglione.view.api.music.MusicPlayer;
 import migglione.view.api.music.MusicProvider;
 import migglione.view.api.scenes.SceneFactory;
 import migglione.view.api.scenes.Scenes;
+import migglione.view.impl.scenesimpl.Field;
 import migglione.view.impl.scenesimpl.Gallery;
 import migglione.view.impl.scenesimpl.SceneFactoryImpl;
 import migglione.view.impl.scenesimpl.Scores;
