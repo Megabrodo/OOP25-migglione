@@ -123,8 +123,8 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
-    public boolean playTurn() {
-        return this.model.playTurn();
+    public boolean playTurnStored() {
+        return this.model.playTurnStored();
     }
 
     @Override

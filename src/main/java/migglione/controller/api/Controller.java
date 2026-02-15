@@ -61,7 +61,7 @@ public interface Controller {
      * 
      * @return whether the game has finished or not.
      */
-    boolean playTurn();
+    boolean playTurnStored();
 
     /**
      * Used to call the same method in the Model.

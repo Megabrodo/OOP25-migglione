@@ -52,7 +52,7 @@ public final class GameImpl extends Match implements Game {
     }
 
     @Override
-    public boolean playTurn() {
+    public boolean playTurnStored() {
         final Player msq = getPlayers().getLast();
         final Player plr = getPlayers().getFirst();
         return playTurn(currVals.get(plr), currVals.get(msq));
