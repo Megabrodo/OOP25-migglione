@@ -29,8 +29,9 @@ public final class Scores extends AbstractGamePanel implements MusicProvider {
 
 private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
 private final transient Image scorImage;
-private static final String BACK = "Back";
-private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
+private final String BACK = "Back";
+private final String FILE_TXT_PATH = "/file/ScoreTable.txt";
+private final int FONT_SIZE = 55;
 private JTextArea score;
 
     public Scores(final SwingViewImpl view) {
@@ -47,7 +48,7 @@ private JTextArea score;
         this.score = new BorderedLine();
         this.score.setEditable(false);
         this.score.setOpaque(false);
-        this.score.setFont(new Font("Verdana", Font.PLAIN, 55));
+        this.score.setFont(new Font("Verdana", Font.PLAIN, FONT_SIZE));
         this.score.setBorder(null);
 
         final JScrollPane pane = new JScrollPane(score);
@@ -59,7 +60,7 @@ private JTextArea score;
         readFile(FILE_TXT_PATH);
     } 
 
-    public void readFile(final String FILE_TXT_PATH) {
+    public void readFile(final String file) {
 
         final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
 
@@ -69,7 +70,7 @@ private JTextArea score;
                 String line;
 
                 while ((line = reader.readLine()) != null) {
-                    score.append(line + "\n"); //
+                    score.append(line + "\n");
                 }
             }
             catch (final IOException error) {
