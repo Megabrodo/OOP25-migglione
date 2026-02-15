@@ -25,15 +25,29 @@ import migglione.view.api.scenes.Scenes;
 import migglione.view.impl.SwingViewImpl;
 import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
+/**
+ * The class Scores allows to see all scores of player game.
+ * <p>
+ * Read saved name and scores in external file whit JTextarea
+ * and use JLable placeholder to change text to a custom one.
+ * 
+ * @see BorderedLine
+ */
 public final class Scores extends AbstractGamePanel implements MusicProvider {
 
 private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
+private static final String BACK = "Back";
+private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
+private static final int FONT_SIZE = 55;
+
 private final transient Image scorImage;
-private final String BACK = "Back";
-private final String FILE_TXT_PATH = "/file/ScoreTable.txt";
-private final int FONT_SIZE = 55;
 private JTextArea score;
 
+    /**
+     * Constructor of Score Table.
+     * 
+     * @param view is used to return back to the Menu
+     */
     public Scores(final SwingViewImpl view) {
 
         this.setLayout(new BorderLayout());
@@ -60,6 +74,11 @@ private JTextArea score;
         readFile(FILE_TXT_PATH);
     } 
 
+    /**
+     * Method for read content of a file.txt.
+     * 
+     * @param file is the path where is located the file to read.
+     */
     public void readFile(final String file) {
 
         final Path path = Paths.get(System.getProperty("user.home"), ".migglione", "ScoreTable.txt");
@@ -72,8 +91,7 @@ private JTextArea score;
                 while ((line = reader.readLine()) != null) {
                     score.append(line + "\n");
                 }
-            }
-            catch (final IOException error) {
+            } catch (final IOException error) {
                 JOptionPane.showMessageDialog(null, "error file reader", "error", 
                 JOptionPane.ERROR_MESSAGE);
                 error.printStackTrace();
@@ -81,6 +99,11 @@ private JTextArea score;
         }
     }
 
+    /**
+     * Method for refresh scores table when you need.
+     * 
+     * @see SwingViewImpl
+     */
     public void refresh() {
         score.setText("");
         readFile(FILE_TXT_PATH);

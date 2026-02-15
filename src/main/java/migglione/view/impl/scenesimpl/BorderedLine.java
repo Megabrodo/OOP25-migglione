@@ -16,15 +16,34 @@ import java.util.List;
 import javax.swing.JTextArea;
 
 /**
- * 
+ * BorderedLine class is used to replace text 
+ * massage and replace it whit custom written
+ * whit colored border.
  */
 public class BorderedLine extends JTextArea {
 
-    private static final float STROKE = 5f;
-    private Color borderedLine = Color.getHSBColor(0.63f, 0.62f, 0.90f); 
-    private Color textColor = Color.getHSBColor(0.353f, 0.56f, 0.86f);
+    private static final float BORDER_HUE = 0.63f;
+    private static final float BORDER_SATURATION = 0.62f;
+    private static final float BORDER_BRIGHTNESS = 0.90f;
+    private static final float TEXT_HUE = 0.353f;
+    private static final float TEXT_SATURATION = 0.56f;
+    private static final float TEXT_BRIGHTNESS = 0.86f;
 
-    /** */
+    private static final float STROKE = 5f;
+    private Color borderedLine = Color.getHSBColor(
+        BORDER_HUE,
+        BORDER_SATURATION,
+        BORDER_BRIGHTNESS
+    );
+    private Color textColor = Color.getHSBColor(
+        TEXT_HUE,
+        TEXT_SATURATION,
+        TEXT_BRIGHTNESS
+    );
+
+    /**
+     * onstructor for create custom colored border.
+     */
     public BorderedLine() {
         super();
         setOpaque(false);
