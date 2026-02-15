@@ -32,6 +32,7 @@ public final class Hovering implements MouseListener {
 
     @Override
     public void mouseClicked(final MouseEvent e) {
+        field.clearHoveredCard();
         field.repaint();
     }
 

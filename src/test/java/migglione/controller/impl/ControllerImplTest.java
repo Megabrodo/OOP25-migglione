@@ -36,8 +36,10 @@ import migglione.view.api.SwingView;
  * https://site.mockito.org/javadoc/current/org/mockito/Mockito.html#method_summary
  */
 class ControllerImplTest {
-    
-    private static final String NAME = "player";
+
+    private static final String NAME_MOCK = "player";
+    private static final int PLAYER_SCORE_MOCK = 20;
+    private static final int CPU_SCORE_MOCK = 4;
 
     @Mock
     private SwingView view;
@@ -52,7 +54,7 @@ class ControllerImplTest {
     void setup() {
         MockitoAnnotations.openMocks(this);
     }
-    
+
     @Test
     void testCheckFirstSession() {
         assertFalse(tRep.haveTutorialBeenSeen());
@@ -65,16 +67,16 @@ class ControllerImplTest {
 
     @Test 
     void testEndSession() {
-        when(model.getWinner()).thenReturn(Optional.of(NAME));
-        when(model.getPlayerScore()).thenReturn(Optional.of(20));
-        when(model.getCPUScore()).thenReturn(Optional.of(4));
+        when(model.getWinner()).thenReturn(Optional.of(NAME_MOCK));
+        when(model.getPlayerScore()).thenReturn(Optional.of(PLAYER_SCORE_MOCK));
+        when(model.getCPUScore()).thenReturn(Optional.of(CPU_SCORE_MOCK));
 
         final ControllerImpl controller = new ControllerImpl(view, sRep, tRep, model);
-        controller.setPlayerMockName(NAME);
+        controller.setPlayerMockName(NAME_MOCK);
         controller.endSession();
 
-        verify(sRep).writeWinner(NAME, 20);
-        verify(view).endMessage(NAME, NAME, 20, 4);
+        verify(sRep).writeWinner(NAME_MOCK, PLAYER_SCORE_MOCK);
+        verify(view).endMessage(NAME_MOCK, NAME_MOCK, PLAYER_SCORE_MOCK, CPU_SCORE_MOCK);
     }
 
     @Test
