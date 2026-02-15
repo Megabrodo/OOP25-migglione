@@ -61,6 +61,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final int BASE_HEIGHT = 200;
     private static final int ATTR_BOX_WIDTH = 200;
     private static final int ATTR_BOX_HEIGHT = 150;
+    private static final int STRUT_DISTANCE = 50;
 
     private final Font titleFont = new Font(FONT_NAME, Font.BOLD, 17);
     private final Font boxFont = new Font(FONT_NAME, Font.BOLD, 23);
@@ -68,7 +69,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private final transient Image playField;
     private final Controller controller;
     private final String[] attrs = {"Attk", "Deff", "Strength", "Intelligence", "Stealth"};
-    private boolean finalTurn = false;
+    private boolean finalTurn;
 
     private final JPanel pCards = new JPanel();
     private final JPanel oCards = new JPanel();
@@ -173,7 +174,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         centerCards.setOpaque(false);
         centerCards.add(Box.createHorizontalGlue());
         centerCards.add(pPlay);
-        centerCards.add(Box.createHorizontalStrut(50));
+        centerCards.add(Box.createHorizontalStrut(STRUT_DISTANCE));
         centerCards.add(oPlay);
         centerCards.add(Box.createHorizontalGlue());
         plays.add(centerCards);
@@ -399,7 +400,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 }
                 pHand.add(jb);
             }
-                
+
             pHand.revalidate();
             pHand.repaint();
         }
