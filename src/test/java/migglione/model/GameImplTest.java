@@ -47,7 +47,7 @@ class GameImplTest {
 
         game.playTurnLead("Deff", playerCard);
         game.playTurnTail(cpuCard);
-        assertNotNull(game.playTurn());
+        assertNotNull(game.playTurnStored());
     }
 
     @Test

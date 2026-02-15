@@ -37,7 +37,7 @@ public interface Game {
      * 
      * @return if this was the last turn of the match.
      */
-    boolean playTurn();
+    boolean playTurnStored();
 
     /**
      * Plays the lead player's choice card and attribute.

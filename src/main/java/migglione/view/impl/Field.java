@@ -324,7 +324,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                                     resetHandIcons();
                                     break;
                             case 2: flipCards();
-                                    finalTurn = controller.playTurn();
+                                    finalTurn = controller.playTurnStored();
                                     break;
                             case 3: updateScores();
                                     Set.of(pPlay, oPlay).forEach(jb -> {
