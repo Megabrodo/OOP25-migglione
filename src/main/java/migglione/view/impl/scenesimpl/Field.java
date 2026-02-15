@@ -135,7 +135,6 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 card.putClientProperty(CARD_CC_KEY, c);
                 if (!isCPU) {
                     card.addMouseListener(new Hovering(c, this));
-                    //card.setPreferredSize(getPreferredSize());
                     card.addActionListener(createCardListener(card, p));
                 }
                 pHand.add(card);
@@ -286,7 +285,7 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 }
                 cycleCount = 0;
                 final Card cc = (Card) jb.getClientProperty(CARD_CC_KEY);
-                final Timer t = new Timer(500, new ActionListener() {
+                final Timer t = new Timer(850, new ActionListener() {
 
                     @Override
                     public void actionPerformed(final ActionEvent e) {
