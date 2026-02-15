@@ -44,7 +44,7 @@ public class BorderedLine extends JTextArea {
         final int ty = metrics.getAscent() + getInsets().top;
         final int height = metrics.getHeight();
 
-        final List<String> lines = Arrays.asList(text.split(" \n "));
+        final List<String> lines = Arrays.asList(text.split("\n"));
 
         for (int i=0; i < lines.size(); i++) {
 
