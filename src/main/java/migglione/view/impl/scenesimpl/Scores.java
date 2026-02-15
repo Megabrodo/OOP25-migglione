@@ -27,6 +27,7 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
 
 /**
  * The class Scores allows to see all scores of player game.
+ * 
  * <p>
  * Read saved name and scores in external file whit JTextarea
  * and use JLable placeholder to change text to a custom one.
