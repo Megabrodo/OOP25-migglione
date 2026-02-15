@@ -9,16 +9,19 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
+import java.util.Arrays;
+import java.util.List;
 
-import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
-public class BorderedLine extends JLabel {
+public class BorderedLine extends JTextArea {
     private Color borderedLine = Color.getHSBColor(0.63f, 0.62f, 0.90f); 
     private Color textColor = Color.getHSBColor(0.353f, 0.56f, 0.86f);
     private float stroke = 6f;
 
-    public BorderedLine(String text) {
-        super(text);
+    public BorderedLine() {
+        super();
+        setOpaque(false);
     }
 
     @Override
@@ -32,20 +35,26 @@ public class BorderedLine extends JLabel {
         String text = getText();
         if (text == null || text.isEmpty()) return;
 
-        FontMetrics metrics = graphic.getFontMetrics();
+        FontMetrics metrics = graphic.getFontMetrics(getFont());
 
         int tx = getInsets().left;
         int ty = metrics.getAscent() + getInsets().top;
+        int height = metrics.getHeight();
 
-        TextLayout layout = new TextLayout(text, getFont(), graphic.getFontRenderContext());
-        AffineTransform transform = AffineTransform.getTranslateInstance(tx, ty);
-        Shape outline = layout.getOutline(transform);
+        List<String> lines = Arrays.asList(text.split("\n"));
 
-        graphic.setColor(borderedLine);
-        graphic.setStroke(new BasicStroke(stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-        graphic.draw(outline);
+        for(int i=0;i<lines.size();i++) {
 
-        graphic.setColor(textColor);
-        graphic.fill(outline);
+            TextLayout layout = new TextLayout(lines.get(i),getFont(), graphic.getFontRenderContext());
+            AffineTransform transform = AffineTransform.getTranslateInstance(tx, ty +(i * height));
+            Shape outline = layout.getOutline(transform);
+
+            graphic.setColor(borderedLine);
+            graphic.setStroke(new BasicStroke(stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+            graphic.draw(outline);
+
+            graphic.setColor(textColor);
+            graphic.fill(outline);
+        }
     }
 }

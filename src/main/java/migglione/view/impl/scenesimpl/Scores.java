@@ -47,20 +47,23 @@ private JTextArea score;
         pSouth.add(back);
         this.add(pSouth, BorderLayout.SOUTH);
 
-        this.score = new JTextArea();
+        //this.score = new JTextArea();
+        this.score = new BorderedLine();
         this.score.setEditable(false);
         this.score.setOpaque(false);
         this.score.setFont(new Font("Verdana", Font.PLAIN, 50));
         this.score.setForeground(new Color(252, 64, 167));
+        this.score.setBorder(null);
 
         final JScrollPane pane = new JScrollPane(score);
         this.add(pane, BorderLayout.CENTER); 
         pane.setOpaque(false);
         pane.getViewport().setOpaque(false);
+        pane.setBorder(null);
 
         readFile(FILE_TXT_PATH);
 
-        /*se togli i comenti per usare bordered non mi fa fare start */
+        /*se togli i comenti per usare bordered non mi fa fare start non toccare */
         //this.bordered = new BorderedLine(score.getText());
 
         /* 
