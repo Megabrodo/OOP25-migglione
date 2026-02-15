@@ -36,13 +36,14 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  */
 public final class Scores extends AbstractGamePanel implements MusicProvider {
 
+private static final long serialVersionUID = 976949968L;
 private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
 private static final String BACK = "Back";
 private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
 private static final int FONT_SIZE = 55;
 
 private final transient Image scorImage;
-private JTextArea score;
+private final JTextArea score;
 
     /**
      * Constructor of Score Table.
@@ -88,7 +89,7 @@ private JTextArea score;
             try (BufferedReader reader = Files.newBufferedReader(path)) {
 
                 String line;
-
+                
                 while ((line = reader.readLine()) != null) {
                     score.append(line + "\n");
                 }

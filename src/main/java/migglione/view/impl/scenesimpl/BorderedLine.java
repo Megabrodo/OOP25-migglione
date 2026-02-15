@@ -22,6 +22,7 @@ import javax.swing.JTextArea;
  */
 public class BorderedLine extends JTextArea {
 
+    private static final long serialVersionUID = 976979868L;
     private static final float BORDER_HUE = 0.63f;
     private static final float BORDER_SATURATION = 0.62f;
     private static final float BORDER_BRIGHTNESS = 0.90f;
@@ -30,12 +31,12 @@ public class BorderedLine extends JTextArea {
     private static final float TEXT_BRIGHTNESS = 0.86f;
 
     private static final float STROKE = 5f;
-    private Color borderedLine = Color.getHSBColor(
+    private final Color borderedColor = Color.getHSBColor(
         BORDER_HUE,
         BORDER_SATURATION,
         BORDER_BRIGHTNESS
     );
-    private Color textColor = Color.getHSBColor(
+    private final Color textColor = Color.getHSBColor(
         TEXT_HUE,
         TEXT_SATURATION,
         TEXT_BRIGHTNESS
@@ -46,7 +47,6 @@ public class BorderedLine extends JTextArea {
      */
     public BorderedLine() {
         super();
-        setOpaque(false);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class BorderedLine extends JTextArea {
             final AffineTransform transform = AffineTransform.getTranslateInstance(tx, ty + (i * height));
             final Shape outline = layout.getOutline(transform);
 
-            graphic.setColor(borderedLine);
+            graphic.setColor(borderedColor);
             graphic.setStroke(new BasicStroke(STROKE, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             graphic.draw(outline);
 
