@@ -1,7 +1,6 @@
 package migglione.view.impl.scenesimpl;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
@@ -33,8 +32,6 @@ private final transient Image scorImage;
 private static final String BACK = "Back";
 private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
 private JTextArea score;
-//private BorderedLine bordered = (BorderedLine) new JLabel();
-
 
     public Scores(final SwingViewImpl view) {
 
@@ -47,12 +44,10 @@ private JTextArea score;
         pSouth.add(back);
         this.add(pSouth, BorderLayout.SOUTH);
 
-        //this.score = new JTextArea();
         this.score = new BorderedLine();
         this.score.setEditable(false);
         this.score.setOpaque(false);
-        this.score.setFont(new Font("Verdana", Font.PLAIN, 50));
-        this.score.setForeground(new Color(252, 64, 167));
+        this.score.setFont(new Font("Verdana", Font.PLAIN, 55));
         this.score.setBorder(null);
 
         final JScrollPane pane = new JScrollPane(score);
@@ -62,15 +57,6 @@ private JTextArea score;
         pane.setBorder(null);
 
         readFile(FILE_TXT_PATH);
-
-        /*se togli i comenti per usare bordered non mi fa fare start non toccare */
-        //this.bordered = new BorderedLine(score.getText());
-
-        /* 
-        this.bordered.setEnabled(false);
-        this.bordered.setOpaque(false);
-        this.bordered.setFont(new Font("Verdana", Font.PLAIN, 50));
-        //*/
     } 
 
     public void readFile(final String FILE_TXT_PATH) {
@@ -82,7 +68,7 @@ private JTextArea score;
 
                 String line;
 
-                while((line = reader.readLine()) != null) {
+                while ((line = reader.readLine()) != null) {
                     score.append(line + "\n"); //
                 }
             }
