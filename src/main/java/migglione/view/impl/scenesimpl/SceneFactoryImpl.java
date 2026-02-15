@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 import migglione.controller.api.Controller;
 import migglione.view.api.scenes.SceneFactory;
 import migglione.view.api.scenes.Scenes;
-import migglione.view.impl.Field;
 import migglione.view.impl.SwingViewImpl;
 
 /**
