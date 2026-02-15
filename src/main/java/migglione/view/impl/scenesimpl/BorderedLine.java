@@ -43,7 +43,7 @@ public class BorderedLine extends JTextArea {
     );
 
     /**
-     * onstructor for create custom colored border.
+     * Constructor for create custom colored border.
      */
     public BorderedLine() {
         super();

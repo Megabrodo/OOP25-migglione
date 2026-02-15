@@ -10,10 +10,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -36,14 +37,15 @@ import migglione.view.impl.musicimpl.LoopingMusicPlayerImpl;
  */
 public final class Scores extends AbstractGamePanel implements MusicProvider {
 
-private static final long serialVersionUID = 976949968L;
-private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
-private static final String BACK = "Back";
-private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
-private static final int FONT_SIZE = 55;
+    private static final long serialVersionUID = 976949968L;
+    private static final String BACKGROUND_IMAGE_PATH = "/images/utilities/title.png";
+    private static final String BACK = "Back";
+    private static final String FILE_TXT_PATH = "/file/ScoreTable.txt";
+    private static final int FONT_SIZE = 55;
+    private static final Logger LOGGER = Logger.getLogger(Scores.class.getName());
 
-private final transient Image scorImage;
-private final JTextArea score;
+    private final transient Image scorImage;
+    private final JTextArea score;
 
     /**
      * Constructor of Score Table.
@@ -88,15 +90,14 @@ private final JTextArea score;
         if (Files.exists(path)) {
             try (BufferedReader reader = Files.newBufferedReader(path)) {
 
-                String line;
-                
-                while ((line = reader.readLine()) != null) {
+                String line = reader.readLine();
+
+                while (line != null) {
                     score.append(line + "\n");
+                    line = reader.readLine();
                 }
             } catch (final IOException error) {
-                JOptionPane.showMessageDialog(null, "error file reader", "error", 
-                JOptionPane.ERROR_MESSAGE);
-                error.printStackTrace();
+                LOGGER.log(Level.SEVERE, "Error while reading file", error);
             }
         }
     }
