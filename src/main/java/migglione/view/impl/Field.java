@@ -53,6 +53,8 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
     private static final String PNG_EXT = ".png";
     private static final String CARD_CC_KEY = "card";
     private static final int IMAGE_CENTERING = 100;
+    private static final int IMAGE_FIXED = 5;
+    private static final int STATS_FIXED = 35;
     private static final double CARDS_WIDTH_MULT = 0.25;
     private static final double CARDS_HEIGHT_MULT = 0.1;
     private static final int SPACE_BETWEEN_CARDS = 500;
@@ -257,15 +259,15 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         }
         final Image cardImg = new ImageIcon(getClass().getResource(hoveredCard.getImage())).getImage();
         final Image statsImg = new ImageIcon(getClass().getResource(hoveredCard.getStats())).getImage();
-        g.drawImage(cardImg, plays.getWidth() / 3 - IMAGE_CENTERING,
+        g.drawImage(cardImg, plays.getWidth() / 3 - IMAGE_CENTERING - (IMAGE_FIXED * 3),
             plays.getHeight() / 2 + IMAGE_CENTERING, Integer.min(plays.getWidth() / 4,
-            plays.getHeight() / 2), Integer.min(plays.getHeight() / 2,
-            plays.getWidth() / 4), plays);
+            plays.getHeight() / 2) - (IMAGE_FIXED * 4), Integer.min(plays.getHeight() / 2 - (IMAGE_FIXED * 4),
+            plays.getWidth() / 4), this);
         g.drawImage(statsImg, plays.getWidth() / 3 - IMAGE_CENTERING
-            + Integer.min(plays.getWidth() / 4, plays.getHeight() / 2),
+            + Integer.min(plays.getWidth() / 4, plays.getHeight() / 2) - STATS_FIXED,
             plays.getHeight() / 2 + IMAGE_CENTERING, Integer.min(plays.getWidth() / 4,
-            plays.getHeight() / 2), Integer.min(plays.getHeight() / 2,
-            plays.getWidth() / 4), plays);
+            plays.getHeight() / 2) - (IMAGE_FIXED * 4), Integer.min(plays.getHeight() / 2,
+            plays.getWidth() / 4) - (IMAGE_FIXED * 4), this);
     }
 
     private void changeIcon(final JButton jb, final String path) {
