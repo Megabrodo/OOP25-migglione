@@ -387,9 +387,9 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
             final JPanel pHand = isCPU ? oCards : pCards;
             pHand.removeAll();
             for (final Card c : p.getHand()) {
-                final JButton jb = new  JButton();
+                final JButton jb = new JButton();
                 jb.putClientProperty("card", c);
-                changeIcon(jb, isCPU ? BACKGROUND_IMAGE_PATH : CARDS_IMAGE_PATH + c.getName() + PNG_EXT);
+                changeIcon(jb, isCPU ? CARD_BACKSIDE_PATH : CARDS_IMAGE_PATH + c.getName() + PNG_EXT);
                 setTransparentWithIcon(jb);
                 if (!isCPU) {
                     jb.addMouseListener(new Hovering(c, this));
@@ -397,6 +397,9 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
                 }
                 pHand.add(jb);
             }
+                
+            pHand.revalidate();
+            pHand.repaint();
         }
     }
 
