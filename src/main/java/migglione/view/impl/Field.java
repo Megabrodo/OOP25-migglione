@@ -222,14 +222,14 @@ public final class Field extends AbstractGamePanel implements MusicProvider {
         if (pPlay.getIcon() != null) {
             final Card card = (Card) pPlay.getClientProperty(CARD_CC_KEY);
             if (card != null) {
-                changeIcon(oPlay, CARDS_IMAGE_PATH + card.getName() + PNG_EXT);
+                changeIcon(pPlay, CARDS_IMAGE_PATH + card.getName() + PNG_EXT);
             }
         }
 
         if (oPlay.getIcon() != null && oPlay.isVisible()) {
             final Card card = (Card) oPlay.getClientProperty(CARD_CC_KEY);
             if (card != null) {
-                changeIcon(oPlay, CARDS_IMAGE_PATH + card.getName() + PNG_EXT);
+                changeIcon(oPlay, CARD_BACKSIDE_PATH);
             }
         }
     }
