@@ -9,24 +9,29 @@ import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.font.TextLayout;
 import java.awt.geom.AffineTransform;
+
 import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JTextArea;
 
+/**
+ * 
+ */
 public class BorderedLine extends JTextArea {
 
     private static final float STROKE = 5f;
     private Color borderedLine = Color.getHSBColor(0.63f, 0.62f, 0.90f); 
     private Color textColor = Color.getHSBColor(0.353f, 0.56f, 0.86f);
 
+    /** */
     public BorderedLine() {
         super();
         setOpaque(false);
     }
 
     @Override
-    protected final void paintComponent(Graphics graphics) {
+    protected final void paintComponent(final Graphics graphics) {
  
         final Graphics2D graphic = (Graphics2D) graphics;
 
@@ -46,7 +51,7 @@ public class BorderedLine extends JTextArea {
 
         final List<String> lines = Arrays.asList(text.split(" \n "));
 
-        for (int i=0; i < lines.size(); i++) {
+        for (int i = 0; i < lines.size(); i++) {
 
             final TextLayout layout = new TextLayout(lines.get(i), getFont(), graphic.getFontRenderContext());
             final AffineTransform transform = AffineTransform.getTranslateInstance(tx, ty + (i * height));
