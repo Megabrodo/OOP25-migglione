@@ -173,7 +173,7 @@ public final class SwingViewImpl implements SwingView {
     private boolean yesTutorial() {
         final int preference = JOptionPane.showConfirmDialog(
         frame,
-        "Ciao! Questa sembra essere la prima volta che avvii l'applicazione, vorresti visitare il tutorial?",
+        "Hello there! This seems the first time you open the game, would you like to see the tutorial?",
         "Tutorial",
         JOptionPane.YES_NO_OPTION
     );
